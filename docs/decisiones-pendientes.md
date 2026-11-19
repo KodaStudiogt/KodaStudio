@@ -2,19 +2,23 @@
 
 > Los documentos de diseño dejan puntos abiertos a propósito. Cada uno bloquea una tarea del backlog: si no se decide, alguien se queda esperando.
 > **Regla:** una decisión se escribe aquí con fecha, responsable y estado. Decidir "por ahora A y se revisa" es válido; dejarlo sin escribir, no.
+>
+> **Última actualización:** 2026-11-19 · **Corte:** CH-002 (ver [`changelog.md`](./changelog.md))
 
 ## Tablero
 
-| ID | Decisión | Bloquea | Límite | Estado |
-| --- | --- | --- | --- | --- |
-| D-01 | Hosting / despliegue | T-44 | Antes de S4 | Pendiente |
-| D-02 | Recepción del formulario | T-34, T-35 | **Inicio de S3** | Pendiente |
-| D-03 | Dominio y correo | T-44, T-23 | Antes de S4 | Pendiente |
-| D-04 | Analítica y privacidad | T-45 | Inicio de S4 | Pendiente |
-| D-05 | Activos de marca (logo SVG, imágenes) | T-04, T-12 | Antes de S1 | Pendiente |
-| D-06 | Etiquetas visibles de las píldoras | T-18 | — | Implementada, falta confirmar |
-| D-07 | Escala compartida de espaciado y tipografía | T-10 | Antes de S1 | Pendiente |
-| D-08 | Clase de estado `.is-pending` | Reveal | — | Implementada, falta confirmar |
+| ID | Decisión | Responsable | Bloquea | Límite | Estado |
+| --- | --- | --- | --- | --- | --- |
+| D-01 | Hosting / despliegue | Ambos | T-44 | Antes de S4 | ⚪ Pendiente |
+| D-02 | Recepción del formulario | A (propone) · D confirma | T-34, T-35 | **Inicio de S3** | ⚪ Pendiente |
+| D-03 | Dominio y correo | Ambos | T-44, T-23 | Antes de S4 | ⚪ Pendiente |
+| D-04 | Analítica y privacidad | A | T-45 | Inicio de S4 | ⚪ Pendiente |
+| D-05 | Activos de marca | D | T-04, T-12 | Antes de S1 | ⚪ Pendiente |
+| D-06 | Etiquetas visibles de las píldoras | A (revisa) | T-18 | — | 🟡 Implementada, sin confirmar |
+| D-07 | Escala compartida de espaciado y tipografía | Ambos | T-10 | Antes de S1 | ⚪ Pendiente |
+| D-08 | Clase de estado `.is-pending` | A (revisa) | Reveal | — | 🟡 Implementada, sin confirmar |
+
+**Las dos únicas decisiones que hoy bloquean trabajo real:** D-02 (formulario) y D-05 (isotipo). El resto se puede decidir en paralelo sin parar a nadie.
 
 ---
 
@@ -49,19 +53,19 @@
 
 **Datos que se envían:** `client_name`, `client_email`, `selected_services`, `project_message`, `kc_website_hp` (debe llegar vacío).
 
-**Estado actual del código:** validación completa y mensaje honesto de "no enviado". El bloque de envío está marcado con `TODO(A) D-02`.
+**Estado actual del código:** validación completa y mensaje honesto de "no enviado". El bloque de envío está marcado con `TODO(A) D-02` en `js/modules/contact-form.js`.
 
 ---
 
 ## D-03 · Dominio y correo
 
-**Contexto:** el sitio publica `hola@kodastudio.com` como dato de contacto (spec §2.E), y el estándar lo repite como correo receptor. **Ese buzón es hoy un supuesto, no un hecho.**
+**Contexto:** el sitio publica `hola@kodastudio.com` como dato de contacto (spec §2.E). **Ese buzón es hoy un supuesto, no un hecho.**
 
 - [ ] ¿`kodastudio.com` está comprado y a nombre de quién?
 - [ ] ¿El buzón `hola@kodastudio.com` existe y alguien lo revisa?
-- [ ] Si el dominio final es otro, ¿se actualiza el `mailto:` del `#contacto` y el remitente del formulario?
+- [ ] Si el dominio final es otro, actualizar el `mailto:` del `#contacto` y el remitente del formulario.
 - [ ] ¿Quién administra el DNS (necesario para deploy y correo)?
-- [ ] ¿Correo propio del hosting o Google Workspace / Zoho?
+- [ ] ¿Correo del hosting o Google Workspace / Zoho?
 
 **Riesgo si no se decide:** se publica con un correo que no existe y se pierden solicitudes.
 
@@ -85,7 +89,7 @@
 | Patrón de fondo del Hero | WebP ≤ 200 KB | `.paper-texture` | ⚪ Pendiente |
 | Imágenes de tarjetas (si aplica) | WebP | `#servicios` | ⚪ Pendiente |
 
-**Mientras no existan:** el header funciona con el marcador `navbar__mark`; sustituirlo es un cambio de un solo archivo.
+**Mientras no existan:** el header funciona con el marcador `navbar__mark` (una K geométrica en SVG); sustituirlo es un cambio de un solo bloque.
 
 ---
 
@@ -93,13 +97,13 @@
 
 **Conflicto:** el estándar define `VALID_SERVICES` con nombres largos ("Desarrollo Web de Alta Gama"); la spec muestra píldoras cortas ("Desarrollo Web").
 
-**Resolución aplicada:** valor y etiqueta separados.
+**Resolución aplicada en CH-001:** valor y etiqueta separados.
 
 - `data-service-value` = valor canónico de `VALID_SERVICES`: es lo que viaja al servidor y lo que valida JS.
 - Texto visible de la píldora = etiqueta corta.
 - `SERVICE_LABELS` traduce valor → etiqueta para el mensaje de confirmación.
 
-**A confirmar:** que la confirmación use etiquetas cortas (recomendado). Si prefieren los nombres largos, se usa el valor canónico.
+**A confirmar por A:** que la confirmación use etiquetas cortas (recomendado). Si prefieren los nombres largos, se usa el valor canónico.
 
 ---
 
@@ -109,7 +113,7 @@
 
 **Propuesta:** aprobar la escala `--kc-space-*`, `--kc-text-*` y `--kc-container` que está escrita, comentada, al final de `css/base/variables.css`.
 
-**Estado:** hay valores de espaciado y tamaños literales en los CSS de layout y tipografía, a la espera de esta decisión.
+**Estado real hoy:** hay tamaños literales en `typography.css` y valores de espaciado en los CSS de layout. Funcionan, pero es la deuda técnica más visible del proyecto para D.
 
 ---
 
@@ -117,9 +121,9 @@
 
 **Contexto:** la spec pide `.reveal { opacity: 0 }` como estado inicial. Si JS falla o el usuario tiene JS desactivado, **el contenido queda invisible para siempre**, lo que rompe la progresividad que exige la arquitectura (§1.7).
 
-**Resolución aplicada:** el contenido es visible por defecto. `reveal.js` agrega `.is-pending` solo cuando `IntersectionObserver` está disponible y retira la clase al intersectar (entonces aplica `.is-visible`).
+**Resolución aplicada en CH-001:** el contenido es visible por defecto. `reveal.js` agrega `.is-pending` solo cuando `IntersectionObserver` está disponible y la retira al intersectar (entonces aplica `.is-visible`).
 
-**Costo:** una clase de estado más en `STATE_CLASSES`, fuera de las cinco del estándar §3.3. **A confirmar por ambos.**
+**Costo:** una clase de estado más en `STATE_CLASSES`, fuera de las cinco del estándar §3.3. **A confirmar por A.**
 
 ---
 
@@ -136,4 +140,4 @@
 **Consecuencias:** qué tareas cambian.
 ```
 
-Al cerrarla, actualizar el tablero (`Estado: Aceptada`) y, si aplica, el archivo afectado en el mismo PR.
+Al cerrarla: actualizar el tablero, cambiar el estado a ✅ Aceptada, anotar la fecha y registrar el cambio en [`changelog.md`](./changelog.md) si afecta al código.

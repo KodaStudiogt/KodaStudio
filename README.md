@@ -4,20 +4,45 @@ Landing page del estudio: **HTML5 + CSS3 + JavaScript (ES Modules)**, sin framew
 
 Repositorio: <https://github.com/mxrtinez10/KodaStudio>
 
+> **Estado:** base alineada con la especificación y el estándar de nombres.
+> **Última actualización:** 2026-11-19 · detalle en [`docs/changelog.md`](docs/changelog.md).
+
+---
+
+## Responsables
+
+| Rol | Persona | Alcance |
+| --- | --- | --- |
+| **D** | Diego | Base técnica, identidad visual, `#navbar`, `#inicio`, `#esencia`, `#footer` y los módulos `navigation`, `reveal` y `footer` |
+| **A** | Segundo socio | `#servicios`, `#contacto`, tarjetas, formulario, `service-selector`, `contact-form` y el backend de recepción |
+
+Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/main.js` y `js/config/selectors.js`.
+
 ---
 
 ## Estado del proyecto
 
-La base está alineada con la especificación editorial y con el estándar de nombres. **Falta el acabado visual fino y conectar el envío real del formulario.**
-
 | Listo | Pendiente |
 | --- | --- |
-| Estructura semántica completa (`#navbar`, `#inicio`, `#esencia`, `#servicios`, `#contacto`, `#footer`) | Isotipo SVG definitivo (hoy hay un marcador geométrico) |
-| Design tokens obligatorios y tipografía editorial | Composición fina del Hero y del header simétrico |
-| Navegación móvil, scroll reveal, selector múltiple, validación del formulario | Endpoint de recepción del formulario (decisión D-02) |
-| Contrato `data-js-*` y `name`/`id` del formulario | Contenido gráfico (`assets/`) y textos legales |
+| Estructura semántica completa con las seis anclas | Isotipo SVG definitivo (hoy hay un marcador geométrico) |
+| Design tokens obligatorios y tipografía editorial | Composición fina del header y textura del Hero |
+| Navegación móvil accesible, reveal, selector múltiple y validación | Contraste de la sección de contacto |
+| Contrato `data-js-*` y `name`/`id` del formulario | Endpoint de recepción (D-02) |
+| Plan, backlog, decisiones y bitácora en `docs/` | Assets gráficos, favicon y aviso de privacidad |
 
-Seguimiento detallado en [`docs/backlog.md`](docs/backlog.md).
+**Nada de éxito falso:** el formulario valida y lo dice con claridad; la confirmación solo se mostrará cuando exista un destino real.
+
+---
+
+## Cambios recientes
+
+| Fecha | Qué |
+| --- | --- |
+| 2026-11-19 | Documentación consolidada: bitácora, plan, backlog y decisiones al día (CH-002) |
+| 2026-11-19 | Alineación con la especificación editorial y el contrato de nombres (CH-001, `c0bd569`) |
+| 2026-11-19 | Andamio inicial: estructura de carpetas (CH-000, `f114d9c`) |
+
+Historial completo en [`docs/changelog.md`](docs/changelog.md).
 
 ---
 
@@ -52,7 +77,7 @@ Luego abre <http://localhost:8000>. También sirve `npx serve .` o la extensión
 │   ├── modules/                  # navigation, reveal, footer | service-selector, contact-form
 │   └── utils/validation.js       # Funciones puras
 ├── assets/                       # images/, icons/ (.gitkeep hasta tener archivos reales)
-└── docs/                         # arquitectura, especificación, estándar y plan de trabajo
+└── docs/                         # arquitectura, especificación, estándar, plan, backlog, decisiones, bitácora
 ```
 
 ---
@@ -63,9 +88,9 @@ Luego abre <http://localhost:8000>. También sirve `npx serve .` o la extensión
 2. **CSS y JS separados.** JS solo usa `data-js-*`, ids reservados o `name` de formulario; nunca clases visuales.
 3. **Sin ámbito global.** Todo `.js` es un módulo; nada en `window`.
 4. **Prefijo de espacio de nombres.** `kc_` en JS/PHP, `--kc-` en tokens nuevos.
-5. **Un dueño por archivo.** `index.html`, `css/main.css`, `js/main.js` y `js/config/selectors.js` se tocan con PR avisado.
+5. **Un dueño por archivo.** Los compartidos se tocan con PR avisado.
 6. **Estados por clase.** Solo `.is-open`, `.is-visible`, `.is-selected`, `.is-hidden`, `.has-error` (y `.is-pending`, D-08).
-7. **Nada de éxito falso.** La confirmación del formulario solo se muestra con respuesta exitosa del endpoint real.
+7. **Nada de éxito falso.** La confirmación del formulario solo con respuesta exitosa del endpoint real.
 
 Antes de cada commit:
 
@@ -106,9 +131,10 @@ Ramas permanentes: `main` (producción) y `develop` (integración). Una rama = u
 
 ## Documentación
 
+- [Bitácora de cambios](docs/changelog.md) — qué se hizo, cuándo y con qué verificación.
 - [Plan de trabajo](docs/plan-de-trabajo.md) — sprints, propiedad de archivos, riesgos y DoD.
 - [Backlog](docs/backlog.md) — tareas con dueño, estado y criterio de aceptación.
-- [Decisiones pendientes](docs/decisiones-pendientes.md) — lo que hay que acordar antes de codificar.
+- [Decisiones pendientes](docs/decisiones-pendientes.md) — lo que hay que acordar antes de publicar.
 - [Especificación de diseño](docs/especificacion.md) — dirección de arte, copywriting, interacciones.
 - [Estándar anti-conflictos](docs/estandar.md) — variables, `data-js-*`, contrato del formulario.
 - [Arquitectura](docs/arquitectura.md) — estructura de carpetas y flujo técnico.

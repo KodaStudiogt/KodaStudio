@@ -3,6 +3,8 @@
 > Cada fila es una tarea cerrable. **Estimación en jornadas de trabajo efectivo** (1 j ≈ 6–8 h de foco).
 >
 > **Estado:** ✅ Hecho · 🟡 Base lista (funciona y cumple el contrato, falta acabado fino) · ⚪ Pendiente · ⛔ Bloqueado por decisión
+>
+> **Última actualización:** 2026-11-19 · **Corte:** CH-002 (ver [`changelog.md`](./changelog.md))
 
 ---
 
@@ -15,8 +17,6 @@
 | T-03 | Cerrar decisiones D-01 a D-08 | Ambos | 0,5 | ⚪ | Cada decisión con estado y responsable |
 | T-04 | Activos de marca: logo SVG, favicon, imágenes | Ambos | 0,25 | ⚪ | Archivos en `assets/` o sustituto temporal acordado |
 | T-05 | Verificar el esqueleto con servidor local | Ambos | 0,1 | ✅ | Consola limpia, año del footer correcto, 6 anclas presentes |
-
-**Puerta de salida:** sin T-03 no se cierra el proyecto, aunque no bloquea S1.
 
 ---
 
@@ -80,8 +80,46 @@
 | T-42 | Rendimiento: fuentes, imágenes, Lighthouse ≥ 90 | D | 0,5 | ⚪ | Informe guardado en `docs/` |
 | T-43 | SEO: `title`, `description`, Open Graph, favicon | D | 0,5 | ⚪ | Vista previa correcta al compartir |
 | T-44 | Deploy, dominio, HTTPS y buzón del correo | A | 0,75 | ⚪ | URL pública con candado y correo que responde |
-| T-45 | Aviso de privacidad enlazado en el footer (si D-04 lo exige) | A | 0,25 | ⚪ | Enlace visible y texto aprobado |
+| T-45 | Aviso de privacidad en el footer (si D-04 lo exige) | A | 0,25 | ⚪ | Enlace visible y texto aprobado |
 | T-46 | PR `develop` → `main`, tag `v1.0.0` y checklist de aceptación | Ambos | 0,25 | ⚪ | `main` solo contiene lo publicado |
+
+---
+
+## Vista por persona
+
+### Pendientes de D
+
+| ID | Tarea | Est. | Depende de |
+| --- | --- | --- | --- |
+| T-03 | Cerrar decisiones D-01 a D-08 | 0,25 | Acuerdo con A |
+| T-04 | Activos de marca | 0,25 | D-05 |
+| T-10 | Aplicar escala tipográfica (D-07) | 0,25 | D-07 |
+| T-11 | Acabado del header simétrico | 0,5 | — |
+| T-12 | Isotipo SVG definitivo | 1,0 | D-05 |
+| T-14 | Textura de papel y acabado del Hero | 0,5 | — |
+| T-22 | Pulido del footer | 0,5 | — |
+| T-32 | Botón sobre fondo plum | 0,25 | — |
+| T-40 | Auditoría de accesibilidad | 0,75 | T-34 |
+| T-41 | Matriz de pruebas | 0,75 | T-34 |
+| T-42 | Rendimiento y Lighthouse | 0,5 | T-41 |
+| T-43 | SEO y metadatos | 0,5 | T-41 |
+| T-46 | PR a `main` y tag | 0,25 | T-44 |
+
+### Pendientes de A
+
+| ID | Tarea | Est. | Depende de |
+| --- | --- | --- | --- |
+| T-03 | Cerrar decisiones D-01 a D-08 | 0,25 | Acuerdo con D |
+| T-04 | Activos de marca | 0,25 | D-05 |
+| T-23 | Contraste de `#contacto` | 0,5 | — |
+| T-24 | Contraste AA del formulario | 0,5 | — |
+| T-34 | Endpoint de recepción | 1,25 | **D-02** |
+| T-35 | Confirmación real y reinicio | 0,5 | T-34 |
+| T-40 | Auditoría de accesibilidad | 0,75 | T-34 |
+| T-41 | Matriz de pruebas | 0,75 | T-34 |
+| T-44 | Deploy, dominio y correo | 0,75 | D-01, D-03 |
+| T-45 | Aviso de privacidad | 0,25 | D-04 |
+| T-46 | PR a `main` y tag | 0,25 | T-44 |
 
 ---
 
@@ -96,4 +134,4 @@
 | S4 | 2,75 | 2,75 |
 | **Total** | **≈ 6,25** | **≈ 6,0** |
 
-Si el calendario aprieta, el recorte recomendado es T-12 (medallón con el marcador geométrico actual), T-43 y T-45. **Nunca** recortar T-34 ni T-33: son el corazón del producto.
+Si el calendario aprieta, el recorte recomendado es T-12 (mantener el marcador geométrico), T-43 y T-45. **Nunca** recortar T-34 ni T-33: son el corazón del producto.

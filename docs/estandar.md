@@ -1,3 +1,10 @@
+<!-- estado:inicio -->
+> **Documento normativo** · Estado: vigente y de cumplimiento obligatorio.
+> Única desviación aprobada: la clase de estado `.is-pending` (ver D-08 en
+> [decisiones-pendientes.md](./decisiones-pendientes.md)).
+
+<!-- estado:fin -->
+
 # Estándar Obligatorio de Variables, Nombres y Reglas Anti-Conflictos
 
 > **Propósito del documento:** Establecer un contrato técnico estricto entre ambos desarrolladores (**D & A**) para evitar colisiones de variables en CSS, sobreescritura de clases en HTML, conflictos de alcance (*scope*) en JavaScript y discrepancias en formularios o backend PHP.

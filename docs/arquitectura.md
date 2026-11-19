@@ -1,3 +1,11 @@
+<!-- estado:inicio -->
+> **Documento de referencia** · Estado: vigente, sin cambios de contenido.
+> Marca actualizada a Koda Studio (2026-11-19). Las desviaciones aplicadas en el código
+> están registradas en [plan-de-trabajo.md §3](./plan-de-trabajo.md) y en
+> [changelog.md](./changelog.md).
+
+<!-- estado:fin -->
+
 > **Documento de referencia.** Se conserva con la redacción original (marca actualizada a
 > Koda Studio). Las desviaciones aplicadas en el código —tokens de sombra y transición,
 > atributos `data-js-*`, nombres de servicio y edición del reveal— están registradas en

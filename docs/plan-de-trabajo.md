@@ -1,7 +1,9 @@
 # Plan de trabajo — Landing Page Koda Studio
 
-> Documento maestro de organización. Resume **qué se construye, en qué orden, quién hace qué y cuándo se considera terminado**.
-> Compañeros: [`backlog.md`](./backlog.md) (tareas y estado) y [`decisiones-pendientes.md`](./decisiones-pendientes.md) (acuerdos abiertos).
+> Documento maestro de organización: **qué se construye, en qué orden, quién hace qué y cuándo se considera terminado**.
+> Compañeros: [`backlog.md`](./backlog.md) (tareas y estado), [`decisiones-pendientes.md`](./decisiones-pendientes.md) (acuerdos abiertos) y [`changelog.md`](./changelog.md) (qué se hizo).
+>
+> **Última actualización:** 2026-11-19 · **Corte:** commit `c0bd569` (CH-001) + CH-002 documental.
 
 ---
 
@@ -11,28 +13,42 @@
 | --- | --- |
 | Producto | Landing page one-page de Koda Studio |
 | Stack | HTML5 + CSS3 + JavaScript ES Modules. Sin framework, sin build |
-| Equipo | 2 desarrolladores: **D** y **A** |
+| Equipo | **D** (Diego): base técnica y acabado editorial · **A**: servicios, contacto y formulario |
 | Repositorio | <https://github.com/mxrtinez10/KodaStudio> (`main` + `develop`) |
 | Esfuerzo restante | ≈ 6 jornadas por persona (de ~12 totales) |
 | Ruta crítica | Decisiones abiertas → acabado visual → endpoint del formulario → QA → deploy |
 
-**Foco de la organización:** el riesgo real no es técnico, es de coordinación. Dos personas editando `index.html`, `main.css` y `js/main.js` a la vez es lo que rompe este tipo de proyecto. Por eso esos archivos están congelados desde el inicio y el resto está repartido por capas.
+**Foco de la organización:** el riesgo real no es técnico, es de coordinación. Dos personas editando `index.html`, `css/main.css` y `js/main.js` a la vez es lo que rompe este tipo de proyecto. Por eso esos archivos están congelados desde el inicio y el resto está repartido por capas.
 
 ---
 
 ## 2. Estado actual (punto de partida)
 
-La base ya está alineada con la especificación y con el estándar de nombres. Lo que sigue es **acabado visual y conexión real del formulario**, no reconstrucción.
+La base está alineada con la especificación y con el estándar de nombres. Lo que sigue es **acabado visual y conexión real del formulario**, no reconstrucción.
 
-| Capa | Estado |
-| --- | --- |
-| Estructura HTML (6 anclas, jerarquía de encabezados, copywriting) | ✅ Lista |
-| Design tokens + tipografía editorial | ✅ Base lista |
-| Navegación móvil, reveal, selector múltiple, validación | ✅ Funcionando |
-| Composición fina (header simétrico, Hero, medallón, textura) | ⏳ Pendiente D |
-| Contraste y pulido de la sección contacto / formulario | ⏳ Pendiente A |
-| Envío real del formulario | ⛔ Bloqueado por D-02 |
-| Assets gráficos y favicon | ⛔ Bloqueado por D-05 |
+| Capa | Estado | Detalle |
+| --- | --- | --- |
+| Estructura HTML | ✅ Lista | Seis anclas, jerarquía de encabezados y copywriting de la especificación |
+| Design tokens + tipografía | ✅ Base lista | 17 tokens obligatorios; escala pendiente de D-07 |
+| Navegación móvil | ✅ Funcionando | Toggle, `aria-expanded`, cierre al navegar, `Escape` y `matchMedia` |
+| Scroll reveal | ✅ Funcionando | Con mejora progresiva: sin JS el contenido se ve |
+| Selector múltiple | ✅ Funcionando | `Set()` + `aria-pressed` + input oculto sincronizado |
+| Validación del formulario | ✅ Funcionando | Por campo, con `.has-error` y `aria-invalid` |
+| Composición fina (header, Hero, medallón, textura) | ⏳ Pendiente D | Base estructural hecha, falta el acabado de la spec |
+| Contraste de `#contacto` y del formulario | ⏳ Pendiente A | Auditoría AA pendiente |
+| Envío real del formulario | ⛔ Bloqueado por D-02 | Hoy valida y avisa que no se ha enviado |
+| Assets gráficos y favicon | ⛔ Bloqueado por D-05 | Marcador geométrico en su lugar |
+
+### 2.1 Qué cambió en la última entrega (CH-001)
+
+- Marca unificada a **Koda Studio** en código y documentación.
+- `index.html` reescrito: seis secciones, copy completo, contrato `data-js-*` y formulario con los `name`/`id` del estándar.
+- Tokens obligatorios, tipografía editorial y layout base de todas las secciones.
+- Módulos JS reescritos sobre `DOM_SELECTORS`, sin selectores por clase visual.
+- Reveal con `.is-pending`: el contenido ya no depende de JS para verse.
+- `.gitignore` web y `.gitattributes` con LF.
+
+Detalle, verificación y desviaciones en [`changelog.md`](./changelog.md).
 
 ---
 
@@ -92,7 +108,7 @@ Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El
 | **S2** | Acabado de esencia y contacto | 🟡 Base hecha, falta pulido | 0,5 | 1,0 |
 | **S3** | Envío real del formulario | 🔴 Bloqueado por D-02 | 0,25 | 1,75 |
 | **S4** | QA y publicación | ⚪ No iniciado | 2,75 | 2,75 |
-| | **Total restante** | | **≈ 6** | **≈ 6** |
+| | **Total restante** | | **≈ 6,25** | **≈ 6,0** |
 
 **Traducción a calendario:** a tiempo completo (8 h/día) son ~1,5 semanas; a medio tiempo (4 h/día), ~3 semanas.
 
@@ -107,7 +123,7 @@ Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El
 | Inicio de sprint | Ambos | Elegir 2–3 tareas del backlog por persona |
 | Daily (10 min) | Ambos | Qué hice, qué sigue, qué me bloquea |
 | Mitad de sprint | Ambos | Integración parcial a `develop` |
-| Cierre de sprint | Ambos | Demo del hito + mover tarjetas + actualizar decisiones |
+| Cierre de sprint | Ambos | Demo del hito + mover tarjetas + actualizar decisiones y bitácora |
 
 **Regla de bloqueo:** si estás bloqueado más de medio día por la otra persona o por una decisión pendiente, se dice en el daily. No se queda en silencio.
 
@@ -122,6 +138,7 @@ Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El
 - [ ] JS no selecciona por clase visual.
 - [ ] Sin errores nuevos en consola.
 - [ ] Integrado en `develop` por Pull Request.
+- [ ] Entrada correspondiente en `docs/changelog.md`.
 
 ---
 
@@ -129,22 +146,29 @@ Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El
 
 | Riesgo | Prob. | Impacto | Mitigación |
 | --- | --- | --- | --- |
-| Nadie decide el endpoint del formulario | Media | **Crítico** | Límite: antes de empezar S3. Hoy el formulario valida pero **avisa que no se ha enviado** (no finge éxito) |
+| Nadie decide el endpoint del formulario | Media | **Crítico** | Límite: antes de empezar S3. Hoy el formulario avisa que no se ha enviado |
 | El logo SVG no llega | Media | Alto | Marcador geométrico ya implementado; se sustituye en T-12 |
 | Conflictos de merge en `index.html` | Media | Medio | Bloques delimitados por comentarios; PR pequeños |
 | Se publica con el correo de ejemplo | Media | Alto | T-44 verifica el buzón real antes del deploy (D-03) |
 | Deriva de alcance (React, CMS, blog) | Media | Alto | Fuera de alcance declarado (§10) |
-| El reveal oculta contenido sin JS | Baja | Medio | Patrón `.is-pending`: el contenido es visible por defecto |
+| El reveal oculta contenido sin JS | Baja | Bajo | Patrón `.is-pending`: el contenido es visible por defecto |
 
 ---
 
-## 9. Próximos pasos (orden exacto)
+## 9. Próximos pasos
 
-1. **Cerrar D-01, D-02 y D-03** (hosting, formulario, dominio/correo). Media hora que desbloquea todo S3.
-2. **D:** acabado del header (T-11/T-12) y del Hero (T-14), con el isotipo real o el marcador.
-3. **A:** pulido de contraste en `#contacto` y del formulario (T-23/T-24).
-4. **Ambos:** suscribir el endpoint y sustituir el mensaje honesto por la confirmación real (T-34/T-35).
-5. QA en T-40/T-41 y deploy en T-44.
+### Como D (prioridad de esta semana)
+
+1. **Revisar y fusionar** la rama `chore/alinear-identidad-editorial` en `develop` (ya está publicada).
+2. **T-11 y T-14:** acabado del header simétrico y del Hero (espaciado editorial, textura de papel).
+3. **T-12:** integrar el isotipo SVG definitivo cuando esté; mientras tanto se mantiene el marcador.
+4. **Aportar a T-03:** proponer cierre de D-01, D-02 y D-03 (es lo que desbloquea S3).
+
+### En conjunto
+
+1. Confirmar **D-06** y **D-08** (ya implementadas, pendientes de visto bueno).
+2. **A:** contraste de `#contacto` (T-23/T-24) y suscripción del endpoint (T-34/T-35).
+3. QA en T-40/T-41 y deploy en T-44.
 
 ```sh
 # Estado del trabajo al retomar
