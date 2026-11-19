@@ -1,0 +1,28 @@
+.contact-form {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 38rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  color: var(--color-ink);
+  padding: 0.75rem;
+  width: 100%;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form label {
+  font-weight: 600;
+}
+
+.contact-form__status {
+  color: var(--color-muted);
+  min-height: 1.5em;
+}

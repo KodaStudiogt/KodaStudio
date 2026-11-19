@@ -1,0 +1,6 @@
+.site-footer {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}

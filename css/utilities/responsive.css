@@ -1,0 +1,42 @@
+html {
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 42rem) {
+  .site-header {
+    flex-wrap: wrap;
+  }
+
+  .site-header__toggle {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  .site-header__navigation {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 0.75rem;
+  }
+
+  .site-header__navigation.is-open {
+    display: flex;
+  }
+
+  .site-header__navigation a {
+    padding-block: 0.75rem;
+  }
+
+  .hero,
+  .content-section {
+    padding-block: 4rem;
+  }
+
+  .content-section--accent {
+    padding-inline: 1.5rem;
+  }
+}
