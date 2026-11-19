@@ -4,9 +4,6 @@
  *
  * Dueño compartido: cada quien agrega su @import en la posición indicada.
  * Orden de la arquitectura §4.2. No reordenar.
- *
- * Estado: base, layout y componentes propios de la identidad visual.
- * Los componentes de servicios y formulario llegan en US-03.
  */
 
 /* ---------- Base ---------- */
@@ -21,6 +18,9 @@
 
 /* ---------- Componentes ---------- */
 @import url("./components/buttons.css");
+@import url("./components/cards.css");
+@import url("./components/forms.css");
+@import url("./components/service-selector.css");
 
 /* ---------- Utilidades ---------- */
 @import url("./utilities/helpers.css");
