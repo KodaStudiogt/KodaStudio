@@ -1,6 +1,15 @@
-import { selectors } from "../config/selectors.js";
+/**
+ * js/modules/footer.js
+ * STUB del contrato. Dueño: D.
+ * Implementación real en `feature/footer`.
+ */
+
+import { DOM_SELECTORS } from "../config/selectors.js";
 
 export function initFooter() {
-  const year = document.querySelector(selectors.currentYear);
-  if (year) year.textContent = String(new Date().getFullYear());
+    const yearElement = document.querySelector(DOM_SELECTORS.currentYear);
+
+    if (!yearElement) return;
+
+    // TODO(D): imprimir el año actual con textContent.
 }
