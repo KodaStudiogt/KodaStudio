@@ -5,8 +5,8 @@
  * Dueño compartido: cada quien agrega su @import en la posición indicada.
  * Orden de la arquitectura §4.2. No reordenar.
  *
- * Estado: solo base y utilidades transversales. Las capas de layout y de
- * componentes se agregan en las entregas siguientes (US-02 y US-03).
+ * Estado: base, layout y componentes propios de la identidad visual.
+ * Los componentes de servicios y formulario llegan en US-03.
  */
 
 /* ---------- Base ---------- */
@@ -14,5 +14,15 @@
 @import url("./base/variables.css");
 @import url("./base/typography.css");
 
+/* ---------- Layout ---------- */
+@import url("./layout/header.css");
+@import url("./layout/sections.css");
+@import url("./layout/footer.css");
+
+/* ---------- Componentes ---------- */
+@import url("./components/buttons.css");
+
 /* ---------- Utilidades ---------- */
 @import url("./utilities/helpers.css");
+@import url("./utilities/animations.css");
+@import url("./utilities/responsive.css");
