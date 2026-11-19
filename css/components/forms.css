@@ -1,28 +1,91 @@
+/**
+ * css/components/forms.css
+ * Formulario de consultoría. Dueño: A. Spec §2.E.
+ * Debe funcionar sobre fondo claro (tarjeta de la sección contacto).
+ */
+
 .contact-form {
-  display: grid;
-  gap: 0.75rem;
-  max-width: 38rem;
+    display: grid;
+    gap: 1.1rem;
 }
 
-.contact-form input,
-.contact-form textarea {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-small);
-  color: var(--color-ink);
-  padding: 0.75rem;
-  width: 100%;
+.contact-form__field {
+    display: grid;
+    gap: 0.4rem;
 }
 
-.contact-form textarea {
-  resize: vertical;
+.contact-form__label {
+    color: var(--color-plum);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
 }
 
-.contact-form label {
-  font-weight: 600;
+.contact-form__input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(74, 46, 53, 0.16);
+    border-radius: var(--radius-input);
+    background: var(--color-linen);
+    color: var(--color-charcoal);
+    font-size: 0.95rem;
+    transition:
+        border-color var(--transition-base),
+        background-color var(--transition-base),
+        box-shadow var(--transition-base);
 }
 
-.contact-form__status {
-  color: var(--color-muted);
-  min-height: 1.5em;
+.contact-form__input:hover {
+    border-color: rgba(74, 46, 53, 0.28);
+}
+
+.contact-form__input:focus-visible {
+    outline: none;
+    border-color: var(--color-bronze);
+    background: var(--color-linen-light);
+    box-shadow: 0 0 0 3px rgba(176, 141, 121, 0.22);
+}
+
+.contact-form__textarea {
+    resize: vertical;
+    min-height: 7rem;
+}
+
+/* ---------- Estados de validación ---------- */
+.contact-form__input.has-error {
+    border-color: var(--color-plum);
+    background: color-mix(in srgb, var(--color-plum) 4%, var(--color-linen-light));
+}
+
+.contact-form__error {
+    color: var(--color-plum-dark);
+    font-size: 0.8rem;
+    font-weight: 500;
+    min-height: 0;
+}
+
+.contact-form__error:empty {
+    display: none;
+}
+
+.contact-form__submit {
+    width: 100%;
+    margin-top: 0.35rem;
+}
+
+/* ---------- Confirmación inline ---------- */
+.contact-form__feedback {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+    padding: 1.5rem;
+    border: var(--border-accent);
+    border-radius: var(--radius-input);
+    background: var(--color-linen);
+}
+
+.contact-form__feedback-text {
+    color: var(--color-plum);
+    font-size: 0.95rem;
 }
