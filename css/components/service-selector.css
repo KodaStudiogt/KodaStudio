@@ -1,0 +1,20 @@
+.service-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.service-selector__option {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-ink);
+  cursor: pointer;
+  padding: 0.7rem 1rem;
+}
+
+.service-selector__option[aria-pressed="true"] {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: #fff;
+}
