@@ -1,22 +1,16 @@
-import { selectors } from "../config/selectors.js";
-import { isValidEmail } from "../utils/validation.js";
+/**
+ * js/modules/contact-form.js
+ * STUB del contrato (US-01). Dueño: A.
+ * La implementación real llega con servicios y formulario (US-03).
+ */
+
+import { DOM_SELECTORS } from "../config/selectors.js";
 
 export function initContactForm() {
-  const form = document.querySelector(selectors.contactForm);
-  const status = document.querySelector(selectors.formStatus);
+    const form = document.querySelector(DOM_SELECTORS.contactForm);
+    const feedback = document.querySelector(DOM_SELECTORS.formFeedback);
 
-  if (!form || !status) return;
+    if (!form || !feedback) return;
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const email = new FormData(form).get("email");
-
-    if (typeof email !== "string" || !isValidEmail(email)) {
-      status.textContent = "Escribe un correo electrónico válido.";
-      form.elements.email.focus();
-      return;
-    }
-
-    status.textContent = "El formulario está validado; el envío requiere conectar un servicio de contacto.";
-  });
+    // TODO(A): validación por campo, .has-error, honeypot y envío real (D-02).
 }

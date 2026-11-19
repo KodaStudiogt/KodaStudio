@@ -1,22 +1,18 @@
-import { selectors } from "../config/selectors.js";
+/**
+ * js/modules/navigation.js
+ * STUB del contrato (US-01). Dueño: D.
+ *
+ * Existe para que js/main.js resuelva sus importaciones desde el primer día.
+ * La implementación real llega con la entrega de identidad visual (US-02).
+ */
+
+import { DOM_SELECTORS } from "../config/selectors.js";
 
 export function initNavigation() {
-  const toggle = document.querySelector(selectors.navigationToggle);
-  const navigation = document.querySelector(selectors.navigation);
+    const toggle = document.querySelector(DOM_SELECTORS.mobileToggle);
+    const menu = document.querySelector(DOM_SELECTORS.mobileMenu);
 
-  if (!toggle || !navigation) return;
+    if (!toggle || !menu) return;
 
-  toggle.addEventListener("click", () => {
-    const isOpen = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!isOpen));
-    toggle.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
-    navigation.classList.toggle("is-open", !isOpen);
-  });
-
-  navigation.addEventListener("click", (event) => {
-    if (!event.target.closest("a")) return;
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-label", "Abrir menú");
-    navigation.classList.remove("is-open");
-  });
+    // TODO(D): alternar .is-open y aria-expanded, cerrar al navegar, Escape y matchMedia.
 }

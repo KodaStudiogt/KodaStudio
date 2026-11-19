@@ -1,20 +1,15 @@
-import { selectors } from "../config/selectors.js";
+/**
+ * js/modules/reveal.js
+ * STUB del contrato (US-01). Dueño: D.
+ * La implementación real llega con la entrega de identidad visual (US-02).
+ */
+
+import { DOM_SELECTORS } from "../config/selectors.js";
 
 export function initReveal() {
-  const elements = document.querySelectorAll(selectors.reveal);
-  if (!("IntersectionObserver" in window)) return;
+    const items = document.querySelectorAll(DOM_SELECTORS.revealItems);
 
-  const observer = new IntersectionObserver((entries, currentObserver) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.remove("is-pending");
-      entry.target.classList.add("is-visible");
-      currentObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.12 });
+    if (!items.length) return;
 
-  elements.forEach((element) => {
-    element.classList.add("is-pending");
-    observer.observe(element);
-  });
+    // TODO(D): IntersectionObserver con REVEAL_THRESHOLD y .is-pending → .is-visible.
 }
