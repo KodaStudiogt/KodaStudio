@@ -1,62 +1,376 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="KodaStudio: soluciones digitales para empresas en crecimiento.">
-    <title>KodaStudio | Soluciones digitales</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Koda Studio: ingeniería de software y diseño con propósito. Desarrollo web de alta gama, automatización de procesos, sistemas de ventas y soporte técnico a la medida.">
+    <title>Koda Studio | Ingeniería &amp; Diseño Boutique</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap">
+
     <link rel="stylesheet" href="css/main.css">
     <script type="module" src="js/main.js"></script>
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="site-header__brand" href="#inicio" aria-label="KodaStudio, inicio">KodaStudio</a>
-      <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
-        <span class="visually-hidden">Abrir menú</span>
-        <span aria-hidden="true">☰</span>
-      </button>
-      <nav class="site-header__navigation" id="site-navigation" aria-label="Navegación principal">
-        <a href="#servicios">Servicios</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
+</head>
+<body>
+
+    <!-- =========================================================================
+         BLOQUE D · header
+         Contrato: id="navbar" + data-js="mobile-toggle" | "mobile-menu" | "nav-link"
+         Spec: §2.A — navegación simétrica, medallón táctil, menú móvil
+         ========================================================================= -->
+    <header class="navbar" id="navbar">
+        <nav class="navbar__nav" aria-label="Navegación principal">
+
+            <ul class="navbar__links navbar__links--start">
+                <li><a class="navbar__link" href="#inicio" data-js="nav-link">Inicio</a></li>
+                <li><a class="navbar__link" href="#esencia" data-js="nav-link">Nosotros</a></li>
+            </ul>
+
+            <a class="navbar__brand" href="#inicio" aria-label="Koda Studio, ir al inicio">
+                <!-- TODO(D): isotipo SVG (K + circuito + “/”). El medallón ya tiene el estilo. -->
+                <span class="navbar__medallion" aria-hidden="true">
+                    <svg class="navbar__mark" viewBox="0 0 48 48" role="presentation" focusable="false">
+                        <path d="M18 12v24M18 24l12-12M18 24l12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="navbar__brand-text">Koda Studio</span>
+            </a>
+
+            <ul class="navbar__links navbar__links--end">
+                <li><a class="navbar__link" href="#servicios" data-js="nav-link">Servicios</a></li>
+                <li><a class="navbar__link" href="#contacto" data-js="nav-link">Contacto</a></li>
+            </ul>
+
+            <button class="navbar__toggle" type="button"
+                    data-js="mobile-toggle"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu">
+                <span class="sr-only">Abrir menú de navegación</span>
+                <span class="navbar__toggle-bars" aria-hidden="true"></span>
+            </button>
+        </nav>
+
+        <div class="mobile-menu" id="mobile-menu" data-js="mobile-menu">
+            <ul class="mobile-menu__list">
+                <li><a class="mobile-menu__link" href="#inicio" data-js="nav-link">Inicio</a></li>
+                <li><a class="mobile-menu__link" href="#esencia" data-js="nav-link">Nosotros</a></li>
+                <li><a class="mobile-menu__link" href="#servicios" data-js="nav-link">Servicios</a></li>
+                <li><a class="mobile-menu__link" href="#contacto" data-js="nav-link">Contacto</a></li>
+            </ul>
+        </div>
     </header>
 
     <main>
-      <section class="hero reveal" id="inicio">
-        <p class="eyebrow">Tecnología para crecer</p>
-        <h1>Ideas digitales, hechas realidad.</h1>
-        <p>En KodaStudio ayudamos a empresas en crecimiento a crear mejores experiencias digitales.</p>
-        <a class="button" href="#contacto">Hablemos de tu proyecto</a>
-      </section>
 
-      <section class="content-section reveal" id="servicios">
-        <p class="eyebrow">Qué hacemos</p>
-        <h2>Servicios pensados para ti</h2>
-        <div class="service-selector" aria-label="Selecciona los servicios que te interesan">
-          <button class="service-selector__option" type="button" aria-pressed="false">Diseño web</button>
-          <button class="service-selector__option" type="button" aria-pressed="false">Desarrollo</button>
-          <button class="service-selector__option" type="button" aria-pressed="false">Estrategia digital</button>
-        </div>
-      </section>
+        <!-- =====================================================================
+             BLOQUE D · #inicio (Hero) — spec §2.B
+             ===================================================================== -->
+        <section class="hero reveal" id="inicio" aria-labelledby="inicio-title" data-js="reveal">
+            <div class="hero__inner">
+                <p class="eyebrow hero__eyebrow">Agencia Tecnológica Boutique • Fundada por D &amp; A</p>
 
-      <section class="content-section content-section--accent reveal" id="contacto">
-        <p class="eyebrow">Siguiente paso</p>
-        <h2>Cuéntanos sobre tu proyecto</h2>
-        <form class="contact-form" data-contact-form>
-          <label for="contact-name">Nombre</label>
-          <input id="contact-name" name="name" autocomplete="name" required>
-          <label for="contact-email">Correo electrónico</label>
-          <input id="contact-email" name="email" type="email" autocomplete="email" required>
-          <label for="contact-message">Mensaje</label>
-          <textarea id="contact-message" name="message" rows="4" required></textarea>
-          <button class="button" type="submit">Enviar mensaje</button>
-          <p class="contact-form__status" data-form-status role="status" aria-live="polite"></p>
-        </form>
-      </section>
+                <h1 class="hero__title" id="inicio-title">
+                    Ingeniería de software y diseño con propósito,
+                    <em>sin clichés genéricos.</em>
+                </h1>
+
+                <p class="hero__description">
+                    En <strong>Koda Studio</strong> diseñamos y construimos ecosistemas digitales a medida.
+                    Unimos el desarrollo web de alta gama, la automatización inteligente y sistemas
+                    comerciales eficientes para transformar su operación en un motor de crecimiento sostenible.
+                </p>
+
+                <div class="hero__actions">
+                    <a class="button button--primary" href="#contacto">Agendar Consultoría Inicial</a>
+                    <a class="button button--secondary" href="#servicios">Explorar Soluciones</a>
+                </div>
+            </div>
+
+            <ul class="hero__pillars">
+                <li class="pillar">
+                    <h2 class="pillar__title">100% A la Medida</h2>
+                    <p class="pillar__description">Arquitectura sin plantillas genéricas</p>
+                </li>
+                <li class="pillar">
+                    <h2 class="pillar__title">Operación Conectada</h2>
+                    <p class="pillar__description">Flujos automatizados sin fricciones</p>
+                </li>
+                <li class="pillar">
+                    <h2 class="pillar__title">Estética Editorial</h2>
+                    <p class="pillar__description">Sofisticación visual y rendimiento</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- =====================================================================
+             BLOQUE D · #esencia — spec §2.C
+             ===================================================================== -->
+        <section class="essence reveal" id="esencia" aria-labelledby="esencia-title" data-js="reveal">
+            <header class="section-header">
+                <p class="eyebrow">Nuestra Esencia</p>
+                <h2 class="section-header__title" id="esencia-title">
+                    El origen de una alianza entre precisión técnica y criterio estético
+                </h2>
+            </header>
+
+            <article class="editorial-card story">
+                <div class="story__aside">
+                    <p class="eyebrow">Nuestra Historia</p>
+                    <h3 class="story__title">La visión compartida de D &amp; A</h3>
+                    <blockquote class="story__quote">
+                        <p>«Donde la ingeniería de software y el diseño con propósito convergen.»</p>
+                    </blockquote>
+                </div>
+
+                <div class="story__body">
+                    <p>
+                        <strong>Koda Studio</strong> nació de la visión compartida de dos socios
+                        (<strong>D &amp; A</strong>), quienes detectaron un patrón recurrente en el mercado:
+                        la mayoría de las empresas intentan escalar utilizando herramientas genéricas,
+                        lentas y completamente desconectadas entre sí.
+                    </p>
+                    <p>
+                        Frente a los clichés oscuros e impersonales de la industria tecnológica tradicional,
+                        decidimos fundar un espacio boutique donde la ingeniería de software rigurosa y el
+                        diseño con propósito se unieran. Así creamos una firma que no solo programa sitios
+                        web o automatiza tareas aisladas, sino que construye la infraestructura tecnológica
+                        que impulsa los negocios hacia adelante con elegancia, precisión y un estilo
+                        completamente propio.
+                    </p>
+                </div>
+            </article>
+
+            <div class="purpose-grid">
+                <article class="editorial-card purpose-card">
+                    <p class="eyebrow">Propósito Diario</p>
+                    <h3 class="purpose-card__title">Nuestra Misión</h3>
+                    <p class="purpose-card__text">
+                        «Construir ecosistemas digitales a medida que unan el desarrollo web de alta gama,
+                        la automatización inteligente y los sistemas de ventas eficientes, transformando la
+                        operación diaria de nuestros clientes en un motor de crecimiento sostenible y sin
+                        fricciones.»
+                    </p>
+                    <footer class="purpose-card__footer">Ejecución &amp; Arquitectura — 01</footer>
+                </article>
+
+                <article class="editorial-card purpose-card">
+                    <p class="eyebrow">Horizonte Estratégico</p>
+                    <h3 class="purpose-card__title">Nuestra Visión</h3>
+                    <p class="purpose-card__text">
+                        «Convertirnos en el estudio tecnológico de referencia para marcas que buscan
+                        sofisticación, rendimiento y diseño excepcional, destacando por crear soluciones
+                        a la medida que desafían los estándares genéricos de la industria.»
+                    </p>
+                    <footer class="purpose-card__footer">Vanguardia &amp; Distinción — 02</footer>
+                </article>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             BLOQUE A · #servicios — spec §2.D
+             Contrato: .editorial-card / .service-card (cards.css)
+             ===================================================================== -->
+        <section class="services reveal" id="servicios" aria-labelledby="servicios-title" data-js="reveal">
+            <header class="section-header section-header--split">
+                <div>
+                    <p class="eyebrow">Servicios &amp; Soluciones</p>
+                    <h2 class="section-header__title" id="servicios-title">
+                        Cuatro pilares diseñados para escalar su negocio con elegancia
+                    </h2>
+                </div>
+                <p class="section-header__description">
+                    Cada solución se concibe de forma integral para que su presencia digital, procesos
+                    internos y ventas operen en perfecta sincronía.
+                </p>
+            </header>
+
+            <div class="services__grid">
+                <article class="editorial-card service-card">
+                    <p class="service-card__number">01</p>
+                    <h3 class="service-card__title">Desarrollo Web de Alta Gama</h3>
+                    <p class="service-card__description">
+                        Sitios web corporativos, plataformas digitales y experiencias interactivas
+                        desarrolladas desde cero con código limpio, velocidad sobresaliente y una
+                        dirección de arte editorial que eleva el valor percibido de su marca.
+                    </p>
+                    <ul class="service-card__list">
+                        <li>Arquitectura web a medida y diseño responsivo</li>
+                        <li>Optimización de rendimiento, SEO técnico y accesibilidad</li>
+                    </ul>
+                </article>
+
+                <article class="editorial-card service-card">
+                    <p class="service-card__number">02</p>
+                    <h3 class="service-card__title">Automatización de Procesos</h3>
+                    <p class="service-card__description">
+                        Flujos de trabajo inteligentes que conectan sus aplicaciones actuales, eliminan
+                        la captura manual repetitiva y sincronizan datos en tiempo real para liberar
+                        horas valiosas de su equipo.
+                    </p>
+                    <ul class="service-card__list">
+                        <li>Integración de APIs, bases de datos y mensajería</li>
+                        <li>Orquestación de tareas operativas sin error humano</li>
+                    </ul>
+                </article>
+
+                <article class="editorial-card service-card">
+                    <p class="service-card__number">03</p>
+                    <h3 class="service-card__title">Sistemas de Ventas</h3>
+                    <p class="service-card__description">
+                        Infraestructura comercial diseñada para convertir visitantes en clientes.
+                        Estructuramos embudos digitales, calificación automática de prospectos y
+                        seguimiento continuo para que ninguna oportunidad se pierda.
+                    </p>
+                    <ul class="service-card__list">
+                        <li>Embudos de captación y agendas automatizadas</li>
+                        <li>Conexión directa con CRM y trazabilidad comercial</li>
+                    </ul>
+                </article>
+
+                <article class="editorial-card service-card">
+                    <p class="service-card__number">04</p>
+                    <h3 class="service-card__title">Soporte Técnico Especializado</h3>
+                    <p class="service-card__description">
+                        Acompañamiento continuo, monitoreo preventivo y evolución constante de su
+                        infraestructura digital. Actuamos como su departamento tecnológico de confianza
+                        para garantizar estabilidad total.
+                    </p>
+                    <ul class="service-card__list">
+                        <li>Mantenimiento evolutivo, seguridad y respaldos</li>
+                        <li>Asesoría directa y resolución ágil con los socios</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             BLOQUE A · #contacto — spec §2.E
+             Contrato de campos: estándar §5 (name/id exactos)
+             ===================================================================== -->
+        <section class="contact reveal" id="contacto" aria-labelledby="contacto-title" data-js="reveal">
+            <div class="contact__inner">
+
+                <div class="contact__info">
+                    <p class="eyebrow eyebrow--light">Iniciemos la Conversación</p>
+                    <h2 class="contact__title" id="contacto-title">Construyamos juntos su próximo ecosistema digital.</h2>
+                    <p class="contact__description">
+                        Agende una sesión de descubrimiento con <strong>D &amp; A</strong>. Analizaremos sus
+                        cuellos de botella actuales y diseñaremos una hoja de ruta tecnológica hecha
+                        exactamente a la medida de su marca.
+                    </p>
+
+                    <ul class="contact__details">
+                        <!-- TODO(D-03): confirmar dominio y buzón real antes de publicar -->
+                        <li><a class="contact__link" href="mailto:hola@kodastudio.com">hola@kodastudio.com</a></li>
+                        <li>Sesión estratégica de 30 min • Sin compromiso</li>
+                    </ul>
+                </div>
+
+                <div class="contact__form-wrapper">
+
+                    <form class="contact-form" data-js="contact-form" novalidate>
+                        <div class="contact-form__field">
+                            <label class="contact-form__label" for="client-name">Nombre completo</label>
+                            <input class="contact-form__input" type="text"
+                                   id="client-name" name="client_name"
+                                   autocomplete="name" required minlength="2"
+                                   aria-describedby="client-name-error">
+                            <p class="contact-form__error" id="client-name-error"></p>
+                        </div>
+
+                        <div class="contact-form__field">
+                            <label class="contact-form__label" for="client-email">Correo corporativo</label>
+                            <input class="contact-form__input" type="email"
+                                   id="client-email" name="client_email"
+                                   autocomplete="email" required
+                                   aria-describedby="client-email-error">
+                            <p class="contact-form__error" id="client-email-error"></p>
+                        </div>
+
+                        <fieldset class="contact-form__field contact-form__field--selector">
+                            <legend class="contact-form__label">Soluciones de interés</legend>
+                            <div class="service-selector">
+                                <!-- Valor canónico en data-service-value; etiqueta corta visible (D-06) -->
+                                <button class="service-pill" type="button" aria-pressed="false"
+                                        data-js="service-pill"
+                                        data-service-value="Desarrollo Web de Alta Gama">Desarrollo Web</button>
+                                <button class="service-pill" type="button" aria-pressed="false"
+                                        data-js="service-pill"
+                                        data-service-value="Automatización de Procesos">Automatización</button>
+                                <button class="service-pill" type="button" aria-pressed="false"
+                                        data-js="service-pill"
+                                        data-service-value="Sistemas de Ventas">Sistemas de Ventas</button>
+                                <button class="service-pill" type="button" aria-pressed="false"
+                                        data-js="service-pill"
+                                        data-service-value="Soporte Técnico / Ecosistema Integral">Ecosistema Integral</button>
+                            </div>
+                        </fieldset>
+
+                        <div class="contact-form__field">
+                            <label class="contact-form__label" for="project-message">Descripción del proyecto</label>
+                            <textarea class="contact-form__input contact-form__textarea"
+                                      id="project-message" name="project_message"
+                                      rows="5" required minlength="10"
+                                      aria-describedby="project-message-error"></textarea>
+                            <p class="contact-form__error" id="project-message-error"></p>
+                        </div>
+
+                        <!-- Honeypot anti-spam: debe llegar vacío (estándar §5) -->
+                        <div class="sr-only">
+                            <label for="kc-website-hp">No rellenar este campo</label>
+                            <input type="text" id="kc-website-hp" name="kc_website_hp" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <input type="hidden" name="selected_services" id="selected-services" data-js="service-value">
+
+                        <button class="button button--primary contact-form__submit" type="submit">
+                            Solicitar Llamada de Descubrimiento
+                        </button>
+                    </form>
+
+                    <div class="contact-form__feedback is-hidden" data-js="form-feedback" role="status" aria-live="polite">
+                        <p class="contact-form__feedback-text" data-js="feedback-text"></p>
+                        <button class="button button--secondary" type="button" data-js="form-reset">Enviar otra solicitud</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="site-footer">
-      <p>&copy; <span data-current-year></span> KodaStudio. Todos los derechos reservados.</p>
+    <!-- =========================================================================
+         BLOQUE D · footer — spec §2.F
+         ========================================================================= -->
+    <footer class="footer" id="footer">
+        <div class="footer__top">
+            <div class="footer__brand">
+                <span class="navbar__medallion navbar__medallion--small" aria-hidden="true">
+                    <svg class="navbar__mark" viewBox="0 0 48 48" role="presentation" focusable="false">
+                        <path d="M18 12v24M18 24l12-12M18 24l12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <p class="footer__brand-text">
+                    <strong>Koda Studio</strong>
+                    <span>Ingeniería &amp; Diseño Boutique • D &amp; A</span>
+                </p>
+            </div>
+
+            <nav class="footer__nav" aria-label="Navegación del pie">
+                <a href="#inicio">Inicio</a>
+                <a href="#esencia">Nosotros</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+
+        <div class="footer__bottom">
+            <p>&copy; <span data-js="current-year">2026</span> Koda Studio. Todos los derechos reservados.</p>
+            <p>Diseñado y desarrollado a la medida por D &amp; A.</p>
+        </div>
     </footer>
-  </body>
+
+</body>
 </html>
