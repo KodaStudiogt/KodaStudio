@@ -1,20 +1,41 @@
-import { selectors } from "../config/selectors.js";
+/**
+ * js/modules/reveal.js
+ * Aparición de bloques al entrar en el viewport. Dueño: D.
+ *
+ * Mejora progresiva: el contenido es visible por defecto. Solo cuando el
+ * observador está disponible se agrega .is-pending (estado oculto) y luego
+ * .is-visible al intersectar. Sin JS o sin IntersectionObserver, todo se ve.
+ */
+
+import { DOM_SELECTORS, STATE_CLASSES, REVEAL_THRESHOLD } from "../config/selectors.js";
 
 export function initReveal() {
-  const elements = document.querySelectorAll(selectors.reveal);
-  if (!("IntersectionObserver" in window)) return;
+    const items = document.querySelectorAll(DOM_SELECTORS.revealItems);
 
-  const observer = new IntersectionObserver((entries, currentObserver) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.remove("is-pending");
-      entry.target.classList.add("is-visible");
-      currentObserver.unobserve(entry.target);
+    if (!items.length) return;
+    if (!("IntersectionObserver" in window)) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+        items.forEach((item) => item.classList.add(STATE_CLASSES.visible));
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries, currentObserver) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.remove(STATE_CLASSES.pending);
+                entry.target.classList.add(STATE_CLASSES.visible);
+                currentObserver.unobserve(entry.target);
+            });
+        },
+        { threshold: REVEAL_THRESHOLD }
+    );
+
+    items.forEach((item) => {
+        item.classList.add(STATE_CLASSES.pending);
+        observer.observe(item);
     });
-  }, { threshold: 0.12 });
-
-  elements.forEach((element) => {
-    element.classList.add("is-pending");
-    observer.observe(element);
-  });
 }

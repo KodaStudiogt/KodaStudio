@@ -1,6 +1,14 @@
-import { selectors } from "../config/selectors.js";
+/**
+ * js/modules/footer.js
+ * Año dinámico del copyright. Dueño: D.
+ */
+
+import { DOM_SELECTORS } from "../config/selectors.js";
 
 export function initFooter() {
-  const year = document.querySelector(selectors.currentYear);
-  if (year) year.textContent = String(new Date().getFullYear());
+    const yearElement = document.querySelector(DOM_SELECTORS.currentYear);
+
+    if (!yearElement) return;
+
+    yearElement.textContent = String(new Date().getFullYear());
 }

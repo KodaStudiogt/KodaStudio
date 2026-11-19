@@ -1,42 +1,91 @@
-html {
-  scroll-behavior: smooth;
+/**
+ * css/utilities/responsive.css
+ * Breakpoints y adaptación por dispositivo. Dueño: D.
+ * Se definen por el momento en que el contenido deja de acomodarse:
+ *   64rem  → tablet ancha
+ *   48rem  → móvil / tablet vertical
+ */
+
+/* ---------- Tablet ---------- */
+@media (max-width: 64rem) {
+    .hero__pillars {
+        gap: 1.25rem;
+    }
+
+    .contact__inner {
+        gap: 2rem;
+    }
+
+    .story {
+        gap: 1.5rem;
+    }
 }
 
-@media (max-width: 42rem) {
-  .site-header {
-    flex-wrap: wrap;
-  }
+/* ---------- Móvil ---------- */
+@media (max-width: 48rem) {
+    .navbar__nav {
+        grid-template-columns: 1fr auto;
+        padding: 0.75rem 1.25rem;
+    }
 
-  .site-header__toggle {
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    display: block;
-    font-size: 1.5rem;
-  }
+    /* La marca pasa a la izquierda y el botón a la derecha (spec §2.A) */
+    .navbar__brand {
+        grid-row: 1;
+        grid-column: 1;
+        justify-items: start;
+        grid-auto-flow: column;
+        align-items: center;
+        gap: 0.6rem;
+    }
 
-  .site-header__navigation {
-    display: none;
-    flex-basis: 100%;
-    flex-direction: column;
-    gap: 0;
-    padding-top: 0.75rem;
-  }
+    .navbar__links {
+        display: none;
+    }
 
-  .site-header__navigation.is-open {
-    display: flex;
-  }
+    .navbar__toggle {
+        display: grid;
+        grid-column: 2;
+        grid-row: 1;
+    }
 
-  .site-header__navigation a {
-    padding-block: 0.75rem;
-  }
+    .mobile-menu.is-open {
+        display: block;
+    }
 
-  .hero,
-  .content-section {
-    padding-block: 4rem;
-  }
+    .hero,
+    .essence,
+    .services,
+    .contact {
+        padding-block: 3.5rem;
+    }
 
-  .content-section--accent {
-    padding-inline: 1.5rem;
-  }
+    .hero__pillars,
+    .purpose-grid,
+    .services__grid,
+    .contact__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .story {
+        grid-template-columns: 1fr;
+    }
+
+    .story__aside,
+    .story__body {
+        grid-column: 1 / -1;
+    }
+
+    .contact__form-wrapper {
+        padding: 1.25rem;
+    }
+
+    .editorial-card {
+        padding: 1.5rem;
+    }
+
+    .footer__top,
+    .footer__bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

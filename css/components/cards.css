@@ -1,7 +1,65 @@
-.card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-medium);
-  box-shadow: var(--shadow-card);
-  padding: 1.5rem;
+/**
+ * css/components/cards.css
+ * Tarjetas editoriales. Dueño: A. Spec §1 y §2.D.
+ */
+
+.editorial-card {
+    padding: 2rem;
+    border: var(--border-subtle);
+    border-radius: var(--radius-card);
+    background: var(--color-linen-light);
+    box-shadow: var(--shadow-card);
+    transition:
+        transform var(--transition-smooth),
+        box-shadow var(--transition-smooth),
+        border-color var(--transition-smooth);
+}
+
+.editorial-card:hover {
+    transform: translateY(-6px);
+    border-color: color-mix(in srgb, var(--color-bronze) 45%, transparent);
+    box-shadow: var(--shadow-card-hover);
+}
+
+/* ---------- Tarjeta de servicio ---------- */
+.service-card {
+    display: grid;
+    align-content: start;
+    gap: 0.9rem;
+}
+
+.service-card__number {
+    color: var(--color-bronze-dark);
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.service-card__description {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+}
+
+.service-card__list {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.35rem;
+    padding-top: 1rem;
+    border-top: var(--border-subtle);
+    font-size: 0.875rem;
+}
+
+.service-card__list li {
+    position: relative;
+    padding-left: 1.1rem;
+}
+
+.service-card__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 6px;
+    height: 1px;
+    background: var(--color-bronze);
 }
