@@ -1,43 +1,74 @@
+/**
+ * css/base/typography.css
+ * Tipografía editorial. Dueño: D.
+ * Tamaños y ritmo vertical: pendiente de D-07 (escala compartida).
+ */
+
 body {
-  background: var(--color-surface);
-  color: var(--color-ink);
-  font-family: var(--font-body);
-  line-height: 1.6;
+    background: var(--color-linen);
+    color: var(--color-charcoal);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2 {
-  line-height: 1.15;
+h1, h2, h3 {
+    color: var(--color-plum);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 7vw, 4.5rem);
-  letter-spacing: -0.045em;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 500;
 }
 
 h2 {
-  font-size: clamp(1.8rem, 4vw, 2.75rem);
-  letter-spacing: -0.03em;
+    font-size: clamp(1.9rem, 4vw, 3rem);
 }
 
-a {
-  color: inherit;
+h3 {
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
 }
 
+h1 em,
+h2 em {
+    color: var(--color-bronze-dark);
+    font-style: italic;
+    font-weight: 400;
+}
+
+p {
+    max-width: 68ch;
+    text-wrap: pretty;
+}
+
+strong {
+    font-weight: 600;
+    color: var(--color-plum);
+}
+
+/* Etiqueta superior (eyebrow) */
 .eyebrow {
-  color: var(--color-brand);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+    color: var(--color-bronze-dark);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
+.eyebrow--light {
+    color: var(--color-bronze);
+}
+
+blockquote {
+    color: var(--color-plum);
+    font-family: var(--font-heading);
+    font-style: italic;
 }
