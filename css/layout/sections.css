@@ -1,31 +1,181 @@
+/**
+ * css/layout/sections.css
+ * Regiones principales de la página. Dueño: D.
+ * Base estructural; la composición editorial fina se completa en S1-S2.
+ */
+
 .hero,
-.content-section {
-  margin-inline: auto;
-  max-width: var(--content-width);
-  padding: 6rem 1.5rem;
+.essence,
+.services,
+.contact {
+    padding-block: 5rem;
+    padding-inline: max(1.5rem, calc((100% - 76rem) / 2));
 }
 
+/* ---------- Section header compartido ---------- */
+.section-header {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+}
+
+.section-header--split {
+    gap: 1.5rem;
+}
+
+.section-header__description {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    max-width: 34ch;
+}
+
+/* ---------- Hero ---------- */
 .hero {
-  display: grid;
-  gap: 1.5rem;
-  justify-items: start;
-  min-height: 28rem;
-  align-content: center;
+    display: grid;
+    gap: 3.5rem;
 }
 
-.hero > p:not(.eyebrow) {
-  color: var(--color-muted);
-  font-size: 1.15rem;
-  max-width: 42rem;
+.hero__inner {
+    display: grid;
+    gap: 1.4rem;
+    max-width: 56rem;
 }
 
-.content-section {
-  display: grid;
-  gap: 1.5rem;
+.hero__description {
+    color: var(--color-muted);
+    font-size: 1.05rem;
+    max-width: 46rem;
 }
 
-.content-section--accent {
-  max-width: none;
-  padding-inline: max(1.5rem, calc((100% - var(--content-width)) / 2));
-  background: var(--color-surface-accent);
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.hero__pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    padding-top: 2rem;
+    border-top: var(--border-subtle);
+}
+
+.pillar__title {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.pillar__description {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+}
+
+/* ---------- Esencia ---------- */
+.essence {
+    background: var(--color-linen-dark);
+}
+
+.story {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+    margin-bottom: 1.75rem;
+}
+
+.story__aside {
+    grid-column: span 4;
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+}
+
+.story__quote {
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-bronze);
+    font-size: 1.05rem;
+}
+
+.story__body {
+    grid-column: span 8;
+    display: grid;
+    gap: 1rem;
+    color: var(--color-charcoal);
+}
+
+.purpose-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+}
+
+.purpose-card {
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+}
+
+.purpose-card__text {
+    color: var(--color-charcoal);
+}
+
+.purpose-card__footer {
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: var(--border-subtle);
+    color: var(--color-bronze-dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+/* ---------- Servicios ---------- */
+.services__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+}
+
+/* ---------- Contacto ---------- */
+.contact {
+    background: var(--color-plum);
+    color: var(--color-linen);
+}
+
+.contact__inner {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.contact__title {
+    color: var(--color-linen-light);
+    margin-block: 0.75rem 1.25rem;
+}
+
+.contact__description {
+    color: color-mix(in srgb, var(--color-linen) 78%, transparent);
+}
+
+.contact__details {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: color-mix(in srgb, var(--color-linen) 70%, transparent);
+}
+
+.contact__link {
+    color: var(--color-linen-light);
+    border-bottom: 1px solid var(--color-bronze);
+    padding-bottom: 2px;
+}
+
+.contact__form-wrapper {
+    padding: 2rem;
+    border-radius: var(--radius-card);
+    background: var(--color-linen-light);
 }

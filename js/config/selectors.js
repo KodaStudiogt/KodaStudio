@@ -1,9 +1,69 @@
-export const selectors = {
-  navigation: ".site-header__navigation",
-  navigationToggle: ".site-header__toggle",
-  reveal: ".reveal",
-  serviceOption: ".service-selector__option",
-  contactForm: "[data-contact-form]",
-  formStatus: "[data-form-status]",
-  currentYear: "[data-current-year]"
-};
+/**
+ * js/config/selectors.js
+ * Única fuente de verdad para selectores DOM y constantes globales en JS.
+ * Dueño: compartido. Se modifica solo por PR avisado (estándar §6.3).
+ *
+ * Regla 2: JS nunca selecciona elementos por clase visual.
+ * Solo por estos data-js-*, por ids reservados o por name de formulario.
+ */
+
+export const DOM_SELECTORS = Object.freeze({
+    navbar: "#navbar",
+    mobileToggle: '[data-js="mobile-toggle"]',
+    mobileMenu: '[data-js="mobile-menu"]',
+    navLinks: '[data-js="nav-link"]',
+    revealItems: '[data-js="reveal"]',
+    servicePills: '[data-js="service-pill"]',
+    serviceHiddenInput: '[data-js="service-value"]',
+    contactForm: '[data-js="contact-form"]',
+    formFeedback: '[data-js="form-feedback"]',
+    feedbackText: '[data-js="feedback-text"]',
+    formResetBtn: '[data-js="form-reset"]',
+    currentYear: '[data-js="current-year"]'
+});
+
+/**
+ * Clases de estado controladas por JS (estándar §3.3).
+ * `pending` es una extensión aprobada: permite que el contenido se vea sin JS
+ * y solo se oculte cuando el observador ya está activo (mejora progresiva).
+ * Ver decisión D-08.
+ */
+export const STATE_CLASSES = Object.freeze({
+    open: "is-open",
+    visible: "is-visible",
+    selected: "is-selected",
+    hidden: "is-hidden",
+    error: "has-error",
+    pending: "is-pending"
+});
+
+export const VALID_SERVICES = Object.freeze([
+    "Desarrollo Web de Alta Gama",
+    "Automatización de Procesos",
+    "Sistemas de Ventas",
+    "Soporte Técnico / Ecosistema Integral"
+]);
+
+/**
+ * Etiquetas cortas para la interfaz y el mensaje de confirmación.
+ * Las claves coinciden exactamente con VALID_SERVICES. Ver decisión D-06.
+ */
+export const SERVICE_LABELS = Object.freeze({
+    "Desarrollo Web de Alta Gama": "Desarrollo Web",
+    "Automatización de Procesos": "Automatización",
+    "Sistemas de Ventas": "Sistemas de Ventas",
+    "Soporte Técnico / Ecosistema Integral": "Ecosistema Integral"
+});
+
+/** Umbral de IntersectionObserver para reveal (spec §3.1). */
+export const REVEAL_THRESHOLD = 0.12;
+
+/**
+ * Metadatos de validación del formulario. Los `name` son el contrato del
+ * estándar §5: deben coincidir con el HTML y con el backend.
+ */
+export const FORM_FIELDS = Object.freeze([
+    { name: "client_name", label: "nombre completo", type: "text", required: true, minLength: 2 },
+    { name: "client_email", label: "correo corporativo", type: "email", required: true, minLength: 0 },
+    { name: "project_message", label: "descripción del proyecto", type: "text", required: true, minLength: 10 }
+]);

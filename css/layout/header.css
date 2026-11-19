@@ -1,33 +1,164 @@
-.site-header {
-  align-items: center;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem max(1.5rem, calc((100% - var(--content-width)) / 2));
+/**
+ * css/layout/header.css
+ * Navegación simétrica, medallón táctil y menú móvil. Dueño: D.
+ * Spec §2.A. Lo visual fino (medallón, isotipo) está pendiente en T-12.
+ */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: color-mix(in srgb, var(--color-linen) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: var(--border-subtle);
 }
 
-.site-header__brand {
-  color: var(--color-brand);
-  font-size: 1.25rem;
-  font-weight: 800;
-  text-decoration: none;
+.navbar__nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: 0.9rem 1.5rem;
 }
 
-.site-header__navigation {
-  display: flex;
-  gap: 1.5rem;
+.navbar__links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
-.site-header__navigation a {
-  font-weight: 600;
-  text-decoration: none;
+.navbar__links--start {
+    justify-self: start;
 }
 
-.site-header__navigation a:hover {
-  color: var(--color-brand);
+.navbar__links--end {
+    justify-self: end;
 }
 
-.site-header__toggle {
-  display: none;
+.navbar__link {
+    position: relative;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding-block: 0.35rem;
+}
+
+/* Subrayado animado en bronce (spec §1) */
+.navbar__link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--color-bronze);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+}
+
+.navbar__link:hover::after,
+.navbar__link:focus-visible::after {
+    transform: scaleX(1);
+}
+
+.navbar__brand {
+    display: grid;
+    justify-items: center;
+    gap: 0.4rem;
+}
+
+/* Medallón táctil neumórfico (spec §1) */
+.navbar__medallion {
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    border: var(--border-accent);
+    border-radius: var(--radius-pill);
+    background: var(--color-linen-light);
+    color: var(--color-bronze-dark);
+    box-shadow:
+        10px 10px 22px rgba(74, 46, 53, 0.08),
+        -10px -10px 22px rgba(255, 255, 255, 0.95),
+        inset 0 1px 2px rgba(176, 141, 121, 0.25);
+}
+
+.navbar__medallion--small {
+    width: 2.75rem;
+    height: 2.75rem;
+}
+
+.navbar__mark {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.navbar__brand-text {
+    color: var(--color-plum);
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+/* Botón hamburguesa: visible solo en móvil (responsive.css) */
+.navbar__toggle {
+    display: none;
+    justify-self: end;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border: var(--border-subtle);
+    border-radius: var(--radius-pill);
+}
+
+.navbar__toggle-bars {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--color-plum);
+}
+
+.navbar__toggle-bars::before,
+.navbar__toggle-bars::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 1.5px;
+    background: inherit;
+}
+
+.navbar__toggle-bars::before {
+    top: -5px;
+}
+
+.navbar__toggle-bars::after {
+    top: 5px;
+}
+
+/* Menú móvil */
+.mobile-menu {
+    display: none;
+    border-top: var(--border-subtle);
+    background: var(--color-linen);
+}
+
+.mobile-menu__list {
+    display: grid;
+    gap: 0.15rem;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: 0.5rem 1.5rem 1.25rem;
+}
+
+.mobile-menu__link {
+    display: block;
+    padding: 0.85rem 0.25rem;
+    border-bottom: var(--border-subtle);
+    font-size: 1rem;
 }
