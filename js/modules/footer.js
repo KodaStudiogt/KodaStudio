@@ -1,7 +1,6 @@
 /**
  * js/modules/footer.js
- * STUB del contrato. Dueño: D.
- * Implementación real en `feature/footer`.
+ * Año dinámico del copyright. Dueño: D.
  */
 
 import { DOM_SELECTORS } from "../config/selectors.js";
@@ -11,5 +10,5 @@ export function initFooter() {
 
     if (!yearElement) return;
 
-    // TODO(D): imprimir el año actual con textContent.
+    yearElement.textContent = String(new Date().getFullYear());
 }
