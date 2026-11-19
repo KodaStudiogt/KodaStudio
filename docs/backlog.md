@@ -123,6 +123,21 @@
 
 ---
 
+## Mapeo ramas → User Histories
+
+| Orden | Rama | Tipo | User History |
+| --- | --- | --- | --- |
+| 1 | `feature/base-structure` | Funcionalidad | [US-01](https://github.com/mxrtinez10/KodaStudio/issues/2) |
+| 2 | `design/design-system` | Diseño | [US-01](https://github.com/mxrtinez10/KodaStudio/issues/2) |
+| 3 | `feature/navbar` | Funcionalidad | [US-02](https://github.com/mxrtinez10/KodaStudio/issues/3) |
+| 4 | `design/homepage` | Diseño | [US-02](https://github.com/mxrtinez10/KodaStudio/issues/3) |
+| 5 | `feature/contact-form` | Funcionalidad | [US-03](https://github.com/mxrtinez10/KodaStudio/issues/4) |
+| 6 | `design/responsive` | Diseño | [US-02](https://github.com/mxrtinez10/KodaStudio/issues/3) |
+| 7 | `feature/footer` | Funcionalidad | [US-02](https://github.com/mxrtinez10/KodaStudio/issues/3) |
+| 8 | `docs/work-plan` | Documentación | [US-04](https://github.com/mxrtinez10/KodaStudio/issues/5) |
+
+---
+
 ## Resumen
 
 | Sprint | Restante D | Restante A |

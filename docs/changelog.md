@@ -1,7 +1,7 @@
 # Bitácora de cambios — Koda Studio
 
 > Registro cronológico de lo que se ha hecho en el proyecto. **Se actualiza en cada entrega**, no solo en los hitos.
-> Última actualización: **2026-11-19**. Estado del código: rama `chore/alinear-identidad-editorial` (pendiente de PR a `develop`).
+> **Última actualización:** 2026-11-19. Estado: entrega dividida por tipo de rama (`feature/`, `design/`, `docs/`) en ocho PR encadenados sobre `develop`.
 
 ## Convención
 
@@ -14,9 +14,37 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
+| CH-003 | 2026-11-19 | `chore` | Entrega dividida por tipo de rama en ocho PR encadenados | Ver PRs |
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
 | CH-001 | 2026-11-19 | `refactor` | Alineación con la especificación editorial y el estándar anti-conflictos | `c0bd569` |
 | CH-000 | 2026-11-19 | `feat` | Andamio inicial: estructura de carpetas y módulos vacíos | `f114d9c` |
+
+---
+
+## CH-003 · Entrega dividida por tipo de rama
+
+**Fecha:** 2026-11-19 · **Autor:** D · **Tipo:** `chore`
+
+**Motivo.** El trabajo estaba concentrado en una sola rama (`chore/alinear-identidad-editorial`), imposible de revisar por partes. Se dividió en ocho ramas siguiendo la taxonomía del equipo: `feature/` para funcionalidad, `design/` para apariencia y `docs/` para documentación.
+
+| Orden | Rama | Contenido | User History |
+| --- | --- | --- | --- |
+| 1 | `feature/base-structure` | `index.html`, contrato de selectores, `main.js` y stubs de módulos | US-01 |
+| 2 | `design/design-system` | Tokens, reset, tipografía y `main.css` | US-01 |
+| 3 | `feature/navbar` | Header y menú móvil (`header.css`, `navigation.js`) | US-02 |
+| 4 | `design/homepage` | Hero y layout de secciones, botones y reveal | US-02 |
+| 5 | `feature/contact-form` | Tarjetas, formulario, selector y validación | US-03 |
+| 6 | `design/responsive` | Breakpoints y adaptación por dispositivo | US-02 |
+| 7 | `feature/footer` | Pie de página y año dinámico | US-02 |
+| 8 | `docs/work-plan` | Plan, backlog, decisiones, bitácora y README | US-04 |
+
+**Prefijos que aún no se usan.** `fix/` y `hotfix/` quedan reservados para correcciones: no hay errores que arreglar todavía. Se aplicarán cuando aparezcan, no por anticipado.
+
+**Por qué en ese orden.** Las ramas comparten `index.html` y `css/main.css`, así que se construyen una sobre otra y se fusionan de principio a fin. Cada PR se abre contra `develop`, pero hasta que no se fusiona el anterior, su diff arrastra los commits previos.
+
+**Verificación.** Cada rama se comprobó con un chequeo de importaciones: `main.css`, `main.js` y los módulos solo referencian archivos que existen en esa rama. La unión de las ocho reproduce exactamente el árbol de la rama de trabajo original.
+
+**Nota.** Antes de fusionar se descartó una primera agrupación en cuatro PR; quedó reemplazada por esta.
 
 ---
 

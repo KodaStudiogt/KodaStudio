@@ -3,7 +3,7 @@
 > Documento maestro de organización: **qué se construye, en qué orden, quién hace qué y cuándo se considera terminado**.
 > Compañeros: [`backlog.md`](./backlog.md) (tareas y estado), [`decisiones-pendientes.md`](./decisiones-pendientes.md) (acuerdos abiertos) y [`changelog.md`](./changelog.md) (qué se hizo).
 >
-> **Última actualización:** 2026-11-19 · **Corte:** commit `c0bd569` (CH-001) + CH-002 documental.
+> **Última actualización:** 2026-11-19 · **Corte:** entrega dividida por tipo de rama (CH-003). Ver [`changelog.md`](./changelog.md).
 
 ---
 
@@ -98,6 +98,21 @@ Nadie edita archivos de otro sin avisar en el PR.
 ---
 
 ## 5. Calendario por sprints
+
+**Ramas en curso**, en orden de fusión:
+
+| Tipo | Rama | Contenido |
+| --- | --- | --- |
+| `feature/` | `feature/base-structure` | Estructura y contrato |
+| `design/` | `design/design-system` | Tokens y tipografía |
+| `feature/` | `feature/navbar` | Header y menú móvil |
+| `design/` | `design/homepage` | Hero y layout de secciones |
+| `feature/` | `feature/contact-form` | Tarjetas, formulario y validación |
+| `design/` | `design/responsive` | Breakpoints |
+| `feature/` | `feature/footer` | Pie de página |
+| `docs/` | `docs/work-plan` | Documentación |
+
+`fix/` y `hotfix/` quedan reservados para correcciones reales.
 
 Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El plan no se rompe si un día no trabajan.
 
