@@ -1,7 +1,7 @@
 # Bitácora de cambios — Koda Studio
 
 > Registro cronológico de lo que se ha hecho en el proyecto. **Se actualiza en cada entrega**, no solo en los hitos.
-> **Última actualización:** 2026-11-19. Estado: entrega dividida por tipo de rama (`feature/`, `design/`, `docs/`) en ocho PR encadenados sobre `develop`.
+> **Última actualización:** 2026-11-19. Estado: `main` y `develop` sincronizados, las ocho ramas publicadas y el logotipo oficial integrado (CH-004).
 
 ## Convención
 
@@ -14,10 +14,39 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
+| CH-004 | 2026-11-19 | `design` | Logotipo oficial integrado en header y footer | Ver PR |
 | CH-003 | 2026-11-19 | `chore` | Entrega dividida por tipo de rama en ocho PR encadenados | Ver PRs |
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
 | CH-001 | 2026-11-19 | `refactor` | Alineación con la especificación editorial y el estándar anti-conflictos | `c0bd569` |
 | CH-000 | 2026-11-19 | `feat` | Andamio inicial: estructura de carpetas y módulos vacíos | `f114d9c` |
+
+---
+
+## CH-004 · Logotipo oficial en la interfaz
+
+**Fecha:** 2026-11-19 · **Autor:** D · **Tipo:** `design`
+
+**Qué se hizo.** Se incorporó el logotipo entregado en `assets/images/logo/Logo-KodaStudio.jpeg` y se integró en el header (lockup completo) y en el footer (monograma dentro del medallón táctil).
+
+**El problema del archivo original.** Es un JPEG sobre fondo crema, sin transparencia. Colocarlo tal cual habría dibujado un rectángulo visible sobre el header, porque el crema del archivo no coincide con el lino del sitio.
+
+**Solución.** Se derivaron dos assets WebP con matte alfa:
+
+| Archivo | Uso | Tamaño |
+| --- | --- | --- |
+| `logo-kodastudio.webp` | Lockup completo en el header | 640 × 287 · ~30 KB |
+| `logo-kodastudio-mark.webp` | Monograma en el medallón del footer | 256 × 256 · ~23 KB |
+
+El fondo no es uniforme: tiene un degradado vertical y textura de papel. Se modeló por filas interpolando los márgenes izquierdo y derecho de cada una, se calculó el matte con umbrales derivados del ruido medido y se decontaminó el color de los píxeles semitransparentes, de modo que el trazo no arrastra halo claro sobre otros fondos.
+
+**Detalles de implementación**
+
+- El header sustituye el marcador geométrico por el lockup, con `alt="Koda Studio"`.
+- El footer conserva el medallón y usa el monograma como imagen decorativa (`alt=""`).
+- Dimensiones declaradas en el HTML para evitar saltos de maquetación; `loading="lazy"` solo en el footer.
+- `.navbar__brand-text` quedó sin uso y se eliminó del CSS.
+
+**Pendiente.** El original es un mapa de bits: para nitidez en pantallas de alta densidad conviene pedir el SVG del lockup y del monograma (D-05).
 
 ---
 
