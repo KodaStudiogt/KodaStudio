@@ -28,7 +28,7 @@
 | --- | --- | --- | --- | --- | --- |
 | T-10 | `typography.css`: escala tipográfica y estilos base | D | 0,25 | 🟡 | Todos los títulos usan `--font-heading`; falta aplicar D-07 |
 | T-11 | `header.css`: simetría del grid de 3 columnas y sticky translúcido | D | 0,5 | 🟡 | En escritorio, enlaces a los lados y marca centrada al píxel |
-| T-12 | Medallón táctil + isotipo SVG definitivo (K + circuito + `/`) | D | 1,0 | ⚪ | Sombras duales, anillo interior y borde bronce según spec §1 |
+| T-12 | Medallón táctil + isotipo vectorial (SVG) | D | 0,25 | 🟡 | Monograma real integrado desde el JPEG; falta la versión SVG para nitidez total (D-05) |
 | T-13 | `navigation.js`: toggle, `aria-expanded`, cierre al navegar, Escape | D | — | ✅ | También cierra al pasar a escritorio |
 | T-14 | Hero: acabado editorial y textura de papel | D | 0,5 | 🟡 | Estructura, copy, CTAs y pilares listos; falta `.paper-texture` |
 | T-15 | `cards.css`: `.editorial-card` y elevación al hover | A | — | ✅ | `translateY(-6px)` y sombra elevada con tokens |

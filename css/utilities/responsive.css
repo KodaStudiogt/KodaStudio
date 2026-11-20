@@ -32,10 +32,11 @@
     .navbar__brand {
         grid-row: 1;
         grid-column: 1;
-        justify-items: start;
-        grid-auto-flow: column;
-        align-items: center;
-        gap: 0.6rem;
+        justify-self: start;
+    }
+
+    .navbar__logo {
+        height: 2.45rem;
     }
 
     .navbar__links {
