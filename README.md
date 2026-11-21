@@ -4,8 +4,8 @@ Landing page del estudio: **HTML5 + CSS3 + JavaScript (ES Modules)**, sin framew
 
 Repositorio: <https://github.com/mxrtinez10/KodaStudio>
 
-> **Estado:** base alineada con la especificación y el estándar de nombres.
-> **Última actualización:** 2026-11-19 · detalle en [`docs/changelog.md`](docs/changelog.md).
+> **Estado:** base alineada, logo integrado y formulario enviando a Supabase + Resend. Pendiente: secretos de producción, dominio y QA.
+> **Última actualización:** 2026-11-20 · detalle en [`docs/changelog.md`](docs/changelog.md).
 
 ---
 
@@ -24,11 +24,11 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/ma
 
 | Listo | Pendiente |
 | --- | --- |
-| Estructura semántica completa con las seis anclas | Isotipo SVG definitivo (hoy hay un marcador geométrico) |
+| Estructura semántica completa con las seis anclas | SVGs del logo y favicon (D-05) |
 | Design tokens obligatorios y tipografía editorial | Composición fina del header y textura del Hero |
 | Navegación móvil accesible, reveal, selector múltiple y validación | Contraste de la sección de contacto |
-| Contrato del formulario, esquema y Edge Function implementados | Configurar secretos, verificar dominio remitente y desplegar endpoint |
-| Plan, backlog, decisiones y bitácora en `docs/` | Assets gráficos, favicon y aviso de privacidad |
+| Logo integrado en header y footer | Secretos `CONTACT_TO_EMAIL` / `ALLOWED_ORIGINS` y dominio remitente verificado |
+| Formulario con envío real: esquema, Edge Function y Resend | Aviso de privacidad y QA final |
 
 **Nada de éxito falso:** la confirmación requiere respuesta satisfactoria del endpoint.
 
@@ -39,6 +39,8 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/ma
 | Fecha | Qué |
 | --- | --- |
 | 2026-11-20 | Backend del formulario con Supabase Postgres, Edge Function y Resend (CH-005) |
+| 2026-11-20 | Documentación sincronizada con CH-005 (CH-006) |
+| 2026-11-19 | Logotipo oficial integrado en header y footer (CH-004) |
 | 2026-11-19 | Documentación consolidada: bitácora, plan, backlog y decisiones al día (CH-002) |
 | 2026-11-19 | Alineación con la especificación editorial y el contrato de nombres (CH-001, `c0bd569`) |
 | 2026-11-19 | Andamio inicial: estructura de carpetas (CH-000, `f114d9c`) |
@@ -134,7 +136,9 @@ Luego abre <http://localhost:8000>. También sirve `npx serve .` o la extensión
 │   ├── config/selectors.js       # Fuente única de selectores y constantes
 │   ├── modules/                  # navigation, reveal, footer | service-selector, contact-form
 │   └── utils/validation.js       # Funciones puras
-├── assets/                       # images/, icons/ (.gitkeep hasta tener archivos reales)
+├── assets/                       # images/, icons/
+├── db/                           # Modelo de datos y guía de migración
+├── supabase/                     # config.toml, migraciones, seed y Edge Function contact
 └── docs/                         # arquitectura, especificación, estándar, plan, backlog, decisiones, bitácora
 ```
 

@@ -3,7 +3,7 @@
 > Los documentos de diseño dejan puntos abiertos a propósito. Cada uno bloquea una tarea del backlog: si no se decide, alguien se queda esperando.
 > **Regla:** una decisión se escribe aquí con fecha, responsable y estado. Decidir "por ahora A y se revisa" es válido; dejarlo sin escribir, no.
 >
-> **Última actualización:** 2026-11-20 · **Corte:** CH-005
+> **Última actualización:** 2026-11-20 · **Corte:** CH-005 + sincronización documental (CH-006)
 
 ## Tablero
 
@@ -13,12 +13,12 @@
 | D-02 | Recepción del formulario | A (propone) · D confirma | T-34, T-35 | **Inicio de S3** | ✅ Aceptada (2026-11-20) |
 | D-03 | Dominio y correo | Ambos | T-44, T-23 | Antes de S4 | ⚪ Pendiente |
 | D-04 | Analítica y privacidad | A | T-45 | Inicio de S4 | ⚪ Pendiente |
-| D-05 | Activos de marca | D | T-04, T-12 | Antes de S1 | ⚪ Pendiente |
+| D-05 | Activos de marca | D | T-04, T-12 | Antes de S4 | 🟡 Parcial: logo raster integrado, falta SVG y favicon |
 | D-06 | Etiquetas visibles de las píldoras | A (revisa) | T-18 | — | 🟡 Implementada, sin confirmar |
 | D-07 | Escala compartida de espaciado y tipografía | Ambos | T-10 | Antes de S1 | ⚪ Pendiente |
 | D-08 | Clase de estado `.is-pending` | A (revisa) | Reveal | — | 🟡 Implementada, sin confirmar |
 
-**La decisión de recepción D-02 está cerrada;** D-05 (isotipo) sigue abierta.
+**Cerrada:** D-02 (2026-11-20). **Parcial:** D-05 (logo raster listo, falta el SVG). **Abiertas:** D-01, D-03, D-04, D-07. **A confirmar por A:** D-06 y D-08.
 
 ---
 
@@ -75,7 +75,9 @@
 
 **Opciones:** (a) sin analítica, (b) analítica sin cookies (Plausible, Umami, Vercel Analytics), (c) Google Analytics 4.
 
-**Recomendación:** (b). Mide lo necesario sin banner de cookies. Si se recogen datos personales en el formulario, agregar aviso de privacidad enlazado en el footer. **Si eligen (c), el banner deja de ser opcional.**
+**Recomendación:** (b). Mide lo necesario sin banner de cookies. **Si eligen (c), el banner deja de ser opcional.**
+
+**Cambio de contexto (CH-005):** el formulario ya **almacena datos personales** en Postgres (`kc_clients`, `kc_contact_requests`). El aviso de privacidad pasa de recomendable a necesario, y conviene declarar plazo de conservación y vía de supresión.
 
 ---
 
@@ -83,13 +85,13 @@
 
 | Activo | Formato | Uso | Estado |
 | --- | --- | --- | --- |
-| Isotipo (K + circuito + `/`) | SVG | Medallón del header, footer, favicon | ⚪ Pendiente (hoy hay marcador geométrico) |
-| Logotipo con texto | SVG | Footer y metadatos | ⚪ Pendiente |
+| Lockup y monograma | WebP con alfa | Header (lockup) y medallón del footer (monograma) | ✅ Integrado en CH-004 |
+| Isotipo (K + circuito + `/`) | SVG | Header, footer y favicon | 🟡 Pendiente de vectorizar: hoy es mapa de bits |
 | Favicon | SVG + PNG 32/192 | Pestaña y móvil | ⚪ Pendiente |
 | Patrón de fondo del Hero | WebP ≤ 200 KB | `.paper-texture` | ⚪ Pendiente |
 | Imágenes de tarjetas (si aplica) | WebP | `#servicios` | ⚪ Pendiente |
 
-**Mientras no existan:** el header funciona con el marcador `navbar__mark` (una K geométrica en SVG); sustituirlo es un cambio de un solo bloque.
+**Estado:** el logo real está en el sitio desde CH-004. Falta la versión vectorial para nitidez en pantallas de alta densidad; sustituirla es cambiar dos `src` y sus `width` / `height`.
 
 ---
 

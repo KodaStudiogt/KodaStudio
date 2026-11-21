@@ -1,7 +1,7 @@
 # Bitácora de cambios — Koda Studio
 
 > Registro cronológico de lo que se ha hecho en el proyecto. **Se actualiza en cada entrega**, no solo en los hitos.
-> **Última actualización:** 2026-11-20. Backend del formulario implementado; pendiente de configurar secretos y desplegar (CH-005).
+> **Última actualización:** 2026-11-20. Backend implementado y documentación sincronizada (CH-006); pendiente configurar secretos y verificar dominio.
 
 ## Convención
 
@@ -14,7 +14,8 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
-| CH-005 | 2026-11-20 | `feat` | Backend portátil del formulario con Supabase y Resend | Rama de trabajo |
+| CH-006 | 2026-11-20 | `docs` | Sincronización de backlog, plan, decisiones y README con CH-005 | Solo documentación |
+| CH-005 | 2026-11-20 | `feat` | Backend portátil del formulario con Supabase y Resend | `97e0600` |
 | CH-004 | 2026-11-19 | `design` | Logotipo oficial integrado en header y footer | Ver PR |
 | CH-003 | 2026-11-19 | `chore` | Entrega dividida por tipo de rama en ocho PR encadenados | Ver PRs |
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
@@ -23,9 +24,28 @@
 
 ---
 
+## CH-006 · Sincronización documental tras CH-005
+
+**Fecha:** 2026-11-20 · **Autor:** D · **Tipo:** `docs`
+
+**Motivo.** CH-005 añadió el backend y cerró D-02, pero solo se actualizaron bitácora, decisiones y README. El backlog y el plan seguían afirmando que el formulario no enviaba, y el README y D-05 todavía hablaban de un "marcador geométrico" que ya no existe.
+
+**Cambios**
+
+- `docs/backlog.md`: T-34 y T-35 pasan a ✅; se añaden T-50, T-51 y T-52 (esquema, Edge Function y seguridad) como hechas; desaparece el bloque que decía que el envío no estaba conectado; totales ajustados (A queda en ≈ 4,25 j).
+- `docs/plan-de-trabajo.md`: corte de fecha, tabla de estado con el envío real, contradicción #6 marcada como resuelta, mapa de propiedad con `db/` y `supabase/`, riesgos reescritos (secretos y dominio de Resend) y próximos pasos priorizados.
+- `docs/decisiones-pendientes.md`: D-05 pasa a parcial con el logo raster ya integrado; D-04 anota que los datos personales ya se almacenan.
+- `README.md`: fecha, estado, cambios recientes y árbol de estructura con `db/` y `supabase/`.
+
+**Verificación.** Comprobado contra el código y el servicio: `node --check` en los módulos, preflight `OPTIONS` 204 y `POST` inválido con 400 y errores por campo. Los enlaces relativos siguen resolviendo.
+
+**Pendiente que deja.** D-06 y D-08 siguen sin confirmar por A.
+
+---
+
 ## CH-005 · Recepción del formulario con Supabase y Resend
 
-**Fecha:** 2026-11-20 · **Tipo:** `feat`
+**Fecha:** 2026-11-20 · **Autor:** A · **Tipo:** `feat` · **Ref.:** `97e0600` (a3701b9…97e0600)
 
 **Qué se hizo.** Se añadió un esquema relacional portable a PostgreSQL para clientes, servicios, solicitudes y proyectos, junto con funciones transaccionales de alta y conteo por ventana. La capa de RLS queda aislada en una segunda migración Supabase. Se implementó la Edge Function `contact` con validación de servidor, honeypot, CORS por origen permitido, hash de IP para límite de solicitudes y notificación por Resend; los errores de correo se registran sin descartar la solicitud guardada.
 
