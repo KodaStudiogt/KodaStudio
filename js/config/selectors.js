@@ -13,6 +13,7 @@ export const DOM_SELECTORS = Object.freeze({
     mobileMenu: '[data-js="mobile-menu"]',
     navLinks: '[data-js="nav-link"]',
     revealItems: '[data-js="reveal"]',
+    revealChildren: '[data-js="reveal-child"]',
     servicePills: '[data-js="service-pill"]',
     serviceHiddenInput: '[data-js="service-value"]',
     contactForm: '[data-js="contact-form"]',
@@ -39,7 +40,8 @@ export const STATE_CLASSES = Object.freeze({
     selected: "is-selected",
     hidden: "is-hidden",
     error: "has-error",
-    pending: "is-pending"
+    pending: "is-pending",
+    scrolled: "is-scrolled"
 });
 
 export const VALID_SERVICES = Object.freeze([

@@ -7,12 +7,13 @@ const kc_services = [
   "Soporte Técnico / Ecosistema Integral",
 ];
 // Orígenes de desarrollo local (python -m http.server, Live Server, npx serve).
-// Producción se agrega con el secreto ALLOWED_ORIGINS.
+// Producción: kc_prodOrigins; dominios extra con el secreto ALLOWED_ORIGINS.
 const kc_devOrigins = [
   "http://localhost:8000", "http://127.0.0.1:8000",
   "http://localhost:5500", "http://127.0.0.1:5500",
   "http://localhost:3000", "http://127.0.0.1:3000",
 ];
+const kc_prodOrigins = ["https://kodastudio-web.vercel.app"];
 const kc_jsonHeaders = { "Content-Type": "application/json; charset=utf-8", "Vary": "Origin" };
 const kc_reply = (status: number, data: Record<string, unknown>, origin = "", allowed = false) => {
   const headers = new Headers(kc_jsonHeaders);
@@ -28,6 +29,7 @@ Deno.serve(async (request) => {
   const kc_origin = request.headers.get("origin") ?? "";
   const kc_allowedOrigins = [
     ...kc_devOrigins,
+    ...kc_prodOrigins,
     ...(Deno.env.get("ALLOWED_ORIGINS") ?? "").split(",").map((kc_item) => kc_item.trim()).filter(Boolean),
   ];
   const kc_isAllowed = Boolean(kc_origin && kc_allowedOrigins.includes(kc_origin));

@@ -1,7 +1,7 @@
 # Bitácora de cambios — Koda Studio
 
 > Registro cronológico de lo que se ha hecho en el proyecto. **Se actualiza en cada entrega**, no solo en los hitos.
-> **Última actualización:** 2026-11-20. Backend implementado, documentación sincronizada (CH-006) y registro de decisiones de D (CH-007); pendiente configurar secretos y verificar dominio.
+> **Última actualización:** 2026-11-20. Formulario habilitado en producción y animaciones integradas (CH-008); pendiente publicar en `main` y verificar dominio remitente.
 
 ## Convención
 
@@ -14,6 +14,7 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
+| CH-008 | 2026-11-20 | `fix` + `style` | Formulario habilitado desde el sitio publicado y animaciones profesionales | `b656e27`, `cb76839` |
 | CH-007 | 2026-11-20 | `docs` | Registro de decisiones de D en `docs/decisiones-de-d.md` | Solo documentación |
 | CH-006 | 2026-11-20 | `docs` | Sincronización de backlog, plan, decisiones y README con CH-005 | Solo documentación |
 | CH-005 | 2026-11-20 | `feat` | Backend portátil del formulario con Supabase y Resend | `97e0600` |
@@ -22,6 +23,24 @@
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
 | CH-001 | 2026-11-19 | `refactor` | Alineación con la especificación editorial y el estándar anti-conflictos | `c0bd569` |
 | CH-000 | 2026-11-19 | `feat` | Andamio inicial: estructura de carpetas y módulos vacíos | `f114d9c` |
+
+---
+
+## CH-008 · Formulario en producción y animaciones
+
+**Fecha:** 2026-11-20 · **Autor:** Antony Perez · **Tipo:** `fix` + `style`
+
+**Motivo.** El formulario solo funcionaba en local: la Edge Function `contact` aceptaba únicamente orígenes `localhost`, así que desde `https://kodastudio-web.vercel.app` el navegador bloqueaba el envío (CORS/403). Además, la landing solo tenía el reveal básico por sección.
+
+**Cambios**
+
+- `supabase/functions/contact/index.ts`: nuevo `kc_prodOrigins` con `https://kodastudio-web.vercel.app`, sumado a los orígenes de desarrollo y al secreto `ALLOWED_ORIGINS`. Función redesplegada (versión 4).
+- Animaciones: entrada en cascada del Hero, reveal escalonado con `data-js="reveal-child"`, hover de botones y tarjetas, "pop" de píldoras, navbar `.is-scrolled`, spinner de envío, entrada del mensaje de confirmación y vibración de campos con error. Nuevos `DOM_SELECTORS.revealChildren` y `STATE_CLASSES.scrolled`. `js/main.js` sin cambios.
+- README: estado, orígenes permitidos, secretos y sección de animaciones.
+
+**Verificación.** Preflight `OPTIONS` con `Origin: https://kodastudio-web.vercel.app` → 204 con `Access-Control-Allow-Origin`; un origen ajeno no recibe esa cabecera. `node --check` en los módulos de `js/`.
+
+**Pendiente.** Fusionar `develop` → `main` para que Vercel publique los cambios; enviar una solicitud real desde el sitio y confirmar fila en `kc_contact_requests` y correo; QA visual de las animaciones en navegador.
 
 ---
 

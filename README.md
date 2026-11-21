@@ -4,7 +4,8 @@ Landing page del estudio: **HTML5 + CSS3 + JavaScript (ES Modules)**, sin framew
 
 Repositorio: <https://github.com/KodaStudiogt/KodaStudio>
 
-> **Estado:** base alineada, logo integrado y formulario enviando a Supabase + Resend. Pendiente: secretos de producción, dominio y QA.
+> **Estado:** formulario funcionando en producción (`https://kodastudio-web.vercel.app`) con Supabase + Resend, y animaciones de entrada y micro-interacciones integradas. Pendiente: publicar `develop` en `main`, dominio remitente propio y QA.
+> **Sitio:** <https://kodastudio-web.vercel.app> (Vercel).
 > **Última actualización:** 2026-11-20 · detalle en [`docs/changelog.md`](docs/changelog.md).
 
 ---
@@ -27,8 +28,9 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/ma
 | Estructura semántica completa con las seis anclas | SVGs del logo y favicon (D-05) |
 | Design tokens obligatorios y tipografía editorial | Composición fina del header y textura del Hero |
 | Navegación móvil accesible, reveal, selector múltiple y validación | Contraste de la sección de contacto |
-| Logo integrado en header y footer | Secretos `CONTACT_TO_EMAIL` / `ALLOWED_ORIGINS` y dominio remitente verificado |
-| Formulario con envío real: esquema, Edge Function y Resend | Aviso de privacidad y QA final |
+| Logo integrado en header y footer | Dominio remitente verificado en Resend (`CONTACT_FROM_EMAIL`) |
+| Formulario con envío real desde el sitio publicado (CORS de producción) | Aviso de privacidad y QA final |
+| Animaciones: entrada del Hero, reveal escalonado, hover, navbar al hacer scroll y estados del formulario | Fusionar `develop` → `main` para que Vercel publique los cambios |
 
 **Nada de éxito falso:** la confirmación requiere respuesta satisfactoria del endpoint.
 
@@ -38,6 +40,7 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/ma
 
 | Fecha | Qué |
 | --- | --- |
+| 2026-11-20 | Formulario habilitado en producción y animaciones profesionales (CH-008) |
 | 2026-11-20 | Backend del formulario con Supabase Postgres, Edge Function y Resend (CH-005) |
 | 2026-11-20 | Documentación sincronizada con CH-005 (CH-006) |
 | 2026-11-19 | Logotipo oficial integrado en header y footer (CH-004) |
@@ -55,12 +58,13 @@ Historial completo en [`docs/changelog.md`](docs/changelog.md).
 
 El backend combina Supabase Postgres, la Edge Function pública `contact` y Resend. El esquema portable está en `supabase/migrations/20261120000000_core_schema.sql`; la migración siguiente solo configura seguridad Supabase. La guía de tablas y migración está en [`db/README.md`](db/README.md).
 
-**En producción (desplegado el 2026-11-20):**
+**En producción (función `contact` v4, desplegada el 2026-11-20):**
 
 | Dato | Valor |
 | --- | --- |
 | Proyecto Supabase | `kodastudio` (ref `mifxnsennwhufeegkckt`, región `us-east-1`) |
 | Endpoint | `https://mifxnsennwhufeegkckt.supabase.co/functions/v1/contact` (ya configurado en `CONTACT_ENDPOINT`) |
+| Orígenes permitidos | `https://kodastudio-web.vercel.app` (fijo en `kc_prodOrigins` dentro de la función) + localhost de desarrollo + secreto `ALLOWED_ORIGINS` |
 | Ver solicitudes | Supabase › Table Editor › `kc_contact_requests` (columna `email_sent_at` / `email_error` indica si salió el correo) |
 
 Secretos de la función (Supabase › Edge Functions › Secrets). **El correo destino solo vive aquí, nunca en el repositorio.**
@@ -70,7 +74,7 @@ Secretos de la función (Supabase › Edge Functions › Secrets). **El correo d
 | `RESEND_API_KEY` | Sí | Clave de la API de Resend |
 | `CONTACT_TO_EMAIL` | Sí | Buzón de la empresa que recibe cada solicitud |
 | `IP_HASH_SALT` | Recomendado | Texto aleatorio para anonimizar la IP del límite de solicitudes |
-| `ALLOWED_ORIGINS` | Al publicar | Dominio(s) del sitio, separados por comas (ej. `https://kodastudio.com`). `localhost`/`127.0.0.1` en los puertos 8000, 5500 y 3000 ya están permitidos |
+| `ALLOWED_ORIGINS` | No | Dominios **adicionales**, separados por comas (ej. un dominio propio futuro). `https://kodastudio-web.vercel.app` y `localhost`/`127.0.0.1` en los puertos 8000, 5500 y 3000 ya están permitidos en el código |
 | `CONTACT_FROM_EMAIL` | No | Remitente. Sin él se usa `onboarding@resend.dev`, que **solo entrega al correo dueño de la cuenta Resend**; para otro destino, verifica un dominio en Resend |
 | `RATE_LIMIT_MAX` | No | Solicitudes por conexión cada 10 min (5 por defecto) |
 
@@ -117,6 +121,24 @@ python -m http.server 8000
 Luego abre <http://localhost:8000>. También sirve `npx serve .` o la extensión *Live Server* de VS Code.
 
 **Comprobación rápida:** consola sin errores, año del footer correcto, menú móvil que abre y cierra, píldoras que se marcan, y formulario que señala errores de nombre, correo y mensaje.
+
+---
+
+## Animaciones y micro-interacciones
+
+Sutiles y sin librerías: solo `opacity`/`transform`, curva `cubic-bezier(.22, 1, .36, 1)` y 200–700 ms. Todas se desactivan con `prefers-reduced-motion: reduce` y el contenido se ve aunque falle JavaScript (mejora progresiva).
+
+| Qué | Dónde |
+| --- | --- |
+| Entrada en cascada del Hero al cargar | `css/utilities/animations.css`, `js/modules/reveal.js` |
+| Reveal escalonado de hijos con `data-js="reveal-child"` (`--kc-reveal-delay`, 90 ms entre elementos) | `js/modules/reveal.js`, `index.html` |
+| Hover de botones (elevación) y `:active` | `css/components/buttons.css` |
+| Hover de tarjetas | `css/components/cards.css` |
+| "Pop" de píldoras al seleccionar | `css/components/service-selector.css` |
+| Navbar con sombra al hacer scroll (`.is-scrolled`) | `js/modules/navigation.js`, `css/layout/header.css` |
+| Spinner de envío, entrada del mensaje y vibración de campos con error | `css/components/forms.css` |
+
+Para animar un bloque nuevo dentro de una sección con `data-js="reveal"`, agrega `data-js="reveal-child"`.
 
 ---
 
