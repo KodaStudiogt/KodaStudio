@@ -20,10 +20,17 @@
     font-size: 0.825rem;
     font-weight: 500;
     transition:
-        background-color var(--transition-base),
-        border-color var(--transition-base),
-        color var(--transition-base);
+        background-color 250ms cubic-bezier(.22, 1, .36, 1),
+        border-color 250ms cubic-bezier(.22, 1, .36, 1),
+        color 250ms cubic-bezier(.22, 1, .36, 1),
+        transform 250ms cubic-bezier(.22, 1, .36, 1);
 }
+
+@keyframes kc-pill-pop {
+    50% { transform: scale(1.04); }
+}
+
+.service-pill.is-selected { animation: kc-pill-pop 250ms cubic-bezier(.22, 1, .36, 1); }
 
 .service-pill:hover {
     border-color: var(--color-bronze);
