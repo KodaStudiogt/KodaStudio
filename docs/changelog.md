@@ -36,6 +36,7 @@
 - `docs/plan-de-trabajo.md`: corte de fecha, tabla de estado con el envío real, contradicción #6 marcada como resuelta, mapa de propiedad con `db/` y `supabase/`, riesgos reescritos (secretos y dominio de Resend) y próximos pasos priorizados.
 - `docs/decisiones-pendientes.md`: D-05 pasa a parcial con el logo raster ya integrado; D-04 anota que los datos personales ya se almacenan.
 - `README.md`: fecha, estado, cambios recientes y árbol de estructura con `db/` y `supabase/`.
+- Enlaces del repositorio actualizados al propietario actual (`KodaStudiogt/KodaStudio`) en README, plan y backlog: las URLs antiguas redirigían, pero no conviene depender de ello.
 
 **Verificación.** Comprobado contra el código y el servicio: `node --check` en los módulos, preflight `OPTIONS` 204 y `POST` inválido con 400 y errores por campo. Los enlaces relativos siguen resolviendo.
 

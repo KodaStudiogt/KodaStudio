@@ -14,7 +14,7 @@
 | Producto | Landing page one-page de Koda Studio |
 | Stack | HTML5 + CSS3 + JavaScript ES Modules. Sin framework, sin build |
 | Equipo | **D** (Diego): base técnica y acabado editorial · **A**: servicios, contacto y formulario |
-| Repositorio | <https://github.com/mxrtinez10/KodaStudio> (`main` + `develop`) |
+| Repositorio | <https://github.com/KodaStudiogt/KodaStudio> (`main` + `develop`) |
 | Esfuerzo restante | ≈ 6,25 jornadas (D) y ≈ 4,25 (A) |
 | Ruta crítica | Decisiones abiertas → acabado visual → secretos y dominio → QA → deploy |
 

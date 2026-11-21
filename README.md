@@ -2,7 +2,7 @@
 
 Landing page del estudio: **HTML5 + CSS3 + JavaScript (ES Modules)**, sin framework ni build obligatorio.
 
-Repositorio: <https://github.com/mxrtinez10/KodaStudio>
+Repositorio: <https://github.com/KodaStudiogt/KodaStudio>
 
 > **Estado:** base alineada, logo integrado y formulario enviando a Supabase + Resend. Pendiente: secretos de producción, dominio y QA.
 > **Última actualización:** 2026-11-20 · detalle en [`docs/changelog.md`](docs/changelog.md).
