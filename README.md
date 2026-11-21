@@ -197,6 +197,7 @@ Ramas permanentes: `main` (producción) y `develop` (integración). Una rama = u
 - [Plan de trabajo](docs/plan-de-trabajo.md) — sprints, propiedad de archivos, riesgos y DoD.
 - [Backlog](docs/backlog.md) — tareas con dueño, estado y criterio de aceptación.
 - [Decisiones pendientes](docs/decisiones-pendientes.md) — lo que hay que acordar antes de publicar.
+- [Decisiones de D](docs/decisiones-de-d.md) — registro de lo que decidí yo, con su motivo y su efecto.
 - [Especificación de diseño](docs/especificacion.md) — dirección de arte, copywriting, interacciones.
 - [Estándar anti-conflictos](docs/estandar.md) — variables, `data-js-*`, contrato del formulario.
 - [Arquitectura](docs/arquitectura.md) — estructura de carpetas y flujo técnico.

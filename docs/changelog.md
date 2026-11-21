@@ -1,7 +1,7 @@
 # Bitácora de cambios — Koda Studio
 
 > Registro cronológico de lo que se ha hecho en el proyecto. **Se actualiza en cada entrega**, no solo en los hitos.
-> **Última actualización:** 2026-11-20. Backend implementado y documentación sincronizada (CH-006); pendiente configurar secretos y verificar dominio.
+> **Última actualización:** 2026-11-20. Backend implementado, documentación sincronizada (CH-006) y registro de decisiones de D (CH-007); pendiente configurar secretos y verificar dominio.
 
 ## Convención
 
@@ -14,6 +14,7 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
+| CH-007 | 2026-11-20 | `docs` | Registro de decisiones de D en `docs/decisiones-de-d.md` | Solo documentación |
 | CH-006 | 2026-11-20 | `docs` | Sincronización de backlog, plan, decisiones y README con CH-005 | Solo documentación |
 | CH-005 | 2026-11-20 | `feat` | Backend portátil del formulario con Supabase y Resend | `97e0600` |
 | CH-004 | 2026-11-19 | `design` | Logotipo oficial integrado en header y footer | Ver PR |
@@ -21,6 +22,20 @@
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
 | CH-001 | 2026-11-19 | `refactor` | Alineación con la especificación editorial y el estándar anti-conflictos | `c0bd569` |
 | CH-000 | 2026-11-19 | `feat` | Andamio inicial: estructura de carpetas y módulos vacíos | `f114d9c` |
+
+---
+
+## CH-007 · Registro de decisiones de D
+
+**Fecha:** 2026-11-20 · **Autor:** D · **Tipo:** `docs`
+
+**Motivo.** Las decisiones estaban repartidas entre bitácora, plan y tablero del equipo, sin un lugar que respondiera "de quién fue cada una y por qué". A no tenía forma de verlo sin reconstruirlo desde el historial de commits.
+
+**Qué se añadió.** `docs/decisiones-de-d.md` con diecisiete decisiones (`DD-01` a `DD-17`), cada una con motivo, efecto y estado; tabla de cambios de código asociados; pendientes propios y límites autoimpuestos. Se enlaza desde el README.
+
+**Verificación.** Enlaces relativos resueltos, identificadores consecutivos sin huecos y cada decisión con su efecto declarado.
+
+**Pendiente.** DD-04 y DD-05 esperan confirmación de A, en forma de D-08 y D-06.
 
 ---
 
