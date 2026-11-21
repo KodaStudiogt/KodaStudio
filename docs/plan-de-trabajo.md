@@ -3,7 +3,7 @@
 > Documento maestro de organización: **qué se construye, en qué orden, quién hace qué y cuándo se considera terminado**.
 > Compañeros: [`backlog.md`](./backlog.md) (tareas y estado), [`decisiones-pendientes.md`](./decisiones-pendientes.md) (acuerdos abiertos) y [`changelog.md`](./changelog.md) (qué se hizo).
 >
-> **Última actualización:** 2026-11-19 · **Corte:** entrega dividida por tipo de rama (CH-003). Ver [`changelog.md`](./changelog.md).
+> **Última actualización:** 2026-11-20 · **Corte:** CH-005 (backend del formulario) + sincronización documental (CH-006). Ver [`changelog.md`](./changelog.md).
 
 ---
 
@@ -14,9 +14,9 @@
 | Producto | Landing page one-page de Koda Studio |
 | Stack | HTML5 + CSS3 + JavaScript ES Modules. Sin framework, sin build |
 | Equipo | **D** (Diego): base técnica y acabado editorial · **A**: servicios, contacto y formulario |
-| Repositorio | <https://github.com/mxrtinez10/KodaStudio> (`main` + `develop`) |
-| Esfuerzo restante | ≈ 6 jornadas por persona (de ~12 totales) |
-| Ruta crítica | Decisiones abiertas → acabado visual → endpoint del formulario → QA → deploy |
+| Repositorio | <https://github.com/KodaStudiogt/KodaStudio> (`main` + `develop`) |
+| Esfuerzo restante | ≈ 6,25 jornadas (D) y ≈ 4,25 (A) |
+| Ruta crítica | Decisiones abiertas → acabado visual → secretos y dominio → QA → deploy |
 
 **Foco de la organización:** el riesgo real no es técnico, es de coordinación. Dos personas editando `index.html`, `css/main.css` y `js/main.js` a la vez es lo que rompe este tipo de proyecto. Por eso esos archivos están congelados desde el inicio y el resto está repartido por capas.
 
@@ -24,7 +24,7 @@
 
 ## 2. Estado actual (punto de partida)
 
-La base está alineada con la especificación y con el estándar de nombres. Lo que sigue es **acabado visual y conexión real del formulario**, no reconstrucción.
+La base está alineada y el formulario ya envía de verdad. Lo que queda es **acabado visual, configuración del despliegue y QA**.
 
 | Capa | Estado | Detalle |
 | --- | --- | --- |
@@ -36,17 +36,16 @@ La base está alineada con la especificación y con el estándar de nombres. Lo 
 | Validación del formulario | ✅ Funcionando | Por campo, con `.has-error` y `aria-invalid` |
 | Composición fina (header, Hero, medallón, textura) | ⏳ Pendiente D | Base estructural hecha, falta el acabado de la spec |
 | Contraste de `#contacto` y del formulario | ⏳ Pendiente A | Auditoría AA pendiente |
-| Envío real del formulario | ⛔ Bloqueado por D-02 | Hoy valida y avisa que no se ha enviado |
-| Assets gráficos y favicon | ⛔ Bloqueado por D-05 | Marcador geométrico en su lugar |
+| Envío real del formulario | ✅ Funcionando | Edge Function + Postgres + Resend; falta configurar secretos y dominio |
+| Logo | 🟡 Integrado en raster | Header con el lockup y footer con el monograma; falta el SVG (D-05) |
+| Assets pendientes | ⛔ Bloqueado por D-05 | Favicon y patrón de fondo del Hero |
 
-### 2.1 Qué cambió en la última entrega (CH-001)
+### 2.1 Qué cambió en las últimas entregas (CH-004 y CH-005)
 
-- Marca unificada a **Koda Studio** en código y documentación.
-- `index.html` reescrito: seis secciones, copy completo, contrato `data-js-*` y formulario con los `name`/`id` del estándar.
-- Tokens obligatorios, tipografía editorial y layout base de todas las secciones.
-- Módulos JS reescritos sobre `DOM_SELECTORS`, sin selectores por clase visual.
-- Reveal con `.is-pending`: el contenido ya no depende de JS para verse.
-- `.gitignore` web y `.gitattributes` con LF.
+- **Logo oficial** (CH-004): lockup en el header y monograma en el medallón del footer, derivados del JPEG con matte alfa limpio.
+- **Backend del formulario** (CH-005): esquema PostgreSQL de seis tablas con prefijo `kc_`, RLS sin políticas públicas y Edge Function `contact`.
+- **Envío real**: `fetch` con timeout, estado ocupado accesible, errores por campo desde el servidor, 429 y confirmación solo con respuesta exitosa.
+- **Decisión D-02 cerrada**: Supabase Postgres + Edge Function + Resend, sin PHP.
 
 Detalle, verificación y desviaciones en [`changelog.md`](./changelog.md).
 
@@ -69,7 +68,7 @@ Si el de arriba contradice al de abajo, gana el de arriba. Toda resolución se a
 | 3 | La arquitectura anima `.reveal` por clase; el estándar prohíbe que JS seleccione por clase visual | El elemento lleva `class="reveal" data-js="reveal"`; CSS estiliza, JS observa por `data-js` |
 | 4 | La arquitectura usa `[data-current-year]`; el estándar exige `data-js="current-year"` | Manda el **estándar** |
 | 5 | El estándar exige nombres largos de servicio; la spec muestra píldoras cortas | Valor canónico en `data-service-value`, etiqueta corta visible (D-06) |
-| 6 | El estándar asume PHP; la arquitectura advierte que no hay backend definido | Decisión abierta **D-02** |
+| 6 | El estándar asume PHP; la arquitectura advertía que no había backend | **D-02 aceptada:** Supabase Postgres + Edge Function + Resend, sin PHP |
 | 7 | El andamio anterior ocultaba el contenido hasta que JS cargara | Se usa `.is-pending` (D-08): sin JS, todo se ve |
 
 ---
@@ -93,26 +92,15 @@ Nadie edita archivos de otro sin avisar en el PR.
 | `js/modules/navigation.js`, `reveal.js`, `footer.js` | D | |
 | `js/modules/service-selector.js`, `contact-form.js` | A | |
 | `js/utils/validation.js` | A | |
-| `procesar_contacto.php` / `config.php` | A | Solo si D-02 elige PHP |
+| `db/`, `supabase/migrations/` | A | Esquema portable y seguridad de datos |
+| `supabase/functions/contact/` | A | Edge Function del formulario |
+| `supabase/functions/.env*`, `supabase/.temp` | A | Nunca se versionan los secretos |
 
 ---
 
 ## 5. Calendario por sprints
 
-**Ramas en curso**, en orden de fusión:
-
-| Tipo | Rama | Contenido |
-| --- | --- | --- |
-| `feature/` | `feature/base-structure` | Estructura y contrato |
-| `design/` | `design/design-system` | Tokens y tipografía |
-| `feature/` | `feature/navbar` | Header y menú móvil |
-| `design/` | `design/homepage` | Hero y layout de secciones |
-| `feature/` | `feature/contact-form` | Tarjetas, formulario y validación |
-| `design/` | `design/responsive` | Breakpoints |
-| `feature/` | `feature/footer` | Pie de página |
-| `docs/` | `docs/work-plan` | Documentación |
-
-`fix/` y `hotfix/` quedan reservados para correcciones reales.
+**Estado de ramas:** las ocho ramas de la entrega por tipo están fusionadas en `develop` (PR #10–#17) y el logo entró por `design/logo` (PR #20). El backend de CH-005 se subió directo a `develop`, sin rama. `fix/` y `hotfix/` siguen reservados para correcciones reales.
 
 Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El plan no se rompe si un día no trabajan.
 
@@ -121,9 +109,9 @@ Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El
 | **S0** | Contrato y arranque | 🟢 Cerrado salvo decisiones | 0,5 | 0,5 |
 | **S1** | Identidad visual y acabado del header/Hero | 🟡 Base hecha, falta acabado | 2,25 | — |
 | **S2** | Acabado de esencia y contacto | 🟡 Base hecha, falta pulido | 0,5 | 1,0 |
-| **S3** | Envío real del formulario | 🔴 Bloqueado por D-02 | 0,25 | 1,75 |
+| **S3** | Envío real del formulario | 🟢 Cerrado, falta desplegar | 0,25 | — |
 | **S4** | QA y publicación | ⚪ No iniciado | 2,75 | 2,75 |
-| | **Total restante** | | **≈ 6,25** | **≈ 6,0** |
+| | **Total restante** | | **≈ 6,25** | **≈ 4,25** |
 
 **Traducción a calendario:** a tiempo completo (8 h/día) son ~1,5 semanas; a medio tiempo (4 h/día), ~3 semanas.
 
@@ -161,8 +149,9 @@ Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El
 
 | Riesgo | Prob. | Impacto | Mitigación |
 | --- | --- | --- | --- |
-| Nadie decide el endpoint del formulario | Media | **Crítico** | Límite: antes de empezar S3. Hoy el formulario avisa que no se ha enviado |
-| El logo SVG no llega | Media | Alto | Marcador geométrico ya implementado; se sustituye en T-12 |
+| Se publica sin `CONTACT_TO_EMAIL` y el correo no sale | Media | **Crítico** | La solicitud igual queda en `kc_contact_requests`; revisar `email_sent_at` / `email_error` antes de publicar |
+| Dominio remitente sin verificar en Resend | Media | Alto | Con `onboarding@resend.dev` solo llega al buzón dueño de la cuenta; verificar dominio (T-44) |
+| El logo SVG no llega | Media | Bajo | Ya hay raster integrado; el SVG mejora nitidez, no bloquea |
 | Conflictos de merge en `index.html` | Media | Medio | Bloques delimitados por comentarios; PR pequeños |
 | Se publica con el correo de ejemplo | Media | Alto | T-44 verifica el buzón real antes del deploy (D-03) |
 | Deriva de alcance (React, CMS, blog) | Media | Alto | Fuera de alcance declarado (§10) |
@@ -172,17 +161,17 @@ Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El
 
 ## 9. Próximos pasos
 
-### Como D (prioridad de esta semana)
+### Como D
 
-1. **Revisar y fusionar** la rama `chore/alinear-identidad-editorial` en `develop` (ya está publicada).
-2. **T-11 y T-14:** acabado del header simétrico y del Hero (espaciado editorial, textura de papel).
-3. **T-12:** integrar el isotipo SVG definitivo cuando esté; mientras tanto se mantiene el marcador.
-4. **Aportar a T-03:** proponer cierre de D-01, D-02 y D-03 (es lo que desbloquea S3).
+1. **T-11 y T-14:** acabado del header simétrico y del Hero (espaciado editorial, textura de papel).
+2. **T-10:** aplicar la escala tipográfica (D-07).
+3. **T-32:** revisar el botón sobre fondo plum.
+4. **T-12:** sustituir el raster por el SVG cuando exista (D-05).
 
 ### En conjunto
 
-1. Confirmar **D-06** y **D-08** (ya implementadas, pendientes de visto bueno).
-2. **A:** contraste de `#contacto` (T-23/T-24) y suscripción del endpoint (T-34/T-35).
+1. Cerrar **D-06** y **D-08** (implementadas desde CH-001).
+2. **A:** contraste de `#contacto` (T-23/T-24), aviso de privacidad (T-45) y secretos del despliegue.
 3. QA en T-40/T-41 y deploy en T-44.
 
 ```sh
