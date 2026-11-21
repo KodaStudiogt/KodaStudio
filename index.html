@@ -273,7 +273,7 @@
                             <label class="contact-form__label" for="client-name">Nombre completo</label>
                             <input class="contact-form__input" type="text"
                                    id="client-name" name="client_name"
-                                   autocomplete="name" required minlength="2"
+                                   autocomplete="name" required minlength="2" maxlength="120"
                                    aria-describedby="client-name-error">
                             <p class="contact-form__error" id="client-name-error"></p>
                         </div>
@@ -282,7 +282,7 @@
                             <label class="contact-form__label" for="client-email">Correo corporativo</label>
                             <input class="contact-form__input" type="email"
                                    id="client-email" name="client_email"
-                                   autocomplete="email" required
+                                   autocomplete="email" required maxlength="254"
                                    aria-describedby="client-email-error">
                             <p class="contact-form__error" id="client-email-error"></p>
                         </div>
@@ -310,7 +310,7 @@
                             <label class="contact-form__label" for="project-message">Descripción del proyecto</label>
                             <textarea class="contact-form__input contact-form__textarea"
                                       id="project-message" name="project_message"
-                                      rows="5" required minlength="10"
+                                      rows="5" required minlength="10" maxlength="5000"
                                       aria-describedby="project-message-error"></textarea>
                             <p class="contact-form__error" id="project-message-error"></p>
                         </div>
@@ -323,7 +323,7 @@
 
                         <input type="hidden" name="selected_services" id="selected-services" data-js="service-value">
 
-                        <button class="button button--primary contact-form__submit" type="submit">
+                        <button class="button button--primary contact-form__submit" type="submit" data-js="form-submit">
                             Solicitar Llamada de Descubrimiento
                         </button>
                     </form>

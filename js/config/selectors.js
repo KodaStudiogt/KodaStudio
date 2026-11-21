@@ -19,8 +19,13 @@ export const DOM_SELECTORS = Object.freeze({
     formFeedback: '[data-js="form-feedback"]',
     feedbackText: '[data-js="feedback-text"]',
     formResetBtn: '[data-js="form-reset"]',
+    formSubmit: '[data-js="form-submit"]',
     currentYear: '[data-js="current-year"]'
 });
+
+/** Edge Function de Supabase (proyecto kodastudio). Local: http://127.0.0.1:54321/functions/v1/contact */
+export const CONTACT_ENDPOINT = "https://mifxnsennwhufeegkckt.supabase.co/functions/v1/contact";
+export const CONTACT_TIMEOUT_MS = 12000;
 
 /**
  * Clases de estado controladas por JS (estándar §3.3).
@@ -63,7 +68,7 @@ export const REVEAL_THRESHOLD = 0.12;
  * estándar §5: deben coincidir con el HTML y con el backend.
  */
 export const FORM_FIELDS = Object.freeze([
-    { name: "client_name", label: "nombre completo", type: "text", required: true, minLength: 2 },
-    { name: "client_email", label: "correo corporativo", type: "email", required: true, minLength: 0 },
-    { name: "project_message", label: "descripción del proyecto", type: "text", required: true, minLength: 10 }
+    { name: "client_name", label: "nombre completo", type: "text", required: true, minLength: 2, maxLength: 120 },
+    { name: "client_email", label: "correo corporativo", type: "email", required: true, minLength: 0, maxLength: 254 },
+    { name: "project_message", label: "descripción del proyecto", type: "text", required: true, minLength: 10, maxLength: 5000 }
 ]);
