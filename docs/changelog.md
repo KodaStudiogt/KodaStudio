@@ -1,7 +1,7 @@
 # Bitácora de cambios — Koda Studio
 
 > Registro cronológico de lo que se ha hecho en el proyecto. **Se actualiza en cada entrega**, no solo en los hitos.
-> **Última actualización:** 2026-11-19. Estado: `main` y `develop` sincronizados, las ocho ramas publicadas y el logotipo oficial integrado (CH-004).
+> **Última actualización:** 2026-11-20. Backend del formulario implementado; pendiente de configurar secretos y desplegar (CH-005).
 
 ## Convención
 
@@ -14,11 +14,26 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
+| CH-005 | 2026-11-20 | `feat` | Backend portátil del formulario con Supabase y Resend | Rama de trabajo |
 | CH-004 | 2026-11-19 | `design` | Logotipo oficial integrado en header y footer | Ver PR |
 | CH-003 | 2026-11-19 | `chore` | Entrega dividida por tipo de rama en ocho PR encadenados | Ver PRs |
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
 | CH-001 | 2026-11-19 | `refactor` | Alineación con la especificación editorial y el estándar anti-conflictos | `c0bd569` |
 | CH-000 | 2026-11-19 | `feat` | Andamio inicial: estructura de carpetas y módulos vacíos | `f114d9c` |
+
+---
+
+## CH-005 · Recepción del formulario con Supabase y Resend
+
+**Fecha:** 2026-11-20 · **Tipo:** `feat`
+
+**Qué se hizo.** Se añadió un esquema relacional portable a PostgreSQL para clientes, servicios, solicitudes y proyectos, junto con funciones transaccionales de alta y conteo por ventana. La capa de RLS queda aislada en una segunda migración Supabase. Se implementó la Edge Function `contact` con validación de servidor, honeypot, CORS por origen permitido, hash de IP para límite de solicitudes y notificación por Resend; los errores de correo se registran sin descartar la solicitud guardada.
+
+El formulario ahora envía al endpoint configurable con timeout, estados accesibles, errores por campo y reinicio de selección. D-02 queda aceptada. El destinatario se proporciona como secreto `CONTACT_TO_EMAIL`; el ejemplo usa datos ficticios.
+
+**Despliegue:** proyecto Supabase `kodastudio` (`mifxnsennwhufeegkckt`) creado; migraciones aplicadas (más un ajuste de `search_path` en `kc_set_updated_at` y `kc_count_recent_requests` por aviso del linter de seguridad); función `contact` publicada sin JWT y `CONTACT_ENDPOINT` apuntando a ella. Orígenes locales (8000, 5500, 3000) permitidos por defecto; remitente de pruebas `onboarding@resend.dev` si no hay `CONTACT_FROM_EMAIL`.
+
+**Verificación:** `node --check` pasó para los módulos JavaScript modificados. Contra la función desplegada: preflight CORS 204, solicitud válida `{ok:true}` con filas en `kc_clients`, `kc_contact_requests` y `kc_contact_request_services`; solicitud inválida 400 con errores por campo. `RESEND_API_KEY` configurado. **Pendiente:** secreto `CONTACT_TO_EMAIL` para que salga el correo, `ALLOWED_ORIGINS` con el dominio final y verificar dominio remitente en Resend.
 
 ---
 

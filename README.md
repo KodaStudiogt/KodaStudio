@@ -27,10 +27,10 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/ma
 | Estructura semántica completa con las seis anclas | Isotipo SVG definitivo (hoy hay un marcador geométrico) |
 | Design tokens obligatorios y tipografía editorial | Composición fina del header y textura del Hero |
 | Navegación móvil accesible, reveal, selector múltiple y validación | Contraste de la sección de contacto |
-| Contrato `data-js-*` y `name`/`id` del formulario | Endpoint de recepción (D-02) |
+| Contrato del formulario, esquema y Edge Function implementados | Configurar secretos, verificar dominio remitente y desplegar endpoint |
 | Plan, backlog, decisiones y bitácora en `docs/` | Assets gráficos, favicon y aviso de privacidad |
 
-**Nada de éxito falso:** el formulario valida y lo dice con claridad; la confirmación solo se mostrará cuando exista un destino real.
+**Nada de éxito falso:** la confirmación requiere respuesta satisfactoria del endpoint.
 
 ---
 
@@ -38,6 +38,7 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/ma
 
 | Fecha | Qué |
 | --- | --- |
+| 2026-11-20 | Backend del formulario con Supabase Postgres, Edge Function y Resend (CH-005) |
 | 2026-11-19 | Documentación consolidada: bitácora, plan, backlog y decisiones al día (CH-002) |
 | 2026-11-19 | Alineación con la especificación editorial y el contrato de nombres (CH-001, `c0bd569`) |
 | 2026-11-19 | Andamio inicial: estructura de carpetas (CH-000, `f114d9c`) |
@@ -47,6 +48,63 @@ Historial completo en [`docs/changelog.md`](docs/changelog.md).
 ---
 
 ## Desarrollo local
+
+### Backend del formulario
+
+El backend combina Supabase Postgres, la Edge Function pública `contact` y Resend. El esquema portable está en `supabase/migrations/20261120000000_core_schema.sql`; la migración siguiente solo configura seguridad Supabase. La guía de tablas y migración está en [`db/README.md`](db/README.md).
+
+**En producción (desplegado el 2026-11-20):**
+
+| Dato | Valor |
+| --- | --- |
+| Proyecto Supabase | `kodastudio` (ref `mifxnsennwhufeegkckt`, región `us-east-1`) |
+| Endpoint | `https://mifxnsennwhufeegkckt.supabase.co/functions/v1/contact` (ya configurado en `CONTACT_ENDPOINT`) |
+| Ver solicitudes | Supabase › Table Editor › `kc_contact_requests` (columna `email_sent_at` / `email_error` indica si salió el correo) |
+
+Secretos de la función (Supabase › Edge Functions › Secrets). **El correo destino solo vive aquí, nunca en el repositorio.**
+
+| Secreto | Obligatorio | Uso |
+| --- | --- | --- |
+| `RESEND_API_KEY` | Sí | Clave de la API de Resend |
+| `CONTACT_TO_EMAIL` | Sí | Buzón de la empresa que recibe cada solicitud |
+| `IP_HASH_SALT` | Recomendado | Texto aleatorio para anonimizar la IP del límite de solicitudes |
+| `ALLOWED_ORIGINS` | Al publicar | Dominio(s) del sitio, separados por comas (ej. `https://kodastudio.com`). `localhost`/`127.0.0.1` en los puertos 8000, 5500 y 3000 ya están permitidos |
+| `CONTACT_FROM_EMAIL` | No | Remitente. Sin él se usa `onboarding@resend.dev`, que **solo entrega al correo dueño de la cuenta Resend**; para otro destino, verifica un dominio en Resend |
+| `RATE_LIMIT_MAX` | No | Solicitudes por conexión cada 10 min (5 por defecto) |
+
+Si falta `RESEND_API_KEY` o `CONTACT_TO_EMAIL`, la solicitud se guarda igual y el log de la función muestra "Correo omitido".
+
+Instala Supabase CLI y Docker en el entorno de desarrollo; estos comandos son para el backend local:
+
+```sh
+supabase start
+supabase db reset
+cp supabase/functions/.env.example supabase/functions/.env
+# Completa las credenciales locales y secretos en ese archivo.
+supabase functions serve contact --env-file supabase/functions/.env
+```
+
+En otra terminal, prueba el contrato usando datos ficticios:
+
+```sh
+curl -i http://127.0.0.1:54321/functions/v1/contact \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:8000' \
+  --data '{"client_name":"Cliente de Prueba","client_email":"cliente@example.com","selected_services":["Desarrollo Web de Alta Gama"],"project_message":"Necesito renovar el sitio de mi empresa.","kc_website_hp":""}'
+```
+
+Para desplegar en otro proyecto, créalo y define `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, `RESEND_API_KEY`, `ALLOWED_ORIGINS`, `IP_HASH_SALT` y `RATE_LIMIT_MAX` como secretos. Supabase provee `SUPABASE_URL` y `SUPABASE_SERVICE_ROLE_KEY` al entorno desplegado. Verifica el dominio remitente en Resend y publica los registros DNS indicados antes de enviar.
+
+```sh
+supabase link --project-ref <project-ref>
+supabase db push
+supabase secrets set CONTACT_TO_EMAIL=ventas@example.com CONTACT_FROM_EMAIL='Koda Studio <formularios@example.com>' RESEND_API_KEY=<clave> ALLOWED_ORIGINS=<origen-del-sitio> IP_HASH_SALT=<secreto-aleatorio> RATE_LIMIT_MAX=5
+supabase functions deploy contact --no-verify-jwt
+```
+
+Si cambias de proyecto, actualiza `CONTACT_ENDPOINT` en `js/config/selectors.js` a `https://<project-ref>.supabase.co/functions/v1/contact`.
+
+### Servir la landing
 
 Los ES Modules **no cargan con `file://`**. Sirve la raíz con un servidor HTTP:
 

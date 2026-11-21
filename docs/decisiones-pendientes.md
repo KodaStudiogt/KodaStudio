@@ -3,14 +3,14 @@
 > Los documentos de diseño dejan puntos abiertos a propósito. Cada uno bloquea una tarea del backlog: si no se decide, alguien se queda esperando.
 > **Regla:** una decisión se escribe aquí con fecha, responsable y estado. Decidir "por ahora A y se revisa" es válido; dejarlo sin escribir, no.
 >
-> **Última actualización:** 2026-11-19 · **Corte:** CH-002 (ver [`changelog.md`](./changelog.md))
+> **Última actualización:** 2026-11-20 · **Corte:** CH-005
 
 ## Tablero
 
 | ID | Decisión | Responsable | Bloquea | Límite | Estado |
 | --- | --- | --- | --- | --- | --- |
-| D-01 | Hosting / despliegue | Ambos | T-44 | Antes de S4 | ⚪ Pendiente |
-| D-02 | Recepción del formulario | A (propone) · D confirma | T-34, T-35 | **Inicio de S3** | ⚪ Pendiente |
+| D-01 | Hosting / despliegue | Ambos | T-44 | Antes de S4 | 🟡 Tendencia A: hosting estático |
+| D-02 | Recepción del formulario | A (propone) · D confirma | T-34, T-35 | **Inicio de S3** | ✅ Aceptada (2026-11-20) |
 | D-03 | Dominio y correo | Ambos | T-44, T-23 | Antes de S4 | ⚪ Pendiente |
 | D-04 | Analítica y privacidad | A | T-45 | Inicio de S4 | ⚪ Pendiente |
 | D-05 | Activos de marca | D | T-04, T-12 | Antes de S1 | ⚪ Pendiente |
@@ -18,7 +18,7 @@
 | D-07 | Escala compartida de espaciado y tipografía | Ambos | T-10 | Antes de S1 | ⚪ Pendiente |
 | D-08 | Clase de estado `.is-pending` | A (revisa) | Reveal | — | 🟡 Implementada, sin confirmar |
 
-**Las dos únicas decisiones que hoy bloquean trabajo real:** D-02 (formulario) y D-05 (isotipo). El resto se puede decidir en paralelo sin parar a nadie.
+**La decisión de recepción D-02 está cerrada;** D-05 (isotipo) sigue abierta.
 
 ---
 
@@ -36,7 +36,7 @@
 
 ---
 
-## D-02 · ¿Cómo llegan las solicitudes del formulario?
+## D-02 · ¿Cómo llegan las solicitudes del formulario? — ✅ Aceptada
 
 **Es la decisión más crítica del proyecto.** La arquitectura es explícita: no se puede mostrar confirmación si el dato no llegó a un destino real. "Parece que se envió" es peor que un error visible.
 
@@ -47,19 +47,19 @@
 | C. Webhook a automatización (n8n, Make, Zapier) | `fetch` a un webhook que guarda en hoja de cálculo o CRM | Bajo–medio | Medio |
 | D. Base de datos propia | PHP + MySQL, panel para leer prospectos | Alto | Bajo |
 
-**Recomendación:** **A** si eligen hosting estático (D-01 A) · **B** si eligen hosting PHP · **C** si ya usan automatizaciones y quieren el prospecto en una hoja de cálculo.
+**Decisión (2026-11-20):** Supabase Postgres guarda solicitudes y proyectos; una Supabase Edge Function valida y coordina el envío; Resend entrega el correo. El destino solo se configura mediante el secreto `CONTACT_TO_EMAIL`. El esquema central se mantiene portable a Postgres; las políticas de acceso Supabase van en una migración separada.
 
 **Requisito común:** aislar el envío en una sola función dentro de `contact-form.js`, de modo que cambiar de proveedor sea editar una función y no reescribir el módulo. Validar también en el servidor.
 
 **Datos que se envían:** `client_name`, `client_email`, `selected_services`, `project_message`, `kc_website_hp` (debe llegar vacío).
 
-**Estado actual del código:** validación completa y mensaje honesto de "no enviado". El bloque de envío está marcado con `TODO(A) D-02` en `js/modules/contact-form.js`.
+**Estado actual:** endpoint y persistencia implementados. Quedan configuración de secretos, verificación del dominio remitente y deploy antes de producción.
 
 ---
 
 ## D-03 · Dominio y correo
 
-**Contexto:** el sitio publica `hola@kodastudio.com` como dato de contacto (spec §2.E). **Ese buzón es hoy un supuesto, no un hecho.**
+**Contexto:** el sitio publica `hola@kodastudio.com` como dato de contacto (spec §2.E). **Ese buzón es hoy un supuesto, no un hecho.** Las solicitudes del formulario llegan a otro buzón, configurado solo como secreto `CONTACT_TO_EMAIL` (nunca en el repo).
 
 - [ ] ¿`kodastudio.com` está comprado y a nombre de quién?
 - [ ] ¿El buzón `hola@kodastudio.com` existe y alguien lo revisa?
