@@ -10,9 +10,9 @@
     background: var(--color-linen-light);
     box-shadow: var(--shadow-card);
     transition:
-        transform var(--transition-smooth),
-        box-shadow var(--transition-smooth),
-        border-color var(--transition-smooth);
+        transform 400ms cubic-bezier(.22, 1, .36, 1),
+        box-shadow 400ms cubic-bezier(.22, 1, .36, 1),
+        border-color 400ms cubic-bezier(.22, 1, .36, 1);
 }
 
 .editorial-card:hover {

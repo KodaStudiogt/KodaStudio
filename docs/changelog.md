@@ -1,7 +1,7 @@
 # Bitácora de cambios — Koda Studio
 
 > Registro cronológico de lo que se ha hecho en el proyecto. **Se actualiza en cada entrega**, no solo en los hitos.
-> **Última actualización:** 2026-11-19. Estado: `main` y `develop` sincronizados, las ocho ramas publicadas y el logotipo oficial integrado (CH-004).
+> **Última actualización:** 2026-11-20. Formulario habilitado en producción y animaciones integradas (CH-008); pendiente publicar en `main` y verificar dominio remitente.
 
 ## Convención
 
@@ -14,11 +14,81 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
+| CH-008 | 2026-11-20 | `fix` + `style` | Formulario habilitado desde el sitio publicado y animaciones profesionales | `b656e27`, `cb76839` |
+| CH-007 | 2026-11-20 | `docs` | Registro de decisiones de D en `docs/decisiones-de-d.md` | Solo documentación |
+| CH-006 | 2026-11-20 | `docs` | Sincronización de backlog, plan, decisiones y README con CH-005 | Solo documentación |
+| CH-005 | 2026-11-20 | `feat` | Backend portátil del formulario con Supabase y Resend | `97e0600` |
 | CH-004 | 2026-11-19 | `design` | Logotipo oficial integrado en header y footer | Ver PR |
 | CH-003 | 2026-11-19 | `chore` | Entrega dividida por tipo de rama en ocho PR encadenados | Ver PRs |
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
 | CH-001 | 2026-11-19 | `refactor` | Alineación con la especificación editorial y el estándar anti-conflictos | `c0bd569` |
 | CH-000 | 2026-11-19 | `feat` | Andamio inicial: estructura de carpetas y módulos vacíos | `f114d9c` |
+
+---
+
+## CH-008 · Formulario en producción y animaciones
+
+**Fecha:** 2026-11-20 · **Autor:** Antony Perez · **Tipo:** `fix` + `style`
+
+**Motivo.** El formulario solo funcionaba en local: la Edge Function `contact` aceptaba únicamente orígenes `localhost`, así que desde `https://kodastudio-web.vercel.app` el navegador bloqueaba el envío (CORS/403). Además, la landing solo tenía el reveal básico por sección.
+
+**Cambios**
+
+- `supabase/functions/contact/index.ts`: nuevo `kc_prodOrigins` con `https://kodastudio-web.vercel.app`, sumado a los orígenes de desarrollo y al secreto `ALLOWED_ORIGINS`. Función redesplegada (versión 4).
+- Animaciones: entrada en cascada del Hero, reveal escalonado con `data-js="reveal-child"`, hover de botones y tarjetas, "pop" de píldoras, navbar `.is-scrolled`, spinner de envío, entrada del mensaje de confirmación y vibración de campos con error. Nuevos `DOM_SELECTORS.revealChildren` y `STATE_CLASSES.scrolled`. `js/main.js` sin cambios.
+- README: estado, orígenes permitidos, secretos y sección de animaciones.
+
+**Verificación.** Preflight `OPTIONS` con `Origin: https://kodastudio-web.vercel.app` → 204 con `Access-Control-Allow-Origin`; un origen ajeno no recibe esa cabecera. `node --check` en los módulos de `js/`.
+
+**Pendiente.** Fusionar `develop` → `main` para que Vercel publique los cambios; enviar una solicitud real desde el sitio y confirmar fila en `kc_contact_requests` y correo; QA visual de las animaciones en navegador.
+
+---
+
+## CH-007 · Registro de decisiones de D
+
+**Fecha:** 2026-11-20 · **Autor:** D · **Tipo:** `docs`
+
+**Motivo.** Las decisiones estaban repartidas entre bitácora, plan y tablero del equipo, sin un lugar que respondiera "de quién fue cada una y por qué". A no tenía forma de verlo sin reconstruirlo desde el historial de commits.
+
+**Qué se añadió.** `docs/decisiones-de-d.md` con diecisiete decisiones (`DD-01` a `DD-17`), cada una con motivo, efecto y estado; tabla de cambios de código asociados; pendientes propios y límites autoimpuestos. Se enlaza desde el README.
+
+**Verificación.** Enlaces relativos resueltos, identificadores consecutivos sin huecos y cada decisión con su efecto declarado.
+
+**Pendiente.** DD-04 y DD-05 esperan confirmación de A, en forma de D-08 y D-06.
+
+---
+
+## CH-006 · Sincronización documental tras CH-005
+
+**Fecha:** 2026-11-20 · **Autor:** D · **Tipo:** `docs`
+
+**Motivo.** CH-005 añadió el backend y cerró D-02, pero solo se actualizaron bitácora, decisiones y README. El backlog y el plan seguían afirmando que el formulario no enviaba, y el README y D-05 todavía hablaban de un "marcador geométrico" que ya no existe.
+
+**Cambios**
+
+- `docs/backlog.md`: T-34 y T-35 pasan a ✅; se añaden T-50, T-51 y T-52 (esquema, Edge Function y seguridad) como hechas; desaparece el bloque que decía que el envío no estaba conectado; totales ajustados (A queda en ≈ 4,25 j).
+- `docs/plan-de-trabajo.md`: corte de fecha, tabla de estado con el envío real, contradicción #6 marcada como resuelta, mapa de propiedad con `db/` y `supabase/`, riesgos reescritos (secretos y dominio de Resend) y próximos pasos priorizados.
+- `docs/decisiones-pendientes.md`: D-05 pasa a parcial con el logo raster ya integrado; D-04 anota que los datos personales ya se almacenan.
+- `README.md`: fecha, estado, cambios recientes y árbol de estructura con `db/` y `supabase/`.
+- Enlaces del repositorio actualizados al propietario actual (`KodaStudiogt/KodaStudio`) en README, plan y backlog: las URLs antiguas redirigían, pero no conviene depender de ello.
+
+**Verificación.** Comprobado contra el código y el servicio: `node --check` en los módulos, preflight `OPTIONS` 204 y `POST` inválido con 400 y errores por campo. Los enlaces relativos siguen resolviendo.
+
+**Pendiente que deja.** D-06 y D-08 siguen sin confirmar por A.
+
+---
+
+## CH-005 · Recepción del formulario con Supabase y Resend
+
+**Fecha:** 2026-11-20 · **Autor:** A · **Tipo:** `feat` · **Ref.:** `97e0600` (a3701b9…97e0600)
+
+**Qué se hizo.** Se añadió un esquema relacional portable a PostgreSQL para clientes, servicios, solicitudes y proyectos, junto con funciones transaccionales de alta y conteo por ventana. La capa de RLS queda aislada en una segunda migración Supabase. Se implementó la Edge Function `contact` con validación de servidor, honeypot, CORS por origen permitido, hash de IP para límite de solicitudes y notificación por Resend; los errores de correo se registran sin descartar la solicitud guardada.
+
+El formulario ahora envía al endpoint configurable con timeout, estados accesibles, errores por campo y reinicio de selección. D-02 queda aceptada. El destinatario se proporciona como secreto `CONTACT_TO_EMAIL`; el ejemplo usa datos ficticios.
+
+**Despliegue:** proyecto Supabase `kodastudio` (`mifxnsennwhufeegkckt`) creado; migraciones aplicadas (más un ajuste de `search_path` en `kc_set_updated_at` y `kc_count_recent_requests` por aviso del linter de seguridad); función `contact` publicada sin JWT y `CONTACT_ENDPOINT` apuntando a ella. Orígenes locales (8000, 5500, 3000) permitidos por defecto; remitente de pruebas `onboarding@resend.dev` si no hay `CONTACT_FROM_EMAIL`.
+
+**Verificación:** `node --check` pasó para los módulos JavaScript modificados. Contra la función desplegada: preflight CORS 204, solicitud válida `{ok:true}` con filas en `kc_clients`, `kc_contact_requests` y `kc_contact_request_services`; solicitud inválida 400 con errores por campo. `RESEND_API_KEY` configurado. **Pendiente:** secreto `CONTACT_TO_EMAIL` para que salga el correo, `ALLOWED_ORIGINS` con el dominio final y verificar dominio remitente en Resend.
 
 ---
 

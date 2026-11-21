@@ -17,11 +17,11 @@
     letter-spacing: 0.02em;
     text-align: center;
     transition:
-        background-color var(--transition-base),
-        border-color var(--transition-base),
-        color var(--transition-base),
-        transform var(--transition-base),
-        box-shadow var(--transition-base);
+        background-color 250ms cubic-bezier(.22, 1, .36, 1),
+        border-color 250ms cubic-bezier(.22, 1, .36, 1),
+        color 250ms cubic-bezier(.22, 1, .36, 1),
+        transform 250ms cubic-bezier(.22, 1, .36, 1),
+        box-shadow 250ms cubic-bezier(.22, 1, .36, 1);
 }
 
 .button--primary {
@@ -44,10 +44,12 @@
 .button--secondary:hover {
     border-color: var(--color-bronze);
     background: var(--color-linen-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
 }
 
 .button:active {
-    transform: translateY(0);
+    transform: scale(0.98);
 }
 
 .button[disabled] {

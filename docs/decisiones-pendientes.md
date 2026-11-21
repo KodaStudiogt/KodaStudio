@@ -3,22 +3,22 @@
 > Los documentos de diseño dejan puntos abiertos a propósito. Cada uno bloquea una tarea del backlog: si no se decide, alguien se queda esperando.
 > **Regla:** una decisión se escribe aquí con fecha, responsable y estado. Decidir "por ahora A y se revisa" es válido; dejarlo sin escribir, no.
 >
-> **Última actualización:** 2026-11-19 · **Corte:** CH-002 (ver [`changelog.md`](./changelog.md))
+> **Última actualización:** 2026-11-20 · **Corte:** CH-005 + sincronización documental (CH-006)
 
 ## Tablero
 
 | ID | Decisión | Responsable | Bloquea | Límite | Estado |
 | --- | --- | --- | --- | --- | --- |
-| D-01 | Hosting / despliegue | Ambos | T-44 | Antes de S4 | ⚪ Pendiente |
-| D-02 | Recepción del formulario | A (propone) · D confirma | T-34, T-35 | **Inicio de S3** | ⚪ Pendiente |
+| D-01 | Hosting / despliegue | Ambos | T-44 | Antes de S4 | 🟡 Tendencia A: hosting estático |
+| D-02 | Recepción del formulario | A (propone) · D confirma | T-34, T-35 | **Inicio de S3** | ✅ Aceptada (2026-11-20) |
 | D-03 | Dominio y correo | Ambos | T-44, T-23 | Antes de S4 | ⚪ Pendiente |
 | D-04 | Analítica y privacidad | A | T-45 | Inicio de S4 | ⚪ Pendiente |
-| D-05 | Activos de marca | D | T-04, T-12 | Antes de S1 | ⚪ Pendiente |
+| D-05 | Activos de marca | D | T-04, T-12 | Antes de S4 | 🟡 Parcial: logo raster integrado, falta SVG y favicon |
 | D-06 | Etiquetas visibles de las píldoras | A (revisa) | T-18 | — | 🟡 Implementada, sin confirmar |
 | D-07 | Escala compartida de espaciado y tipografía | Ambos | T-10 | Antes de S1 | ⚪ Pendiente |
 | D-08 | Clase de estado `.is-pending` | A (revisa) | Reveal | — | 🟡 Implementada, sin confirmar |
 
-**Las dos únicas decisiones que hoy bloquean trabajo real:** D-02 (formulario) y D-05 (isotipo). El resto se puede decidir en paralelo sin parar a nadie.
+**Cerrada:** D-02 (2026-11-20). **Parcial:** D-05 (logo raster listo, falta el SVG). **Abiertas:** D-01, D-03, D-04, D-07. **A confirmar por A:** D-06 y D-08.
 
 ---
 
@@ -36,7 +36,7 @@
 
 ---
 
-## D-02 · ¿Cómo llegan las solicitudes del formulario?
+## D-02 · ¿Cómo llegan las solicitudes del formulario? — ✅ Aceptada
 
 **Es la decisión más crítica del proyecto.** La arquitectura es explícita: no se puede mostrar confirmación si el dato no llegó a un destino real. "Parece que se envió" es peor que un error visible.
 
@@ -47,19 +47,19 @@
 | C. Webhook a automatización (n8n, Make, Zapier) | `fetch` a un webhook que guarda en hoja de cálculo o CRM | Bajo–medio | Medio |
 | D. Base de datos propia | PHP + MySQL, panel para leer prospectos | Alto | Bajo |
 
-**Recomendación:** **A** si eligen hosting estático (D-01 A) · **B** si eligen hosting PHP · **C** si ya usan automatizaciones y quieren el prospecto en una hoja de cálculo.
+**Decisión (2026-11-20):** Supabase Postgres guarda solicitudes y proyectos; una Supabase Edge Function valida y coordina el envío; Resend entrega el correo. El destino solo se configura mediante el secreto `CONTACT_TO_EMAIL`. El esquema central se mantiene portable a Postgres; las políticas de acceso Supabase van en una migración separada.
 
 **Requisito común:** aislar el envío en una sola función dentro de `contact-form.js`, de modo que cambiar de proveedor sea editar una función y no reescribir el módulo. Validar también en el servidor.
 
 **Datos que se envían:** `client_name`, `client_email`, `selected_services`, `project_message`, `kc_website_hp` (debe llegar vacío).
 
-**Estado actual del código:** validación completa y mensaje honesto de "no enviado". El bloque de envío está marcado con `TODO(A) D-02` en `js/modules/contact-form.js`.
+**Estado actual:** endpoint y persistencia implementados. Quedan configuración de secretos, verificación del dominio remitente y deploy antes de producción.
 
 ---
 
 ## D-03 · Dominio y correo
 
-**Contexto:** el sitio publica `hola@kodastudio.com` como dato de contacto (spec §2.E). **Ese buzón es hoy un supuesto, no un hecho.**
+**Contexto:** el sitio publica `hola@kodastudio.com` como dato de contacto (spec §2.E). **Ese buzón es hoy un supuesto, no un hecho.** Las solicitudes del formulario llegan a otro buzón, configurado solo como secreto `CONTACT_TO_EMAIL` (nunca en el repo).
 
 - [ ] ¿`kodastudio.com` está comprado y a nombre de quién?
 - [ ] ¿El buzón `hola@kodastudio.com` existe y alguien lo revisa?
@@ -75,7 +75,9 @@
 
 **Opciones:** (a) sin analítica, (b) analítica sin cookies (Plausible, Umami, Vercel Analytics), (c) Google Analytics 4.
 
-**Recomendación:** (b). Mide lo necesario sin banner de cookies. Si se recogen datos personales en el formulario, agregar aviso de privacidad enlazado en el footer. **Si eligen (c), el banner deja de ser opcional.**
+**Recomendación:** (b). Mide lo necesario sin banner de cookies. **Si eligen (c), el banner deja de ser opcional.**
+
+**Cambio de contexto (CH-005):** el formulario ya **almacena datos personales** en Postgres (`kc_clients`, `kc_contact_requests`). El aviso de privacidad pasa de recomendable a necesario, y conviene declarar plazo de conservación y vía de supresión.
 
 ---
 
@@ -83,13 +85,13 @@
 
 | Activo | Formato | Uso | Estado |
 | --- | --- | --- | --- |
-| Isotipo (K + circuito + `/`) | SVG | Medallón del header, footer, favicon | ⚪ Pendiente (hoy hay marcador geométrico) |
-| Logotipo con texto | SVG | Footer y metadatos | ⚪ Pendiente |
+| Lockup y monograma | WebP con alfa | Header (lockup) y medallón del footer (monograma) | ✅ Integrado en CH-004 |
+| Isotipo (K + circuito + `/`) | SVG | Header, footer y favicon | 🟡 Pendiente de vectorizar: hoy es mapa de bits |
 | Favicon | SVG + PNG 32/192 | Pestaña y móvil | ⚪ Pendiente |
 | Patrón de fondo del Hero | WebP ≤ 200 KB | `.paper-texture` | ⚪ Pendiente |
 | Imágenes de tarjetas (si aplica) | WebP | `#servicios` | ⚪ Pendiente |
 
-**Mientras no existan:** el header funciona con el marcador `navbar__mark` (una K geométrica en SVG); sustituirlo es un cambio de un solo bloque.
+**Estado:** el logo real está en el sitio desde CH-004. Falta la versión vectorial para nitidez en pantallas de alta densidad; sustituirla es cambiar dos `src` y sus `width` / `height`.
 
 ---
 

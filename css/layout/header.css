@@ -11,6 +11,12 @@
     background: color-mix(in srgb, var(--color-linen) 92%, transparent);
     backdrop-filter: blur(12px);
     border-bottom: var(--border-subtle);
+    transition: background-color 300ms cubic-bezier(.22, 1, .36, 1), box-shadow 300ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.navbar.is-scrolled {
+    background: color-mix(in srgb, var(--color-linen-light) 98%, transparent);
+    box-shadow: var(--shadow-card);
 }
 
 .navbar__nav {
@@ -55,7 +61,7 @@
     background: var(--color-bronze);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform var(--transition-base);
+    transition: transform 250ms cubic-bezier(.22, 1, .36, 1);
 }
 
 .navbar__link:hover::after,
