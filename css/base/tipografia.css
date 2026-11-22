@@ -1,0 +1,74 @@
+/**
+ * css/base/tipografia.css
+ * Tipografía editorial. Dueño: D.
+ * Tamaños y ritmo vertical: pendiente de D-07 (escala compartida).
+ */
+
+body {
+    background: var(--color-linen);
+    color: var(--color-charcoal);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+    color: var(--color-plum);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 500;
+}
+
+h2 {
+    font-size: clamp(1.9rem, 4vw, 3rem);
+}
+
+h3 {
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+}
+
+h1 em,
+h2 em {
+    color: var(--color-bronze-dark);
+    font-style: italic;
+    font-weight: 400;
+}
+
+p {
+    max-width: 68ch;
+    text-wrap: pretty;
+}
+
+strong {
+    font-weight: 600;
+    color: var(--color-plum);
+}
+
+/* Etiqueta superior (eyebrow) */
+.eyebrow {
+    color: var(--color-bronze-dark);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.eyebrow--light {
+    color: var(--color-bronze);
+}
+
+blockquote {
+    color: var(--color-plum);
+    font-family: var(--font-heading);
+    font-style: italic;
+}

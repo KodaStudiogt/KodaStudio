@@ -1,0 +1,121 @@
+/**
+ * css/componentes/formularios.css
+ * Formulario de consultoría. Dueño: A. Spec §2.E.
+ * Debe funcionar sobre fondo claro (tarjeta de la sección contacto).
+ */
+
+.contact-form {
+    display: grid;
+    gap: 1.1rem;
+}
+
+.contact-form__field {
+    display: grid;
+    gap: 0.4rem;
+}
+
+.contact-form__label {
+    color: var(--color-plum);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.contact-form__input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(74, 46, 53, 0.16);
+    border-radius: var(--radius-input);
+    background: var(--color-linen);
+    color: var(--color-charcoal);
+    font-size: 0.95rem;
+    transition:
+        border-color var(--transition-base),
+        background-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+@keyframes kc-field-shake {
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.contact-form__input.has-error { animation: kc-field-shake 350ms cubic-bezier(.22, 1, .36, 1); }
+
+.contact-form__input:hover {
+    border-color: rgba(74, 46, 53, 0.28);
+}
+
+.contact-form__input:focus-visible {
+    outline: none;
+    border-color: var(--color-bronze);
+    background: var(--color-linen-light);
+    box-shadow: 0 0 0 3px rgba(176, 141, 121, 0.22);
+}
+
+.contact-form__textarea {
+    resize: vertical;
+    min-height: 7rem;
+}
+
+/* ---------- Estados de validación ---------- */
+.contact-form__input.has-error {
+    border-color: var(--color-plum);
+    background: color-mix(in srgb, var(--color-plum) 4%, var(--color-linen-light));
+}
+
+.contact-form__error {
+    color: var(--color-plum-dark);
+    font-size: 0.8rem;
+    font-weight: 500;
+    min-height: 0;
+}
+
+.contact-form__error:empty {
+    display: none;
+}
+
+.contact-form__submit {
+    width: 100%;
+    margin-top: 0.35rem;
+}
+
+.contact-form__submit[aria-busy="true"] {
+    position: relative;
+    pointer-events: none;
+}
+
+.contact-form__submit[aria-busy="true"]::after {
+    content: "";
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: var(--radius-pill);
+    animation: kc-spinner 700ms linear infinite;
+}
+
+@keyframes kc-spinner { to { transform: rotate(1turn); } }
+
+/* ---------- Confirmación inline ---------- */
+.contact-form__feedback {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+    padding: 1.5rem;
+    border: var(--border-accent);
+    border-radius: var(--radius-input);
+    background: var(--color-linen);
+    animation: kc-feedback-enter 400ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes kc-feedback-enter {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.contact-form__feedback-text {
+    color: var(--color-plum);
+    font-size: 0.95rem;
+}
