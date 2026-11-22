@@ -62,8 +62,8 @@ El backend combina Supabase Postgres, la Edge Function pública `contact` y Rese
 
 | Dato | Valor |
 | --- | --- |
-| Proyecto Supabase | `kodastudio` (ref `mifxnsennwhufeegkckt`, región `us-east-1`) |
-| Endpoint | `https://mifxnsennwhufeegkckt.supabase.co/functions/v1/contact` (ya configurado en `CONTACT_ENDPOINT`) |
+| Proyecto Supabase | `kodastudio` (ref `dglmtxbkfwjchxigmavc`) |
+| Endpoint | `https://dglmtxbkfwjchxigmavc.supabase.co/functions/v1/contact` (configurado en `CONTACT_ENDPOINT`) |
 | Orígenes permitidos | `https://kodastudio-web.vercel.app` (fijo en `kc_prodOrigins` dentro de la función) + localhost de desarrollo + secreto `ALLOWED_ORIGINS` |
 | Ver solicitudes | Supabase › Table Editor › `kc_contact_requests` (columna `email_sent_at` / `email_error` indica si salió el correo) |
 
@@ -75,10 +75,10 @@ Secretos de la función (Supabase › Edge Functions › Secrets). **El correo d
 | `CONTACT_TO_EMAIL` | Sí | Buzón de la empresa que recibe cada solicitud |
 | `IP_HASH_SALT` | Recomendado | Texto aleatorio para anonimizar la IP del límite de solicitudes |
 | `ALLOWED_ORIGINS` | No | Dominios **adicionales**, separados por comas (ej. un dominio propio futuro). `https://kodastudio-web.vercel.app` y `localhost`/`127.0.0.1` en los puertos 8000, 5500 y 3000 ya están permitidos en el código |
-| `CONTACT_FROM_EMAIL` | No | Remitente. Sin él se usa `onboarding@resend.dev`, que **solo entrega al correo dueño de la cuenta Resend**; para otro destino, verifica un dominio en Resend |
+| `CONTACT_FROM_EMAIL` | Sí, si el destino no es el dueño de Resend | Remitente con dominio verificado en Resend. Sin él se usa `onboarding@resend.dev`, que **solo entrega al correo dueño de la cuenta Resend** |
 | `RATE_LIMIT_MAX` | No | Solicitudes por conexión cada 10 min (5 por defecto) |
 
-Si falta `RESEND_API_KEY` o `CONTACT_TO_EMAIL`, la solicitud se guarda igual y el log de la función muestra "Correo omitido".
+Si falta `RESEND_API_KEY` o `CONTACT_TO_EMAIL`, la solicitud se guarda, se registra el error y la función responde 503. Si Resend rechaza o no puede entregar el correo, responde 502. La función debe redesplegarse después de cambiar su código; los secretos se actualizan por separado en Supabase.
 
 Instala Supabase CLI y Docker en el entorno de desarrollo; estos comandos son para el backend local:
 

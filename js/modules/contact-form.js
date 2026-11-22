@@ -130,6 +130,10 @@ export function initContactForm() {
             kc_firstField?.focus();
         } else if (kc_result.status === 429) {
             kc_showMessage("Recibimos varias solicitudes desde tu conexión. Intenta de nuevo en unos minutos.");
+        } else if (kc_result.status === 502) {
+            kc_showMessage("Tu solicitud quedó registrada, pero el correo no pudo salir. Intenta de nuevo o escríbenos por los medios de contacto de esta página.");
+        } else if (kc_result.status === 503) {
+            kc_showMessage("El envío de correo no está configurado todavía. Tu solicitud quedó registrada; escríbenos por los medios de contacto de esta página.");
         } else {
             kc_showMessage("No pudimos enviar tu solicitud. Intenta de nuevo más tarde o escríbenos por los medios de contacto de esta página.");
         }
