@@ -114,9 +114,9 @@ Deno.serve(async (request) => {
   const kc_resendKey = Deno.env.get("RESEND_API_KEY");
   // Sin dominio verificado en Resend se usa su remitente de pruebas.
   const kc_from = Deno.env.get("CONTACT_FROM_EMAIL") || "Koda Studio <onboarding@resend.dev>";
-  const kc_to = Deno.env.get("CONTACT_TO_EMAIL");
-  if (!kc_resendKey || !kc_to) {
-    const kc_error = "Configuración de correo incompleta";
+  const kc_to = (Deno.env.get("CONTACT_TO_EMAIL") ?? "").split(",").map((kc_email) => kc_email.trim()).filter(Boolean);
+  if (!kc_resendKey || !kc_to.length || kc_to.some((kc_email) => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(kc_email))) {
+    const kc_error = "Configuración de correo incompleta o inválida";
     console.error(kc_error);
     await kc_supabase.from("kc_contact_requests").update({ email_error: kc_error }).eq("id", kc_requestId);
     return kc_reply(503, { ok: false, error: "email_configuration", id: kc_requestId }, kc_origin, kc_isAllowed);
@@ -137,7 +137,7 @@ Deno.serve(async (request) => {
       headers: { "Authorization": `Bearer ${kc_resendKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         from: kc_from,
-        to: [kc_to],
+        to: kc_to,
         reply_to: kc_email,
         subject: `Nueva solicitud de consultoría — ${kc_name}`,
         html: kc_html,

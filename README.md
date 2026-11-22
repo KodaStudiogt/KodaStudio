@@ -72,7 +72,7 @@ Secretos de la función (Supabase › Edge Functions › Secrets). **El correo d
 | Secreto | Obligatorio | Uso |
 | --- | --- | --- |
 | `RESEND_API_KEY` | Sí | Clave de la API de Resend |
-| `CONTACT_TO_EMAIL` | Sí | Buzón de la empresa que recibe cada solicitud |
+| `CONTACT_TO_EMAIL` | Sí | Uno o más buzones de destino separados por comas |
 | `IP_HASH_SALT` | Recomendado | Texto aleatorio para anonimizar la IP del límite de solicitudes |
 | `ALLOWED_ORIGINS` | No | Dominios **adicionales**, separados por comas (ej. un dominio propio futuro). `https://kodastudio-web.vercel.app` y `localhost`/`127.0.0.1` en los puertos 8000, 5500 y 3000 ya están permitidos en el código |
 | `CONTACT_FROM_EMAIL` | Sí, si el destino no es el dueño de Resend | Remitente con dominio verificado en Resend. Sin él se usa `onboarding@resend.dev`, que **solo entrega al correo dueño de la cuenta Resend** |
