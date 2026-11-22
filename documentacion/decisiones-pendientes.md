@@ -3,7 +3,7 @@
 > Los documentos de diseño dejan puntos abiertos a propósito. Cada uno bloquea una tarea del backlog: si no se decide, alguien se queda esperando.
 > **Regla:** una decisión se escribe aquí con fecha, responsable y estado. Decidir "por ahora A y se revisa" es válido; dejarlo sin escribir, no.
 >
-> **Última actualización:** 2026-11-20 · **Corte:** CH-005 + sincronización documental (CH-006)
+> **Última actualización:** 2026-11-22 · **Corte:** CH-009 (proyecto Supabase de Diego y estructura MVC)
 
 ## Tablero
 
@@ -49,7 +49,9 @@
 
 **Decisión (2026-11-20):** Supabase Postgres guarda solicitudes y proyectos; una Supabase Edge Function valida y coordina el envío; Resend entrega el correo. El destino solo se configura mediante el secreto `CONTACT_TO_EMAIL`. El esquema central se mantiene portable a Postgres; las políticas de acceso Supabase van en una migración separada.
 
-**Requisito común:** aislar el envío en una sola función dentro de `contact-form.js`, de modo que cambiar de proveedor sea editar una función y no reescribir el módulo. Validar también en el servidor.
+**Actualización (2026-11-22, CH-009):** el backend vive en el proyecto Supabase de la organización de Diego (ref `dglmtxbkfwjchxigmavc`). El proyecto anterior queda obsoleto. El código del front se organiza en capas MVC (`js/modelos`, `js/vistas`, `js/controladores`).
+
+**Requisito común:** aislar el envío en una sola función dentro de `formulario-contacto.controlador.js`, de modo que cambiar de proveedor sea editar una función y no reescribir el módulo. Validar también en el servidor.
 
 **Datos que se envían:** `client_name`, `client_email`, `selected_services`, `project_message`, `kc_website_hp` (debe llegar vacío).
 
@@ -115,7 +117,7 @@
 
 **Propuesta:** aprobar la escala `--kc-space-*`, `--kc-text-*` y `--kc-container` que está escrita, comentada, al final de `css/base/variables.css`.
 
-**Estado real hoy:** hay tamaños literales en `typography.css` y valores de espaciado en los CSS de layout. Funcionan, pero es la deuda técnica más visible del proyecto para D.
+**Estado real hoy:** hay tamaños literales en `tipografia.css` y valores de espaciado en los CSS de layout. Funcionan, pero es la deuda técnica más visible del proyecto para D.
 
 ---
 
@@ -123,7 +125,7 @@
 
 **Contexto:** la spec pide `.reveal { opacity: 0 }` como estado inicial. Si JS falla o el usuario tiene JS desactivado, **el contenido queda invisible para siempre**, lo que rompe la progresividad que exige la arquitectura (§1.7).
 
-**Resolución aplicada en CH-001:** el contenido es visible por defecto. `reveal.js` agrega `.is-pending` solo cuando `IntersectionObserver` está disponible y la retira al intersectar (entonces aplica `.is-visible`).
+**Resolución aplicada en CH-001:** el contenido es visible por defecto. `revelado.vista.js` agrega `.is-pending` solo cuando `IntersectionObserver` está disponible y la retira al intersectar (entonces aplica `.is-visible`).
 
 **Costo:** una clase de estado más en `STATE_CLASSES`, fuera de las cinco del estándar §3.3. **A confirmar por A.**
 

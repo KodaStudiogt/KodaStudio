@@ -54,49 +54,58 @@ kodastudio/
 ├── README.md
 ├── .gitignore
 │
-├── assets/
-│   ├── images/
+├── recursos/
+│   ├── imagenes/
 │   │   ├── logo/
-│   │   ├── backgrounds/
-│   │   └── services/
-│   ├── icons/
-│   └── fonts/                 # Solo si se decide alojar fuentes localmente
+│   │   ├── fondos/
+│   │   └── servicios/
+│   └── iconos/
 │
 ├── css/
-│   ├── main.css               # Archivo principal que importa los demás
+│   ├── principal.css          # Archivo principal que importa los demás
 │   ├── base/
 │   │   ├── reset.css
 │   │   ├── variables.css      # Design tokens: colores, fuentes, radios, sombras
-│   │   └── typography.css
-│   ├── layout/
-│   │   ├── header.css
-│   │   ├── sections.css
-│   │   └── footer.css
-│   ├── components/
-│   │   ├── buttons.css
-│   │   ├── cards.css
-│   │   ├── forms.css
-│   │   └── service-selector.css
-│   └── utilities/
-│       ├── animations.css
-│       └── responsive.css
+│   │   └── tipografia.css
+│   ├── diseno/
+│   │   ├── encabezado.css
+│   │   ├── secciones.css
+│   │   └── pie-de-pagina.css
+│   ├── componentes/
+│   │   ├── botones.css
+│   │   ├── tarjetas.css
+│   │   ├── formularios.css
+│   │   └── selector-servicios.css
+│   └── utilidades/
+│       ├── ayudantes.css
+│       ├── animaciones.css
+│       └── adaptable.css
 │
-├── js/
-│   ├── main.js                # Punto de entrada: inicializa los módulos
-│   ├── config/
-│   │   └── selectors.js       # Selectores DOM centralizados (si aporta claridad)
-│   ├── modules/
-│   │   ├── navigation.js      # Menú móvil y navegación por anclas
-│   │   ├── reveal.js          # Animaciones con IntersectionObserver
-│   │   ├── service-selector.js# Selección múltiple de servicios
-│   │   ├── contact-form.js    # Validación y envío del formulario
-│   │   └── footer.js          # Año dinámico
-│   └── utils/
-│       ├── dom.js             # Ayudantes DOM reutilizables, si se necesitan
-│       └── validation.js      # Funciones puras de validación
+├── js/                        # Arquitectura MVC
+│   ├── principal.js           # Punto de entrada: inicializa los controladores
+│   ├── configuracion/
+│   │   └── selectores.js      # Selectores DOM, endpoint y constantes
+│   ├── modelos/               # Datos, validación y fetch. Sin DOM
+│   │   ├── servicios.js       # Catálogo VALID_SERVICES y SERVICE_LABELS
+│   │   └── solicitud-contacto.js # Payload, validación y envío al endpoint
+│   ├── vistas/                # Solo DOM: leer, pintar, clases de estado
+│   │   ├── navegacion.vista.js
+│   │   ├── revelado.vista.js
+│   │   ├── selector-servicios.vista.js
+│   │   ├── formulario-contacto.vista.js
+│   │   └── pie-de-pagina.vista.js
+│   ├── controladores/         # Unen modelo y vista y manejan eventos
+│   │   ├── navegacion.controlador.js
+│   │   ├── revelado.controlador.js
+│   │   ├── selector-servicios.controlador.js
+│   │   ├── formulario-contacto.controlador.js
+│   │   └── pie-de-pagina.controlador.js
+│   └── utilidades/
+│       └── validacion.js      # Funciones puras de validación
 │
-└── docs/
-    └── arquitectura.md        # Decisiones técnicas y notas del proyecto
+├── base-de-datos/             # Modelo de datos y guía de migración
+├── supabase/                  # Migraciones, seed y Edge Function contact (nombre fijo del CLI)
+└── documentacion/             # Arquitectura, estándar, plan, backlog, decisiones, bitácora
 ```
 
 ### Responsabilidad de los directorios
@@ -104,29 +113,41 @@ kodastudio/
   -----------------------------------------------------------------------
   Directorio                          Responsabilidad
   ----------------------------------- -----------------------------------
-  `assets/`                           Imágenes, iconos, logotipos y
+  `recursos/`                          Imágenes, iconos, logotipos y
                                       recursos estáticos.
 
   `css/base/`                         Normalización, variables globales y
                                       tipografía.
 
-  `css/layout/`                       Estilos de las grandes regiones y
+  `css/diseno/`                       Estilos de las grandes regiones y
                                       secciones.
 
-  `css/components/`                   Estilos reutilizables de botones,
+  `css/componentes/`                  Estilos reutilizables de botones,
                                       tarjetas y formularios.
 
-  `css/utilities/`                    Animaciones, clases auxiliares y
+  `css/utilidades/`                   Animaciones, clases auxiliares y
                                       media queries.
 
-  `js/modules/`                       Comportamientos independientes de
-                                      la interfaz.
+  `js/modelos/`                       Datos, reglas de validación y
+                                      comunicación con el endpoint. No
+                                      tocan el DOM.
 
-  `js/utils/`                         Funciones pequeñas reutilizables y
+  `js/vistas/`                        Todo lo que lee o modifica el DOM
+                                      (clases de estado, mensajes,
+                                      atributos ARIA).
+
+  `js/controladores/`                 Inicializan cada funcionalidad,
+                                      escuchan eventos y coordinan
+                                      modelo y vista.
+
+  `js/configuracion/`                 Selectores, endpoint y constantes
+                                      compartidas.
+
+  `js/utilidades/`                    Funciones pequeñas reutilizables y
                                       sin dependencia de una sección
                                       concreta.
 
-  `docs/`                             Documentación técnica y decisiones
+  `documentacion/`                    Documentación técnica y decisiones
                                       del equipo.
   -----------------------------------------------------------------------
 
@@ -150,8 +171,8 @@ identificador que coincida con los enlaces de navegación especificados.
     <meta name="description"
           content="Koda Studio: ingeniería de software y diseño con propósito.">
     <title>Koda Studio | Ingeniería & Diseño Boutique</title>
-    <link rel="stylesheet" href="css/main.css">
-    <script type="module" src="js/main.js"></script>
+    <link rel="stylesheet" href="css/principal.css">
+    <script type="module" src="js/principal.js"></script>
 </head>
 <body>
 
@@ -241,24 +262,24 @@ actualizan aquí y no en cada componente.
 
 ### 4.2 Orden de carga
 
-`css/main.css` debe ser el punto de entrada de estilos:
+`css/principal.css` debe ser el punto de entrada de estilos:
 
 ``` css
 @import url("./base/reset.css");
 @import url("./base/variables.css");
-@import url("./base/typography.css");
+@import url("./base/tipografia.css");
 
-@import url("./layout/header.css");
-@import url("./layout/sections.css");
-@import url("./layout/footer.css");
+@import url("./layout/encabezado.css");
+@import url("./layout/secciones.css");
+@import url("./layout/pie-de-pagina.css");
 
-@import url("./components/buttons.css");
-@import url("./components/cards.css");
-@import url("./components/forms.css");
-@import url("./components/service-selector.css");
+@import url("./components/botones.css");
+@import url("./components/tarjetas.css");
+@import url("./components/formularios.css");
+@import url("./components/selector-servicios.css");
 
-@import url("./utilities/animations.css");
-@import url("./utilities/responsive.css");
+@import url("./utilities/animaciones.css");
+@import url("./utilities/adaptable.css");
 ```
 
 Para producción, revisar el rendimiento de carga de fuentes y CSS. Si se
@@ -293,31 +314,31 @@ Evitar selectores demasiado dependientes de la estructura, como
 ## 5. Arquitectura JavaScript
 
 Usar módulos ES (`import` y `export`) para mantener cada comportamiento
-separado. El archivo `main.js` debe limitarse a iniciar los módulos; no
+separado. El archivo `principal.js` debe limitarse a iniciar los módulos; no
 debe contener toda la lógica de la página.
 
-### 5.1 Punto de entrada: `js/main.js`
+### 5.1 Punto de entrada: `js/principal.js`
 
 ``` javascript
-import { initNavigation } from "./modules/navigation.js";
-import { initReveal } from "./modules/reveal.js";
-import { initServiceSelector } from "./modules/service-selector.js";
-import { initContactForm } from "./modules/contact-form.js";
-import { initFooter } from "./modules/footer.js";
+import { iniciarNavegacion } from "./controladores/navegacion.controlador.js";
+import { iniciarRevelado } from "./controladores/revelado.controlador.js";
+import { iniciarSelectorServicios } from "./controladores/selector-servicios.controlador.js";
+import { iniciarFormularioContacto } from "./controladores/formulario-contacto.controlador.js";
+import { iniciarPieDePagina } from "./controladores/pie-de-pagina.controlador.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    initNavigation();
-    initReveal();
-    initServiceSelector();
-    initContactForm();
-    initFooter();
+    iniciarNavegacion();
+    iniciarRevelado();
+    iniciarSelectorServicios();
+    iniciarFormularioContacto();
+    iniciarPieDePagina();
 });
 ```
 
 Cada módulo exporta una función de inicialización. Esto hace explícito
 qué funcionalidades se activan y facilita localizar errores.
 
-### 5.2 Navegación: `navigation.js`
+### 5.2 Navegación: `navegacion.vista.js`
 
 Responsabilidades:
 
@@ -344,7 +365,7 @@ Inicializar navegación
 Usar `addEventListener`; evitar atributos inline como `onclick` en el
 HTML.
 
-### 5.3 Animaciones: `reveal.js`
+### 5.3 Animaciones: `revelado.vista.js`
 
 Responsabilidad: revelar elementos cuando entran en el área visible de
 la pantalla mediante `IntersectionObserver`.
@@ -372,7 +393,7 @@ En CSS, definir la transición y la clase de estado visible. Respetar
 reducido. Si `IntersectionObserver` no está disponible, mostrar el
 contenido sin ocultarlo permanentemente.
 
-### 5.4 Selector de servicios: `service-selector.js`
+### 5.4 Selector de servicios: `selector-servicios.controlador.js`
 
 Responsabilidad: permitir seleccionar y deseleccionar varios servicios.
 
@@ -421,7 +442,7 @@ El `Set` evita valores duplicados. El estado visual debe reflejar
 siempre el contenido del conjunto. Los botones deben indicar su estado
 con `aria-pressed`.
 
-### 5.5 Formulario: `contact-form.js`
+### 5.5 Formulario: `formulario-contacto.controlador.js`
 
 Responsabilidad: validar los datos, evitar la recarga de la página y
 mostrar una confirmación accesible.
@@ -472,13 +493,13 @@ realmente al destino configurado.
 No utilizar `alert()`. Mostrar errores y confirmaciones dentro de la
 página, con una región accesible como `aria-live="polite"`.
 
-### 5.6 Año dinámico: `footer.js`
+### 5.6 Año dinámico: `pie-de-pagina.vista.js`
 
 Responsabilidad: obtener el año actual y colocarlo en el elemento de
 copyright.
 
 ``` javascript
-export function initFooter() {
+export function iniciarPieDePagina() {
     const yearElement = document.querySelector("[data-current-year]");
 
     if (!yearElement) return;

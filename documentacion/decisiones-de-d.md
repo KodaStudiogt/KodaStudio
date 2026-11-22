@@ -46,13 +46,13 @@ Los tres documentos se contradecían en siete puntos. **Decidí** que, ante conf
 
 ### DD-02 · Congelar el contrato antes de programar
 
-Dos personas editando `index.html`, `css/main.css` y `js/main.js` a la vez es lo que rompe este tipo de proyecto. **Decidí** crear y congelar esos cuatro archivos compartidos (`index.html`, `main.css`, `main.js`, `selectors.js`) antes de que ninguno programara su parte, con stubs para que las importaciones resolvieran desde el primer día.
+Dos personas editando `index.html`, `css/principal.css` y `js/principal.js` a la vez es lo que rompe este tipo de proyecto. **Decidí** crear y congelar esos cuatro archivos compartidos (`index.html`, `principal.css`, `principal.js`, `selectores.js`) antes de que ninguno programara su parte, con stubs para que las importaciones resolvieran desde el primer día.
 
-**Efecto:** contrato en `index.html` y `selectors.js`; stubs marcados con su dueño; mapa de propiedad de archivos en `plan-de-trabajo.md` §4.
+**Efecto:** contrato en `index.html` y `selectores.js`; stubs marcados con su dueño; mapa de propiedad de archivos en `plan-de-trabajo.md` §4.
 
 ### DD-03 · Entrega por tipo de rama, encadenada
 
-**Decidí** dividir el trabajo en ocho ramas siguiendo la taxonomía del equipo —`feature/`, `design/`, `docs/`— construidas una sobre otra, porque comparten `index.html` y `main.css`. Descarté la primera agrupación en cuatro PR antes de fusionarla: era más gruesa y menos revisable.
+**Decidí** dividir el trabajo en ocho ramas siguiendo la taxonomía del equipo —`feature/`, `design/`, `documentacion/`— construidas una sobre otra, porque comparten `index.html` y `principal.css`. Descarté la primera agrupación en cuatro PR antes de fusionarla: era más gruesa y menos revisable.
 
 **Efecto:** PR #10 a #17; verificación de importaciones rama por rama; `fix/` y `hotfix/` reservados para correcciones reales.
 
@@ -60,7 +60,7 @@ Dos personas editando `index.html`, `css/main.css` y `js/main.js` a la vez es lo
 
 **Decidí** que cada entrega deja una entrada `CH-xxx` con tipo, alcance, verificación y pendientes, y que cada decisión abierta lleva responsable, fecha límite y estado. Lo que no se verificó no se escribe como hecho.
 
-**Efecto:** `docs/changelog.md` y `docs/decisiones-pendientes.md`; esta misma convención.
+**Efecto:** `documentacion/changelog.md` y `documentacion/decisiones-pendientes.md`; esta misma convención.
 
 ---
 
@@ -70,19 +70,19 @@ Dos personas editando `index.html`, `css/main.css` y `js/main.js` a la vez es lo
 
 La especificación pide `.reveal { opacity: 0 }`. Eso deja la página en blanco para siempre si JS falla o está desactivado, y rompe la progresividad que exige la arquitectura. **Decidí** invertir la carga: el contenido es visible por defecto y es JS quien añade `.is-pending` cuando el observador está disponible.
 
-**Efecto:** `STATE_CLASSES.pending`, `animations.css`, `reveal.js`. Queda como **D-08** a la espera de que A lo confirme, porque añade una clase de estado fuera de las cinco del estándar.
+**Efecto:** `STATE_CLASSES.pending`, `animaciones.css`, `revelado.vista.js`. Queda como **D-08** a la espera de que A lo confirme, porque añade una clase de estado fuera de las cinco del estándar.
 
 ### DD-05 · Valor canónico y etiqueta visible
 
 El estándar exige nombres largos de servicio; la especificación muestra píldoras cortas. En vez de elegir uno, **decidí** separar las dos cosas: el valor canónico viaja en `data-service-value` y es lo que valida JS y recibe el servidor; la etiqueta corta es solo presentación; `SERVICE_LABELS` traduce para el mensaje de confirmación.
 
-**Efecto:** `selectors.js`, `index.html`, `contact-form.js`. Queda como **D-06** pendiente de confirmación de A.
+**Efecto:** `selectores.js`, `index.html`, `formulario-contacto.controlador.js`. Queda como **D-06** pendiente de confirmación de A.
 
 ### DD-06 · El formulario no finge éxito
 
 Mientras no existiera un destino real, **decidí** que el formulario validara y **dijera con claridad que no se había enviado**, en lugar de mostrar una confirmación falsa. Un "parece que se envió" es peor que un error visible: el prospecto se pierde sin que nadie lo note.
 
-**Efecto:** regla 7 del README, criterior del DoD y bloque `TODO(A) D-02` en `contact-form.js`. **Superada** por CH-005: A implementó endpoint, por lo que la confirmación ya depende de `{ok:true}`.
+**Efecto:** regla 7 del README, criterior del DoD y bloque `TODO(A) D-02` en `formulario-contacto.controlador.js`. **Superada** por CH-005: A implementó endpoint, por lo que la confirmación ya depende de `{ok:true}`.
 
 ---
 
@@ -92,13 +92,13 @@ Mientras no existiera un destino real, **decidí** que el formulario validara y 
 
 El archivo entregado es un JPEG sobre fondo crema, sin transparencia. Puesto tal cual habría dibujado un rectángulo sobre el header. **Decidí** no usarlo directo y generar dos derivados: el fondo no es plano —tiene degradado y textura—, así que lo modelé por filas interpolando los márgenes de cada una, calculé el matte con umbrales derivados del ruido real y decontaminé el color de los píxeles semitransparentes para que el trazo no arrastre halo sobre otros fondos.
 
-**Efecto:** `logo-kodastudio.webp` (lockup, 640 × 287) y `logo-kodastudio-mark.webp` (monograma, 256 × 256); el JPEG original se conserva como fuente; `header.css` e `index.html`.
+**Efecto:** `logo-kodastudio.webp` (lockup, 640 × 287) y `logo-kodastudio-mark.webp` (monograma, 256 × 256); el JPEG original se conserva como fuente; `encabezado.css` e `index.html`.
 
 ### DD-08 · Tamaño del logo
 
 Con 2,6 rem el wordmark "STUDIO" quedaba ilegible. **Decidí** subirlo a **3,2 rem** (114 × 51 px) en escritorio y **2,45 rem** en móvil, y eliminar `.navbar__brand-text`, que quedó sin uso al incluir el lockup el nombre.
 
-**Efecto:** `header.css`, `responsive.css`.
+**Efecto:** `encabezado.css`, `adaptable.css`.
 
 ### DD-15 · Aceptar D-05 en estado parcial
 
@@ -124,13 +124,13 @@ Borré ramas fusionadas sin preguntar y luego las recreé a petición tuya. **De
 
 ### DD-13 · Sincronizar documentación por rama y PR
 
-Cuando la documentación quedó desfasada tras CH-005, **decidí** no editarla directamente en `develop` ni en `main`: rama `docs/sync-ch005`, verificación previa (enlaces, entradas únicas, frases obsoletas) y PR #22 para que A lo revise.
+Cuando la documentación quedó desfasada tras CH-005, **decidí** no editarla directamente en `develop` ni en `main`: rama `documentacion/sync-ch005`, verificación previa (enlaces, entradas únicas, frases obsoletas) y PR #22 para que A lo revise.
 
 **Efecto:** `backlog.md`, `plan-de-trabajo.md`, `decisiones-pendientes.md`, `README.md` y CH-006.
 
 ### DD-14 · No reescribir la historia de A
 
-A subió el backend en cinco commits directos a `develop`, sin rama, tocando `selectors.js`. **Decidí** no revertir ni reescribir esos commits: el trabajo es correcto y reescribir historia compartida cuesta más de lo que arregla. Se deja constancia en una nota de proceso para que no se repita.
+A subió el backend en cinco commits directos a `develop`, sin rama, tocando `selectores.js`. **Decidí** no revertir ni reescribir esos commits: el trabajo es correcto y reescribir historia compartida cuesta más de lo que arregla. Se deja constancia en una nota de proceso para que no se repita.
 
 **Efecto:** nota al final de `backlog.md`.
 
@@ -164,14 +164,14 @@ Con el formulario guardando datos personales en Postgres, **decidí** que el avi
 | --- | --- | --- |
 | `css/base/variables.css` | 17 tokens del estándar, sin alias | DD-01 |
 | `index.html` | Contrato completo, bloques por dueño, formulario con `name`/`id` canónicos | DD-02, DD-05 |
-| `js/config/selectors.js` | `DOM_SELECTORS`, `STATE_CLASSES`, `VALID_SERVICES`, `SERVICE_LABELS`, `FORM_FIELDS` | DD-02, DD-04, DD-05 |
-| `js/modules/reveal.js` | `.is-pending` añadido por JS, contenido visible sin JS | DD-04 |
-| `css/utilities/animations.css` | Estado oculto solo bajo `.is-pending` | DD-04 |
-| `js/modules/contact-form.js` | Mensaje honesto de no enviado (hasta CH-005) | DD-06 |
-| `assets/images/logo/*.webp` | Lockup y monograma con alfa | DD-07 |
-| `css/layout/header.css` | `.navbar__logo` a 3,2 rem; se elimina `.navbar__brand-text` | DD-08 |
-| `css/utilities/responsive.css` | Logo a 2,45 rem en móvil | DD-08 |
-| `docs/*` | Plan, backlog, decisiones, bitácora y este registro | DD-01, DD-09, DD-13, DD-17 |
+| `js/configuracion/selectores.js` | `DOM_SELECTORS`, `STATE_CLASSES`, `VALID_SERVICES`, `SERVICE_LABELS`, `FORM_FIELDS` | DD-02, DD-04, DD-05 |
+| `js/vistas/revelado.vista.js` | `.is-pending` añadido por JS, contenido visible sin JS | DD-04 |
+| `css/utilidades/animaciones.css` | Estado oculto solo bajo `.is-pending` | DD-04 |
+| `js/controladores/formulario-contacto.controlador.js` | Mensaje honesto de no enviado (hasta CH-005) | DD-06 |
+| `recursos/imagenes/logo/*.webp` | Lockup y monograma con alfa | DD-07 |
+| `css/diseno/encabezado.css` | `.navbar__logo` a 3,2 rem; se elimina `.navbar__brand-text` | DD-08 |
+| `css/utilidades/adaptable.css` | Logo a 2,45 rem en móvil | DD-08 |
+| `documentacion/*` | Plan, backlog, decisiones, bitácora y este registro | DD-01, DD-09, DD-13, DD-17 |
 
 ---
 
@@ -180,7 +180,7 @@ Con el formulario guardando datos personales en Postgres, **decidí** que el avi
 | Pendiente | Qué falta | Decisión asociada |
 | --- | --- | --- |
 | D-07 · Escala de espaciado y tipografía | Aprobar la escala `--kc-*` y quitar los tamaños literales | — |
-| T-10 | Aplicar la escala en `typography.css` | D-07 |
+| T-10 | Aplicar la escala en `tipografia.css` | D-07 |
 | T-11 | Acabado fino del header simétrico | DD-08 |
 | T-12 | Sustituir el raster por el SVG cuando exista | D-05, DD-15 |
 | T-14 | Textura de papel y acabado del Hero | — |

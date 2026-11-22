@@ -3,7 +3,7 @@
 > Documento maestro de organización: **qué se construye, en qué orden, quién hace qué y cuándo se considera terminado**.
 > Compañeros: [`backlog.md`](./backlog.md) (tareas y estado), [`decisiones-pendientes.md`](./decisiones-pendientes.md) (acuerdos abiertos) y [`changelog.md`](./changelog.md) (qué se hizo).
 >
-> **Última actualización:** 2026-11-20 · **Corte:** CH-005 (backend del formulario) + sincronización documental (CH-006). Ver [`changelog.md`](./changelog.md).
+> **Última actualización:** 2026-11-22 · **Corte:** CH-009 (formulario global en el proyecto Supabase de Diego y estructura MVC en español). Ver [`changelog.md`](./changelog.md).
 
 ---
 
@@ -18,7 +18,7 @@
 | Esfuerzo restante | ≈ 6,25 jornadas (D) y ≈ 4,25 (A) |
 | Ruta crítica | Decisiones abiertas → acabado visual → secretos y dominio → QA → deploy |
 
-**Foco de la organización:** el riesgo real no es técnico, es de coordinación. Dos personas editando `index.html`, `css/main.css` y `js/main.js` a la vez es lo que rompe este tipo de proyecto. Por eso esos archivos están congelados desde el inicio y el resto está repartido por capas.
+**Foco de la organización:** el riesgo real no es técnico, es de coordinación. Dos personas editando `index.html`, `css/principal.css` y `js/principal.js` a la vez es lo que rompe este tipo de proyecto. Por eso esos archivos están congelados desde el inicio y el resto está repartido por capas.
 
 ---
 
@@ -36,7 +36,8 @@ La base está alineada y el formulario ya envía de verdad. Lo que queda es **ac
 | Validación del formulario | ✅ Funcionando | Por campo, con `.has-error` y `aria-invalid` |
 | Composición fina (header, Hero, medallón, textura) | ⏳ Pendiente D | Base estructural hecha, falta el acabado de la spec |
 | Contraste de `#contacto` y del formulario | ⏳ Pendiente A | Auditoría AA pendiente |
-| Envío real del formulario | ✅ Funcionando | Edge Function + Postgres + Resend; falta configurar secretos y dominio |
+| Envío real del formulario | ✅ Funcionando globalmente | Proyecto Supabase de Diego + Resend, verificado con prueba real (CH-009); falta dominio remitente propio |
+| Estructura MVC en español | ✅ Hecho | `js/modelos`, `js/vistas`, `js/controladores` (CH-009) |
 | Logo | 🟡 Integrado en raster | Header con el lockup y footer con el monograma; falta el SVG (D-05) |
 | Assets pendientes | ⛔ Bloqueado por D-05 | Favicon y patrón de fondo del Hero |
 
@@ -80,19 +81,19 @@ Nadie edita archivos de otro sin avisar en el PR.
 | Archivo / carpeta | Dueño | Notas |
 | --- | --- | --- |
 | `index.html` | **Compartido** | Cada uno edita solo su bloque (`BLOQUE D` / `BLOQUE A`) |
-| `css/main.css` | **Compartido** | Solo `@import` |
-| `js/main.js` | **Compartido** | Congelado |
-| `js/config/selectors.js` | **Compartido** | Congelado; cambios = PR avisado |
-| `css/base/*`, `css/layout/*` | D | reset, variables, tipografía, header, secciones, footer |
-| `css/components/buttons.css` | D | |
-| `css/components/cards.css` | A | tarjetas editoriales y de servicio |
-| `css/components/forms.css` | A | inputs, errores, confirmación |
-| `css/components/service-selector.css` | A | píldoras |
-| `css/utilities/*` | D | helpers, animaciones, responsive |
-| `js/modules/navigation.js`, `reveal.js`, `footer.js` | D | |
-| `js/modules/service-selector.js`, `contact-form.js` | A | |
-| `js/utils/validation.js` | A | |
-| `db/`, `supabase/migrations/` | A | Esquema portable y seguridad de datos |
+| `css/principal.css` | **Compartido** | Solo `@import` |
+| `js/principal.js` | **Compartido** | Congelado |
+| `js/configuracion/selectores.js` | **Compartido** | Congelado; cambios = PR avisado |
+| `css/base/*`, `css/diseno/*` | D | reset, variables, tipografía, header, secciones, footer |
+| `css/componentes/botones.css` | D | |
+| `css/componentes/tarjetas.css` | A | tarjetas editoriales y de servicio |
+| `css/componentes/formularios.css` | A | inputs, errores, confirmación |
+| `css/componentes/selector-servicios.css` | A | píldoras |
+| `css/utilidades/*` | D | helpers, animaciones, responsive |
+| `js/vistas/navegacion.vista.js`, `revelado.vista.js`, `pie-de-pagina.vista.js` | D | |
+| `js/controladores/selector-servicios.controlador.js`, `formulario-contacto.controlador.js` | A | |
+| `js/utilidades/validacion.js` | A | |
+| `base-de-datos/`, `supabase/migrations/` | A | Esquema portable y seguridad de datos |
 | `supabase/functions/contact/` | A | Edge Function del formulario |
 | `supabase/functions/.env*`, `supabase/.temp` | A | Nunca se versionan los secretos |
 
@@ -141,7 +142,7 @@ Los sprints **no tienen fechas fijas**: cada uno dura las jornadas indicadas. El
 - [ ] JS no selecciona por clase visual.
 - [ ] Sin errores nuevos en consola.
 - [ ] Integrado en `develop` por Pull Request.
-- [ ] Entrada correspondiente en `docs/changelog.md`.
+- [ ] Entrada correspondiente en `documentacion/changelog.md`.
 
 ---
 

@@ -21,7 +21,7 @@ Antes de escribir cualquier línea de código, ambos desarrolladores deben cumpl
 
 4. **Prefijo de espacio de nombres (`kc-`):** Cualquier variable global nueva, cookie, clave de `localStorage` o constante compartida debe llevar el prefijo `kc_` (en JS/PHP) o `--kc-` (si se agregan tokens extendidos en CSS).
 
-5. **Un solo dueño por archivo compartido:** Archivos centrales como `variables.css`, `main.css`, `selectors.js` y `main.js` no se editan simultáneamente sin previo aviso en el Pull Request.
+5. **Un solo dueño por archivo compartido:** Archivos centrales como `variables.css`, `principal.css`, `selectores.js` y `principal.js` no se editan simultáneamente sin previo aviso en el Pull Request.
 
 ## 2. Variables CSS Obligatorias (`css/base/variables.css`)
 
@@ -80,21 +80,21 @@ No deben modificarse ni duplicarse en ninguna parte del DOM:
 
 ### 3.2 Atributos `data-js-*` Obligatorios (Exclusivos para JavaScript)
 
-JavaScript **únicamente** debe consultar el DOM usando estos atributos centralizados en `js/config/selectors.js`:
+JavaScript **únicamente** debe consultar el DOM usando estos atributos centralizados en `js/configuracion/selectores.js`:
 
 | Atributo Obligatorio en HTML | Módulo JS Responsable | Función | 
 | ----- | ----- | ----- | 
-| `data-js="mobile-toggle"` | `navigation.js` | Botón que abre/cierra el menú móvil. | 
-| `data-js="mobile-menu"` | `navigation.js` | Contenedor del menú desplegable móvil. | 
-| `data-js="nav-link"` | `navigation.js` | Enlaces internos que deben cerrar el menú al hacer clic. | 
-| `data-js="reveal"` | `reveal.js` | Elementos observados por `IntersectionObserver`. | 
-| `data-js="service-pill"` | `service-selector.js` | Botones de selección múltiple de servicios. | 
-| `data-js="service-value"` | `service-selector.js` | Input oculto donde se guardan los servicios elegidos. | 
-| `data-js="contact-form"` | `contact-form.js` | Formulario principal de consultoría. | 
-| `data-js="form-feedback"` | `contact-form.js` | Contenedor del mensaje de éxito/error inline. | 
-| `data-js="feedback-text"` | `contact-form.js` | Nodo de texto donde se inyecta el mensaje seguro (`textContent`). | 
-| `data-js="form-reset"` | `contact-form.js` | Botón para reiniciar el formulario tras el envío. | 
-| `data-js="current-year"` | `footer.js` | `<span>` donde se imprime el año actual. | 
+| `data-js="mobile-toggle"` | `navegacion.vista.js` | Botón que abre/cierra el menú móvil. | 
+| `data-js="mobile-menu"` | `navegacion.vista.js` | Contenedor del menú desplegable móvil. | 
+| `data-js="nav-link"` | `navegacion.vista.js` | Enlaces internos que deben cerrar el menú al hacer clic. | 
+| `data-js="reveal"` | `revelado.vista.js` | Elementos observados por `IntersectionObserver`. | 
+| `data-js="service-pill"` | `selector-servicios.controlador.js` | Botones de selección múltiple de servicios. | 
+| `data-js="service-value"` | `selector-servicios.controlador.js` | Input oculto donde se guardan los servicios elegidos. | 
+| `data-js="contact-form"` | `formulario-contacto.controlador.js` | Formulario principal de consultoría. | 
+| `data-js="form-feedback"` | `formulario-contacto.controlador.js` | Contenedor del mensaje de éxito/error inline. | 
+| `data-js="feedback-text"` | `formulario-contacto.controlador.js` | Nodo de texto donde se inyecta el mensaje seguro (`textContent`). | 
+| `data-js="form-reset"` | `formulario-contacto.controlador.js` | Botón para reiniciar el formulario tras el envío. | 
+| `data-js="current-year"` | `pie-de-pagina.vista.js` | `<span>` donde se imprime el año actual. | 
 
 ### 3.3 Clases de Estado CSS (Controladas por JS)
 
@@ -102,21 +102,21 @@ Cuando JavaScript necesite cambiar la apariencia de un elemento, **solo puede ag
 
 * `.is-open` — Para menús desplegables abiertos.
 
-* `.is-visible` — Para elementos que ya entraron en pantalla (`reveal.js`).
+* `.is-visible` — Para elementos que ya entraron en pantalla (`revelado.vista.js`).
 
-* `.is-selected` — Para píldoras de servicios activas (`service-selector.js`).
+* `.is-selected` — Para píldoras de servicios activas (`selector-servicios.controlador.js`).
 
 * `.is-hidden` — Para ocultar bloques (ej. ocultar formulario al mostrar confirmación).
 
 * `.has-error` — Para marcar campos de formulario con validación fallida.
 
-## 4. Variables y Constantes Obligatorias en JavaScript (`js/config/selectors.js`)
+## 4. Variables y Constantes Obligatorias en JavaScript (`js/configuracion/selectores.js`)
 
-Para que ambos desarrolladores trabajen en módulos distintos sin inventar nombres de variables diferentes para los mismos datos, se debe crear el archivo **`js/config/selectors.js`** con estas exportaciones obligatorias:
+Para que ambos desarrolladores trabajen en módulos distintos sin inventar nombres de variables diferentes para los mismos datos, se debe crear el archivo **`js/configuracion/selectores.js`** con estas exportaciones obligatorias:
 
 ```javascript
 /**
- * js/config/selectors.js
+ * js/configuracion/selectores.js
  * Única fuente de verdad para selectores DOM y constantes globales en JS.
  */
 
@@ -157,7 +157,7 @@ export const VALID_SERVICES = Object.freeze([
 
 * **Variables y parámetros:** `camelCase` descriptivo en inglés técnico (ej. `selectedServices`, `isFormValid`, `userName`).
 
-* **Funciones de inicialización:** Siempre empiezan con `init` (ej. `initNavigation()`, `initReveal()`, `initContactForm()`).
+* **Funciones de inicialización:** Siempre empiezan con `init` (ej. `iniciarNavegacion()`, `iniciarRevelado()`, `iniciarFormularioContacto()`).
 
 * **Funciones booleanas:** Siempre empiezan con `is`, `has` o `can` (ej. `isValidEmail(email)`, `hasSelectedServices()`).
 
@@ -200,15 +200,15 @@ Se encarga del sistema de diseño global, la estructura superior e inferior de l
   * `<footer id="footer">` (Branding, enlaces rápidos y año dinámico).
 
 * **Archivos CSS exclusivos:**
-  * `css/base/reset.css`, `css/base/variables.css`, `css/base/typography.css`
-  * `css/layout/header.css`, `css/layout/sections.css`, `css/layout/footer.css`
-  * `css/components/buttons.css`
-  * `css/utilities/animations.css` y `css/utilities/responsive.css`
+  * `css/base/reset.css`, `css/base/variables.css`, `css/base/tipografia.css`
+  * `css/diseno/encabezado.css`, `css/diseno/secciones.css`, `css/diseno/pie-de-pagina.css`
+  * `css/componentes/botones.css`
+  * `css/utilidades/animaciones.css` y `css/utilidades/adaptable.css`
 
 * **Módulos JavaScript exclusivos:**
-  * `js/modules/navigation.js` (Control del menú hamburguesa y cierre al hacer clic en enlaces).
-  * `js/modules/reveal.js` (Animaciones de entrada con `IntersectionObserver`).
-  * `js/modules/footer.js` (Actualización automática del año en `[data-js="current-year"]`).
+  * `js/vistas/navegacion.vista.js` (Control del menú hamburguesa y cierre al hacer clic en enlaces).
+  * `js/vistas/revelado.vista.js` (Animaciones de entrada con `IntersectionObserver`).
+  * `js/vistas/pie-de-pagina.vista.js` (Actualización automática del año en `[data-js="current-year"]`).
 
 * **Ramas Git sugeridas:** `feature/base-design-system`, `feature/header-hero`, `feature/essence-footer`.
 
@@ -221,14 +221,14 @@ Se encarga de las tarjetas de oferta comercial, la lógica interactiva de selecc
   * `<section id="contacto">` (Columna de información directa + formulario completo con selector múltiple y caja de confirmación).
 
 * **Archivos CSS exclusivos:**
-  * `css/components/cards.css` (Estilos de `.editorial-card`, elevación hover y tarjetas de servicio).
-  * `css/components/service-selector.css` (Píldoras interactivas y estado `.is-selected`).
-  * `css/components/forms.css` (Inputs, estados `.has-error`, mensaje `.is-hidden` y contraste en fondo `#4A2E35`).
+  * `css/componentes/tarjetas.css` (Estilos de `.editorial-card`, elevación hover y tarjetas de servicio).
+  * `css/componentes/selector-servicios.css` (Píldoras interactivas y estado `.is-selected`).
+  * `css/componentes/formularios.css` (Inputs, estados `.has-error`, mensaje `.is-hidden` y contraste en fondo `#4A2E35`).
 
 * **Módulos JavaScript y PHP exclusivos:**
-  * `js/modules/service-selector.js` (Lógica con `Set()` y sincronización con `[data-js="service-value"]`).
-  * `js/modules/contact-form.js` (Validación de campos, envío `fetch`/POST y renderizado seguro del mensaje de éxito).
-  * `js/utils/validation.js` (Funciones puras como `isValidEmail()` y validación de longitud mínima).
+  * `js/controladores/selector-servicios.controlador.js` (Lógica con `Set()` y sincronización con `[data-js="service-value"]`).
+  * `js/controladores/formulario-contacto.controlador.js` (Validación de campos, envío `fetch`/POST y renderizado seguro del mensaje de éxito).
+  * `js/utilidades/validacion.js` (Funciones puras como `isValidEmail()` y validación de longitud mínima).
   * `procesar_contacto.php` y `config.php` (En caso de activar recepción de prospectos en servidor PHP).
 
 * **Ramas Git sugeridas:** `feature/services-section`, `feature/contact-form-logic`, `feature/php-contact-handler`.
@@ -238,8 +238,8 @@ Se encarga de las tarjetas de oferta comercial, la lógica interactiva de selecc
 Estos 3 archivos unen el trabajo de ambos y **solo deben modificarse mediante Pull Requests pequeños y avisados**:
 
 1. `index.html`: Cada desarrollador edita únicamente el bloque comprendido dentro de sus etiquetas `<section>` o `<header>`/`<footer>` asignadas.
-2. `css/main.css`: Solo contiene los `@import`; ambos agregan sus hojas en el orden definido en la arquitectura.
-3. `js/main.js` y `js/config/selectors.js`: Se crean al inicio del proyecto con las firmas de funciones ya definidas (`initNavigation`, `initReveal`, `initServiceSelector`, `initContactForm`, `initFooter`) para que ninguno tenga que modificarlos mientras programa su módulo.
+2. `css/principal.css`: Solo contiene los `@import`; ambos agregan sus hojas en el orden definido en la arquitectura.
+3. `js/principal.js` y `js/configuracion/selectores.js`: Se crean al inicio del proyecto con las firmas de funciones ya definidas (`iniciarNavegacion`, `iniciarRevelado`, `iniciarSelectorServicios`, `iniciarFormularioContacto`, `iniciarPieDePagina`) para que ninguno tenga que modificarlos mientras programa su módulo.
 
 ## 7. Lista de Verificación Rápida antes de Hacer Commit
 

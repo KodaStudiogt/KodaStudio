@@ -4,9 +4,9 @@ Landing page del estudio: **HTML5 + CSS3 + JavaScript (ES Modules)**, sin framew
 
 Repositorio: <https://github.com/KodaStudiogt/KodaStudio>
 
-> **Estado:** formulario funcionando en producción (`https://kodastudio-web.vercel.app`) con Supabase + Resend, y animaciones de entrada y micro-interacciones integradas. Pendiente: publicar `develop` en `main`, dominio remitente propio y QA.
+> **Estado:** formulario funcionando globalmente contra el proyecto Supabase de Diego (`dglmtxbkfwjchxigmavc`): guarda cada solicitud y envía el correo con Resend (prueba real 200 · `email_sent: true` el 2026-11-22). Código reorganizado en capas MVC con nombres en español. Pendiente: publicar `develop` en `main`, dominio remitente propio y QA.
 > **Sitio:** <https://kodastudio-web.vercel.app> (Vercel).
-> **Última actualización:** 2026-11-20 · detalle en [`docs/changelog.md`](docs/changelog.md).
+> **Última actualización:** 2026-11-22 · detalle en [`documentacion/changelog.md`](documentacion/changelog.md).
 
 ---
 
@@ -14,10 +14,10 @@ Repositorio: <https://github.com/KodaStudiogt/KodaStudio>
 
 | Rol | Persona | Alcance |
 | --- | --- | --- |
-| **D** | Diego | Base técnica, identidad visual, `#navbar`, `#inicio`, `#esencia`, `#footer` y los módulos `navigation`, `reveal` y `footer` |
-| **A** | Segundo socio | `#servicios`, `#contacto`, tarjetas, formulario, `service-selector`, `contact-form` y el backend de recepción |
+| **D** | Diego | Base técnica, identidad visual, `#navbar`, `#inicio`, `#esencia`, `#footer` y las capas `navegacion`, `revelado` y `pie-de-pagina` (vista + controlador) |
+| **A** | Segundo socio | `#servicios`, `#contacto`, tarjetas, formulario, `selector-servicios`, `formulario-contacto` (modelo, vista y controlador) y el backend de recepción |
 
-Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/main.js` y `js/config/selectors.js`.
+Archivos compartidos (solo con PR avisado): `index.html`, `css/principal.css`, `js/principal.js` y `js/configuracion/selectores.js`.
 
 ---
 
@@ -29,7 +29,7 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/ma
 | Design tokens obligatorios y tipografía editorial | Composición fina del header y textura del Hero |
 | Navegación móvil accesible, reveal, selector múltiple y validación | Contraste de la sección de contacto |
 | Logo integrado en header y footer | Dominio remitente verificado en Resend (`CONTACT_FROM_EMAIL`) |
-| Formulario con envío real desde el sitio publicado (CORS de producción) | Aviso de privacidad y QA final |
+| Formulario global: guarda en Supabase (proyecto de Diego) y envía correo con Resend | Aviso de privacidad y QA final |
 | Animaciones: entrada del Hero, reveal escalonado, hover, navbar al hacer scroll y estados del formulario | Fusionar `develop` → `main` para que Vercel publique los cambios |
 
 **Nada de éxito falso:** la confirmación requiere respuesta satisfactoria del endpoint.
@@ -40,6 +40,7 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/ma
 
 | Fecha | Qué |
 | --- | --- |
+| 2026-11-22 | Formulario global en el proyecto Supabase de Diego y estructura MVC en español (CH-009) |
 | 2026-11-20 | Formulario habilitado en producción y animaciones profesionales (CH-008) |
 | 2026-11-20 | Backend del formulario con Supabase Postgres, Edge Function y Resend (CH-005) |
 | 2026-11-20 | Documentación sincronizada con CH-005 (CH-006) |
@@ -48,7 +49,7 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/main.css`, `js/ma
 | 2026-11-19 | Alineación con la especificación editorial y el contrato de nombres (CH-001, `c0bd569`) |
 | 2026-11-19 | Andamio inicial: estructura de carpetas (CH-000, `f114d9c`) |
 
-Historial completo en [`docs/changelog.md`](docs/changelog.md).
+Historial completo en [`documentacion/changelog.md`](documentacion/changelog.md).
 
 ---
 
@@ -56,13 +57,13 @@ Historial completo en [`docs/changelog.md`](docs/changelog.md).
 
 ### Backend del formulario
 
-El backend combina Supabase Postgres, la Edge Function pública `contact` y Resend. El esquema portable está en `supabase/migrations/20261120000000_core_schema.sql`; la migración siguiente solo configura seguridad Supabase. La guía de tablas y migración está en [`db/README.md`](db/README.md).
+El backend combina Supabase Postgres, la Edge Function pública `contact` y Resend. El esquema portable está en `supabase/migrations/20261120000000_core_schema.sql`; la migración siguiente solo configura seguridad Supabase. La guía de tablas y migración está en [`base-de-datos/README.md`](base-de-datos/README.md).
 
-**En producción (función `contact` v4, desplegada el 2026-11-20):**
+**En producción (proyecto Supabase de Diego, verificado el 2026-11-22):**
 
 | Dato | Valor |
 | --- | --- |
-| Proyecto Supabase | `kodastudio` (ref `dglmtxbkfwjchxigmavc`) |
+| Proyecto Supabase | Koda, organización de Diego (ref `dglmtxbkfwjchxigmavc`). El proyecto anterior `mifxnsennwhufeegkckt` queda obsoleto |
 | Endpoint | `https://dglmtxbkfwjchxigmavc.supabase.co/functions/v1/contact` (configurado en `CONTACT_ENDPOINT`) |
 | Orígenes permitidos | `https://kodastudio-web.vercel.app` (fijo en `kc_prodOrigins` dentro de la función) + localhost de desarrollo + secreto `ALLOWED_ORIGINS` |
 | Ver solicitudes | Supabase › Table Editor › `kc_contact_requests` (columna `email_sent_at` / `email_error` indica si salió el correo) |
@@ -108,7 +109,7 @@ supabase secrets set CONTACT_TO_EMAIL=ventas@example.com CONTACT_FROM_EMAIL='Kod
 supabase functions deploy contact --no-verify-jwt
 ```
 
-Si cambias de proyecto, actualiza `CONTACT_ENDPOINT` en `js/config/selectors.js` a `https://<project-ref>.supabase.co/functions/v1/contact`.
+Si cambias de proyecto, actualiza `CONTACT_ENDPOINT` en `js/configuracion/selectores.js` a `https://<project-ref>.supabase.co/functions/v1/contact`.
 
 ### Servir la landing
 
@@ -130,13 +131,13 @@ Sutiles y sin librerías: solo `opacity`/`transform`, curva `cubic-bezier(.22, 1
 
 | Qué | Dónde |
 | --- | --- |
-| Entrada en cascada del Hero al cargar | `css/utilities/animations.css`, `js/modules/reveal.js` |
-| Reveal escalonado de hijos con `data-js="reveal-child"` (`--kc-reveal-delay`, 90 ms entre elementos) | `js/modules/reveal.js`, `index.html` |
-| Hover de botones (elevación) y `:active` | `css/components/buttons.css` |
-| Hover de tarjetas | `css/components/cards.css` |
-| "Pop" de píldoras al seleccionar | `css/components/service-selector.css` |
-| Navbar con sombra al hacer scroll (`.is-scrolled`) | `js/modules/navigation.js`, `css/layout/header.css` |
-| Spinner de envío, entrada del mensaje y vibración de campos con error | `css/components/forms.css` |
+| Entrada en cascada del Hero al cargar | `css/utilidades/animaciones.css`, `js/vistas/revelado.vista.js` |
+| Reveal escalonado de hijos con `data-js="reveal-child"` (`--kc-reveal-delay`, 90 ms entre elementos) | `js/vistas/revelado.vista.js`, `index.html` |
+| Hover de botones (elevación) y `:active` | `css/componentes/botones.css` |
+| Hover de tarjetas | `css/componentes/tarjetas.css` |
+| "Pop" de píldoras al seleccionar | `css/componentes/selector-servicios.css` |
+| Navbar con sombra al hacer scroll (`.is-scrolled`) | `js/vistas/navegacion.vista.js`, `css/diseno/encabezado.css` |
+| Spinner de envío, entrada del mensaje y vibración de campos con error | `css/componentes/formularios.css` |
 
 Para animar un bloque nuevo dentro de una sección con `data-js="reveal"`, agrega `data-js="reveal-child"`.
 
@@ -148,21 +149,31 @@ Para animar un bloque nuevo dentro de una sección con `data-js="reveal"`, agreg
 .
 ├── index.html                    # Contrato HTML: ids, data-js, campos del formulario
 ├── css/
-│   ├── main.css                  # Solo @imports (compartido)
-│   ├── base/                     # reset, variables, typography
-│   ├── layout/                   # header, sections, footer
-│   ├── components/               # buttons, cards, forms, service-selector
-│   └── utilities/                # helpers, animations, responsive
-├── js/
-│   ├── main.js                   # Punto de entrada (congelado)
-│   ├── config/selectors.js       # Fuente única de selectores y constantes
-│   ├── modules/                  # navigation, reveal, footer | service-selector, contact-form
-│   └── utils/validation.js       # Funciones puras
-├── assets/                       # images/, icons/
-├── db/                           # Modelo de datos y guía de migración
-├── supabase/                     # config.toml, migraciones, seed y Edge Function contact
-└── docs/                         # arquitectura, especificación, estándar, plan, backlog, decisiones, bitácora
+│   ├── principal.css             # Solo @imports (compartido)
+│   ├── base/                     # reset, variables, tipografia
+│   ├── diseno/                   # encabezado, secciones, pie-de-pagina
+│   ├── componentes/              # botones, tarjetas, formularios, selector-servicios
+│   └── utilidades/               # ayudantes, animaciones, adaptable
+├── js/                           # Arquitectura MVC
+│   ├── principal.js              # Punto de entrada: inicializa los controladores (compartido)
+│   ├── configuracion/selectores.js # Selectores DOM, endpoint y constantes (compartido)
+│   ├── modelos/                  # servicios, solicitud-contacto: datos, validación y fetch (sin DOM)
+│   ├── vistas/                   # *.vista.js: todo lo que toca el DOM
+│   ├── controladores/            # *.controlador.js: eventos, unen modelo y vista
+│   └── utilidades/validacion.js  # Funciones puras
+├── recursos/                     # imagenes/ (logo, fondos, servicios), iconos/
+├── base-de-datos/                # Modelo de datos y guía de migración
+├── supabase/                     # config.toml, migraciones, seed y Edge Function contact (nombre fijo del CLI)
+└── documentacion/                # arquitectura, especificación, estándar, plan, backlog, decisiones, bitácora
 ```
+
+### Capas MVC
+
+| Capa | Hace | No hace |
+| --- | --- | --- |
+| **Modelo** (`js/modelos/`) | Arma y valida el payload, conoce el catálogo de servicios y llama al endpoint | Tocar el DOM |
+| **Vista** (`js/vistas/`) | Lee valores, pinta mensajes, errores, spinner y clases de estado | Decidir reglas de negocio o hacer `fetch` |
+| **Controlador** (`js/controladores/`) | Escucha eventos, pide validación al modelo y ordena a la vista qué mostrar | Guardar selectores o textos de validación propios |
 
 ---
 
@@ -215,11 +226,11 @@ Ramas permanentes: `main` (producción) y `develop` (integración). Una rama = u
 
 ## Documentación
 
-- [Bitácora de cambios](docs/changelog.md) — qué se hizo, cuándo y con qué verificación.
-- [Plan de trabajo](docs/plan-de-trabajo.md) — sprints, propiedad de archivos, riesgos y DoD.
-- [Backlog](docs/backlog.md) — tareas con dueño, estado y criterio de aceptación.
-- [Decisiones pendientes](docs/decisiones-pendientes.md) — lo que hay que acordar antes de publicar.
-- [Decisiones de D](docs/decisiones-de-d.md) — registro de lo que decidí yo, con su motivo y su efecto.
-- [Especificación de diseño](docs/especificacion.md) — dirección de arte, copywriting, interacciones.
-- [Estándar anti-conflictos](docs/estandar.md) — variables, `data-js-*`, contrato del formulario.
-- [Arquitectura](docs/arquitectura.md) — estructura de carpetas y flujo técnico.
+- [Bitácora de cambios](documentacion/changelog.md) — qué se hizo, cuándo y con qué verificación.
+- [Plan de trabajo](documentacion/plan-de-trabajo.md) — sprints, propiedad de archivos, riesgos y DoD.
+- [Backlog](documentacion/backlog.md) — tareas con dueño, estado y criterio de aceptación.
+- [Decisiones pendientes](documentacion/decisiones-pendientes.md) — lo que hay que acordar antes de publicar.
+- [Decisiones de D](documentacion/decisiones-de-d.md) — registro de lo que decidí yo, con su motivo y su efecto.
+- [Especificación de diseño](documentacion/especificacion.md) — dirección de arte, copywriting, interacciones.
+- [Estándar anti-conflictos](documentacion/estandar.md) — variables, `data-js-*`, contrato del formulario.
+- [Arquitectura](documentacion/arquitectura.md) — estructura de carpetas y flujo técnico.

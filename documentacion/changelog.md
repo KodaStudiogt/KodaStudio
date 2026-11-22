@@ -1,7 +1,7 @@
 # Bitácora de cambios — Koda Studio
 
 > Registro cronológico de lo que se ha hecho en el proyecto. **Se actualiza en cada entrega**, no solo en los hitos.
-> **Última actualización:** 2026-11-20. Formulario habilitado en producción y animaciones integradas (CH-008); pendiente publicar en `main` y verificar dominio remitente.
+> **Última actualización:** 2026-11-22. Formulario global en el proyecto Supabase de Diego y estructura MVC en español (CH-009); pendiente publicar en `main` y verificar dominio remitente.
 
 ## Convención
 
@@ -14,6 +14,7 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
+| CH-009 | 2026-11-22 | `fix` + `refactor` + `docs` | Sincronización con PR #24–#26, formulario global en el proyecto Supabase de Diego y estructura MVC en español | `206c0df`, `c204b5e` |
 | CH-008 | 2026-11-20 | `fix` + `style` | Formulario habilitado desde el sitio publicado y animaciones profesionales | `b656e27`, `cb76839` |
 | CH-007 | 2026-11-20 | `docs` | Registro de decisiones de D en `docs/decisiones-de-d.md` | Solo documentación |
 | CH-006 | 2026-11-20 | `docs` | Sincronización de backlog, plan, decisiones y README con CH-005 | Solo documentación |
@@ -23,6 +24,32 @@
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
 | CH-001 | 2026-11-19 | `refactor` | Alineación con la especificación editorial y el estándar anti-conflictos | `c0bd569` |
 | CH-000 | 2026-11-19 | `feat` | Andamio inicial: estructura de carpetas y módulos vacíos | `f114d9c` |
+
+---
+
+## CH-009 · Formulario global, proyecto Supabase de Diego y estructura MVC
+
+**Fecha:** 2026-11-22 · **Tipo:** `fix` + `refactor` + `docs`
+
+**Motivo.** El backend pasa al proyecto Supabase de la organización de Diego para que todas las solicitudes de clientes caigan en una sola base de datos. Además, el código se reorganiza en capas MVC con nombres en español para que sea más fácil de entender y mantener.
+
+**Cambios**
+
+- Sincronización de los PR #24–#26 de Diego (`206c0df`): `CONTACT_ENDPOINT` apunta a `https://dglmtxbkfwjchxigmavc.supabase.co/functions/v1/contact`, `CONTACT_TO_EMAIL` admite varios correos separados por comas, la función responde 503 si falta configuración de correo y 502 si Resend falla (la solicitud igual queda guardada), y el formulario muestra un mensaje para cada caso.
+- Remoto del repositorio actualizado a `KodaStudiogt/KodaStudio`.
+- Reestructura MVC (`c204b5e`), sin cambios de comportamiento: `js/{configuracion,modelos,vistas,controladores,utilidades}`, `js/principal.js`; `css/{base,diseno,componentes,utilidades}` con archivos en español y `css/principal.css`; `assets/` → `recursos/`, `docs/` → `documentacion/`, `db/` → `base-de-datos/`. `supabase/` conserva su nombre porque lo exige el CLI. Se mantienen `kc_`, `data-js`, ids, `name` del formulario y clases de estado.
+- Documentación: rutas, árbol, capas MVC, proyecto Supabase y pendientes actualizados en README y `documentacion/`.
+
+**Verificación**
+
+- `node --check` en todos los `.js`; servidor local con todas las rutas de CSS, JS e imágenes respondiendo 200.
+- Prueba real al endpoint de producción con `Origin: https://kodastudio-web.vercel.app`: HTTP 200, `{"ok":true,"email_sent":true}`.
+
+**Pendiente**
+
+- Publicar `develop` → `main` para que Vercel sirva la nueva estructura.
+- Dominio remitente verificado en Resend (`CONTACT_FROM_EMAIL`).
+- QA manual en el navegador del sitio publicado.
 
 ---
 
