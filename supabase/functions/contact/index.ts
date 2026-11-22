@@ -115,9 +115,11 @@ Deno.serve(async (request) => {
   // Sin dominio verificado en Resend se usa su remitente de pruebas.
   const kc_from = Deno.env.get("CONTACT_FROM_EMAIL") || "Koda Studio <onboarding@resend.dev>";
   const kc_to = Deno.env.get("CONTACT_TO_EMAIL");
-  if (!kc_resendKey || !kc_from || !kc_to) {
-    console.warn("Correo omitido: faltan secretos de Resend o destinatario.");
-    return kc_reply(200, { ok: true, id: kc_requestId }, kc_origin, kc_isAllowed);
+  if (!kc_resendKey || !kc_to) {
+    const kc_error = "Configuración de correo incompleta";
+    console.error(kc_error);
+    await kc_supabase.from("kc_contact_requests").update({ email_error: kc_error }).eq("id", kc_requestId);
+    return kc_reply(503, { ok: false, error: "email_configuration", id: kc_requestId }, kc_origin, kc_isAllowed);
   }
   const kc_safeName = kc_escapeHtml(kc_name);
   const kc_safeEmail = kc_escapeHtml(kc_email);
@@ -126,7 +128,11 @@ Deno.serve(async (request) => {
   const kc_html = `<h1>Nueva solicitud de consultoría</h1><p><strong>Nombre:</strong> ${kc_safeName}</p><p><strong>Correo:</strong> ${kc_safeEmail}</p><p><strong>Servicios:</strong> ${kc_safeServices.length ? kc_safeServices.join(", ") : "Sin selección"}</p><p><strong>Proyecto:</strong></p><p>${kc_safeMessage.replace(/\n/g, "<br>")}</p>`;
   const kc_text = `Nueva solicitud de consultoría\nNombre: ${kc_name}\nCorreo: ${kc_email}\nServicios: ${kc_selected.join(", ") || "Sin selección"}\nProyecto:\n${kc_message}`;
   try {
-    const kc_emailResponse = await fetch("https://api.resend.com/emails", {
+    const kc_emailController = new AbortController();
+    const kc_emailTimeout = setTimeout(() => kc_emailController.abort(), 10_000);
+    let kc_emailResponse: Response;
+    try {
+      kc_emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { "Authorization": `Bearer ${kc_resendKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -137,17 +143,23 @@ Deno.serve(async (request) => {
         html: kc_html,
         text: kc_text,
       }),
-    });
+      signal: kc_emailController.signal,
+      });
+    } finally {
+      clearTimeout(kc_emailTimeout);
+    }
     if (!kc_emailResponse.ok) {
       const kc_errorText = (await kc_emailResponse.text()).slice(0, 1000);
       console.error("Resend rechazó el correo:", kc_emailResponse.status, kc_errorText);
       await kc_supabase.from("kc_contact_requests").update({ email_error: `Resend HTTP ${kc_emailResponse.status}` }).eq("id", kc_requestId);
+      return kc_reply(502, { ok: false, error: "email_delivery", id: kc_requestId }, kc_origin, kc_isAllowed);
     } else {
       await kc_supabase.from("kc_contact_requests").update({ email_sent_at: new Date().toISOString(), email_error: null }).eq("id", kc_requestId);
     }
   } catch (kc_error) {
     console.error("No se pudo enviar el correo:", kc_error);
     await kc_supabase.from("kc_contact_requests").update({ email_error: "Error de conexión con Resend" }).eq("id", kc_requestId);
+    return kc_reply(502, { ok: false, error: "email_delivery", id: kc_requestId }, kc_origin, kc_isAllowed);
   }
-  return kc_reply(200, { ok: true, id: kc_requestId }, kc_origin, kc_isAllowed);
+  return kc_reply(200, { ok: true, email_sent: true, id: kc_requestId }, kc_origin, kc_isAllowed);
 });
