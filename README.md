@@ -5,7 +5,7 @@ Landing page del estudio: **HTML5 + CSS3 + JavaScript (ES Modules)**, sin framew
 Repositorio: <https://github.com/KodaStudiogt/KodaStudio>
 
 > **Estado:** formulario funcionando globalmente contra el proyecto Supabase de Diego (`dglmtxbkfwjchxigmavc`): guarda cada solicitud y envía el correo con Resend (prueba real 200 · `email_sent: true` el 2026-11-22). Código reorganizado en capas MVC con nombres en español. Pendiente: publicar `develop` en `main`, dominio remitente propio y QA.
-> **Sitio:** <https://kodastudio-web.vercel.app> (Vercel).
+> **Sitio:** <https://koda-studio-ivory.vercel.app> (Vercel, proyecto `koda-studio`, se publica en cada push a `main`). `kodastudio-web.vercel.app` es el proyecto anterior y ya no se actualiza.
 > **Última actualización:** 2026-11-22 · detalle en [`documentacion/changelog.md`](documentacion/changelog.md).
 
 ---
@@ -40,6 +40,7 @@ Archivos compartidos (solo con PR avisado): `index.html`, `css/principal.css`, `
 
 | Fecha | Qué |
 | --- | --- |
+| 2026-11-22 | Proyecto Vercel nuevo `koda-studio` con encabezados de seguridad (CH-010) |
 | 2026-11-22 | Formulario global en el proyecto Supabase de Diego y estructura MVC en español (CH-009) |
 | 2026-11-20 | Formulario habilitado en producción y animaciones profesionales (CH-008) |
 | 2026-11-20 | Backend del formulario con Supabase Postgres, Edge Function y Resend (CH-005) |
@@ -65,7 +66,7 @@ El backend combina Supabase Postgres, la Edge Function pública `contact` y Rese
 | --- | --- |
 | Proyecto Supabase | Koda, organización de Diego (ref `dglmtxbkfwjchxigmavc`). El proyecto anterior `mifxnsennwhufeegkckt` queda obsoleto |
 | Endpoint | `https://dglmtxbkfwjchxigmavc.supabase.co/functions/v1/contact` (configurado en `CONTACT_ENDPOINT`) |
-| Orígenes permitidos | `https://kodastudio-web.vercel.app` (fijo en `kc_prodOrigins` dentro de la función) + localhost de desarrollo + secreto `ALLOWED_ORIGINS` |
+| Orígenes permitidos | `https://koda-studio-ivory.vercel.app` y `https://kodastudio-web.vercel.app` (fijos en `kc_prodOrigins` dentro de la función) + localhost de desarrollo + secreto `ALLOWED_ORIGINS` |
 | Ver solicitudes | Supabase › Table Editor › `kc_contact_requests` (columna `email_sent_at` / `email_error` indica si salió el correo) |
 
 Secretos de la función (Supabase › Edge Functions › Secrets). **El correo destino solo vive aquí, nunca en el repositorio.**
@@ -124,6 +125,23 @@ Luego abre <http://localhost:8000>. También sirve `npx serve .` o la extensión
 **Comprobación rápida:** consola sin errores, año del footer correcto, menú móvil que abre y cierra, píldoras que se marcan, y formulario que señala errores de nombre, correo y mensaje.
 
 ---
+
+## Publicación y seguridad (Vercel)
+
+Proyecto Vercel `koda-studio` (equipo `thesebast18`) conectado a `KodaStudiogt/KodaStudio`. Cada push a `main` publica en <https://koda-studio-ivory.vercel.app>; los despliegues de vista previa piden iniciar sesión en Vercel.
+
+`vercel.json` define el sitio estático (sin build) y los encabezados de seguridad:
+
+| Encabezado | Valor / efecto |
+| --- | --- |
+| `Content-Security-Policy` | Solo scripts y estilos propios, Google Fonts y `connect-src` hacia el endpoint de Supabase; sin iframes (`frame-ancestors 'none'`) |
+| `Strict-Transport-Security` | HTTPS obligatorio por 2 años |
+| `X-Frame-Options: DENY` · `X-Content-Type-Options: nosniff` | Evita clickjacking y el MIME sniffing |
+| `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy` | Sin cámara, micrófono, ubicación ni pagos; aislamiento de ventana |
+
+`.vercelignore` evita publicar `supabase/`, `base-de-datos/`, `documentacion/` y los `.md`.
+
+Si cambias el endpoint de Supabase o agregas un servicio externo, actualiza la CSP en `vercel.json`. Si agregas un dominio, súmalo a `kc_prodOrigins` o al secreto `ALLOWED_ORIGINS`.
 
 ## Animaciones y micro-interacciones
 

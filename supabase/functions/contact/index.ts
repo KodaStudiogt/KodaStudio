@@ -13,7 +13,10 @@ const kc_devOrigins = [
   "http://localhost:5500", "http://127.0.0.1:5500",
   "http://localhost:3000", "http://127.0.0.1:3000",
 ];
-const kc_prodOrigins = ["https://kodastudio-web.vercel.app"];
+const kc_prodOrigins = [
+  "https://koda-studio-ivory.vercel.app",   // Proyecto Vercel oficial (koda-studio)
+  "https://kodastudio-web.vercel.app",      // Proyecto anterior, se mantiene por compatibilidad
+];
 const kc_jsonHeaders = { "Content-Type": "application/json; charset=utf-8", "Vary": "Origin" };
 const kc_reply = (status: number, data: Record<string, unknown>, origin = "", allowed = false) => {
   const headers = new Headers(kc_jsonHeaders);

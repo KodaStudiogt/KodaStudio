@@ -14,6 +14,7 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
+| CH-010 | 2026-11-22 | `chore` | Proyecto Vercel nuevo `koda-studio` con encabezados de seguridad y dominio permitido en la función | `37bd642` |
 | CH-009 | 2026-11-22 | `fix` + `refactor` + `docs` | Sincronización con PR #24–#26, formulario global en el proyecto Supabase de Diego y estructura MVC en español | `206c0df`, `c204b5e` |
 | CH-008 | 2026-11-20 | `fix` + `style` | Formulario habilitado desde el sitio publicado y animaciones profesionales | `b656e27`, `cb76839` |
 | CH-007 | 2026-11-20 | `docs` | Registro de decisiones de D en `docs/decisiones-de-d.md` | Solo documentación |
@@ -24,6 +25,28 @@
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
 | CH-001 | 2026-11-19 | `refactor` | Alineación con la especificación editorial y el estándar anti-conflictos | `c0bd569` |
 | CH-000 | 2026-11-19 | `feat` | Andamio inicial: estructura de carpetas y módulos vacíos | `f114d9c` |
+
+---
+
+## CH-010 · Proyecto Vercel nuevo con seguridad
+
+**Fecha:** 2026-11-22 · **Tipo:** `chore`
+
+**Motivo.** El formulario funcionaba desde local pero no desde internet: `kodastudio-web.vercel.app` ya no recibía despliegues y los dominios que sí se actualizaban no estaban permitidos por CORS en la función `contact`.
+
+**Cambios**
+
+- Proyecto Vercel `koda-studio` (equipo `thesebast18`) conectado a `KodaStudiogt/KodaStudio`, producción en <https://koda-studio-ivory.vercel.app>, vistas previas protegidas con Vercel Authentication.
+- `vercel.json`: sitio estático y encabezados CSP, HSTS, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` y COOP. `.vercelignore` oculta backend y documentación.
+- `supabase/functions/contact/index.ts`: `https://koda-studio-ivory.vercel.app` agregado a `kc_prodOrigins`.
+
+**Verificación**
+
+- Despliegue READY; encabezados presentes; `README.md` y `supabase/...` responden 404; CSS, JS e imágenes responden 200.
+
+**Pendiente**
+
+- Activar el dominio en la función: secreto `ALLOWED_ORIGINS` o redesplegar `contact` en el proyecto de Diego.
 
 ---
 
