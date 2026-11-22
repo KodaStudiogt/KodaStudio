@@ -1,0 +1,7 @@
+# Archivos internos que no se publican en el sitio
+supabase/
+base-de-datos/
+documentacion/
+*.md
+.gitattributes
+.gitignore
