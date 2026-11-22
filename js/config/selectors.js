@@ -25,7 +25,7 @@ export const DOM_SELECTORS = Object.freeze({
 });
 
 /** Edge Function de Supabase (proyecto kodastudio). Local: http://127.0.0.1:54321/functions/v1/contact */
-export const CONTACT_ENDPOINT = "https://mifxnsennwhufeegkckt.supabase.co/functions/v1/contact";
+export const CONTACT_ENDPOINT = "https://dglmtxbkfwjchxigmavc.supabase.co/functions/v1/contact";
 export const CONTACT_TIMEOUT_MS = 12000;
 
 /**
