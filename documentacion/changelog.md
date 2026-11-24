@@ -1,7 +1,7 @@
 # Bitácora de cambios — Koda Studio
 
 > Registro cronológico de lo que se ha hecho en el proyecto. **Se actualiza en cada entrega**, no solo en los hitos.
-> **Última actualización:** 2026-11-22. Formulario global en el proyecto Supabase de Diego y estructura MVC en español (CH-009); pendiente publicar en `main` y verificar dominio remitente.
+> **Última actualización:** 2026-11-23. Rediseño con el sistema de `DESIGN.md` y la paleta Koda, sección Proyectos y adaptación móvil (CH-011, en rama `diseno_actualizado`, PR a `main`).
 
 ## Convención
 
@@ -14,6 +14,7 @@
 
 | ID | Fecha | Tipo | Resumen | Ref. |
 | --- | --- | --- | --- | --- |
+| CH-011 | 2026-11-23 | `design` | Rediseño estilo `DESIGN.md` con paleta Koda, sección Proyectos y móvil | Rama `diseno_actualizado` (`195d2f7`…) |
 | CH-010 | 2026-11-22 | `chore` | Proyecto Vercel nuevo `koda-studio` con encabezados de seguridad y dominio permitido en la función | `37bd642` |
 | CH-009 | 2026-11-22 | `fix` + `refactor` + `docs` | Sincronización con PR #24–#26, formulario global en el proyecto Supabase de Diego y estructura MVC en español | `206c0df`, `c204b5e` |
 | CH-008 | 2026-11-20 | `fix` + `style` | Formulario habilitado desde el sitio publicado y animaciones profesionales | `b656e27`, `cb76839` |
@@ -25,6 +26,30 @@
 | CH-002 | 2026-11-19 | `docs` | Estado consolidado: bitácora, plan, backlog y decisiones actualizados | Solo documentación |
 | CH-001 | 2026-11-19 | `refactor` | Alineación con la especificación editorial y el estándar anti-conflictos | `c0bd569` |
 | CH-000 | 2026-11-19 | `feat` | Andamio inicial: estructura de carpetas y módulos vacíos | `f114d9c` |
+
+---
+
+## CH-011 · Rediseño con DESIGN.md, sección Proyectos y móvil
+
+**Fecha:** 2026-11-23 · **Tipo:** `design`
+
+**Detalle:** [`rediseno-movil.md`](./rediseno-movil.md) · **Decisiones:** [`decisiones-rediseno.md`](./decisiones-rediseno.md)
+
+**Motivo.** Adaptar la página a la guía `documentacion/DESIGN.md` conservando los colores de Koda, añadir un apartado de proyectos y mejorar la experiencia en teléfonos.
+
+**Cambios**
+
+- Sistema de bandas a sangre (`band--dark`, `band--plum`, `band--light`, `band--light-alt`), titulares grandes centrados, etiquetas en JetBrains Mono, radios 4/10px y cero sombras. Display en Plus Jakarta Sans 800 con acento en Cormorant itálica.
+- Tokens nuevos en `variables.css` (roles de superficie, fuentes, layout); ningún otro CSS escribe hex.
+- Encabezado oscuro con isotipo aclarado por filtro; menú móvil a pantalla completa con botón que se vuelve X.
+- Sección nueva `#proyectos` (`css/componentes/proyectos.css`) con tres casos **de ejemplo** (Aurora Dental Studio, Café Altura, Ruta Norte Logística): pósters tipográficos, etiquetas y resultados. Enlazada en menú y pie.
+- Cinta animada de servicios, pie con la marca a escala de póster.
+- Móvil: botones a ancho completo, objetivos táctiles ≥ 44px, inputs a 16px (sin zoom en iOS), `safe-area-inset`, sin scroll horizontal.
+- Copy del hero, nosotros, servicios y contacto acortado y reorganizado; contratos `data-js` y `name` del formulario intactos.
+
+**Verificación.** Capturas con Chrome headless a 375px y 1440px: sin desbordes, todas las secciones visibles. No se probó en dispositivos reales.
+
+**Pendiente.** Reemplazar los tres proyectos de ejemplo por casos reales antes de fusionar a `main`; QA en Safari iOS y Android; actualizar `especificacion.md` si el nuevo copy se adopta.
 
 ---
 
