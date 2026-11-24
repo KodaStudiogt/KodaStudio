@@ -1,8 +1,8 @@
 /**
  * css/componentes/selector-servicios.css
- * Píldoras de selección múltiple. Dueño: A. Spec §3.3.
- * El estado visual se refleja con .is-selected (STATE_CLASSES.selected) y
- * aria-pressed; el color no es el único indicador.
+ * Selección múltiple con estilo de insignia (DESIGN.md · Badge). El estado se
+ * refleja con .is-selected / aria-pressed y un ✓; el color no es el único
+ * indicador.
  */
 
 .service-selector {
@@ -12,28 +12,30 @@
 }
 
 .service-pill {
-    padding: 0.55rem 1rem;
-    border: 1px solid rgba(74, 46, 53, 0.18);
-    border-radius: var(--radius-pill);
-    background: var(--color-linen);
+    min-height: 2.75rem;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--line-on-light);
+    border-radius: var(--radius-badge);
+    background: var(--color-linen-light);
     color: var(--color-charcoal);
-    font-size: 0.825rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
     font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
     transition:
-        background-color 250ms cubic-bezier(.22, 1, .36, 1),
-        border-color 250ms cubic-bezier(.22, 1, .36, 1),
-        color 250ms cubic-bezier(.22, 1, .36, 1),
-        transform 250ms cubic-bezier(.22, 1, .36, 1);
+        background-color 250ms var(--ease-out),
+        border-color 250ms var(--ease-out),
+        color 250ms var(--ease-out),
+        transform 250ms var(--ease-out);
 }
 
 @keyframes kc-pill-pop {
     50% { transform: scale(1.04); }
 }
 
-.service-pill.is-selected { animation: kc-pill-pop 250ms cubic-bezier(.22, 1, .36, 1); }
-
 .service-pill:hover {
-    border-color: var(--color-bronze);
+    border-color: var(--color-plum);
 }
 
 .service-pill.is-selected,
@@ -41,9 +43,9 @@
     background: var(--color-plum);
     border-color: var(--color-plum);
     color: var(--color-linen-light);
+    animation: kc-pill-pop 250ms var(--ease-out);
 }
 
-/* Indicador textual para quien no distingue el color */
 .service-pill.is-selected::after,
 .service-pill[aria-pressed="true"]::after {
     content: " ✓";
