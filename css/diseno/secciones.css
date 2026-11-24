@@ -1,181 +1,263 @@
 /**
  * css/diseno/secciones.css
- * Regiones principales de la página. Dueño: D.
- * Base estructural; la composición editorial fina se completa en S1-S2.
+ * Sistema de bandas a sangre (DESIGN.md · Section Band): cada sección es un
+ * campo de color. Contenido centrado con ancho máximo de 75rem.
  */
 
-.hero,
-.essence,
-.services,
-.contact {
-    padding-block: 5rem;
-    padding-inline: max(1.5rem, calc((100% - 76rem) / 2));
+/* ---------- Bandas ---------- */
+.band {
+    padding-block: var(--kc-band-padding);
+    padding-inline: var(--kc-gutter);
 }
 
-/* ---------- Section header compartido ---------- */
+.band__inner {
+    max-width: var(--kc-container);
+    margin-inline: auto;
+}
+
+.band--dark {
+    background: var(--surface-dark);
+    color: var(--ink-on-dark);
+}
+
+.band--plum {
+    background: var(--surface-plum);
+    color: var(--ink-on-dark);
+}
+
+.band--light {
+    background: var(--surface-light);
+    color: var(--color-charcoal);
+}
+
+.band--light-alt {
+    background: var(--surface-light-alt);
+    color: var(--color-charcoal);
+}
+
+/* Tinta de títulos y etiquetas según el fondo (el "color flip") */
+.band--dark :is(h1, h2, h3),
+.band--plum :is(h1, h2, h3) {
+    color: var(--ink-on-dark);
+}
+
+.band--dark :is(h1, h2) em,
+.band--plum :is(h1, h2) em,
+.band--dark .eyebrow,
+.band--plum .eyebrow {
+    color: var(--accent-on-dark);
+}
+
+.band--light :is(h1, h2, h3),
+.band--light-alt :is(h1, h2, h3) {
+    color: var(--color-plum);
+}
+
+.band--light :is(h1, h2) em,
+.band--light-alt :is(h1, h2) em,
+.band--light .eyebrow,
+.band--light-alt .eyebrow {
+    color: var(--color-bronze-dark);
+}
+
+.band--dark strong,
+.band--plum strong {
+    color: var(--ink-on-dark);
+}
+
+.band--light strong,
+.band--light-alt strong {
+    color: var(--color-plum);
+}
+
+/* ---------- Encabezado de sección: etiqueta arriba, titular centrado ---------- */
 .section-header {
     display: grid;
-    gap: 0.75rem;
-    margin-bottom: 2.5rem;
+    justify-items: center;
+    gap: 1.25rem;
+    margin-bottom: clamp(2.5rem, 7vw, 4.5rem);
+    text-align: center;
 }
 
-.section-header--split {
-    gap: 1.5rem;
+.section-header__title {
+    max-width: 18ch;
 }
 
 .section-header__description {
-    color: var(--color-muted);
-    font-size: 0.95rem;
-    max-width: 34ch;
+    max-width: 52ch;
+    font-size: 1.0625rem;
+    opacity: 0.8;
 }
 
 /* ---------- Hero ---------- */
 .hero {
-    display: grid;
-    gap: 3.5rem;
+    padding-top: clamp(4rem, 12vw, 8.5rem);
+    padding-bottom: clamp(3rem, 8vw, 5rem);
 }
 
 .hero__inner {
     display: grid;
-    gap: 1.4rem;
-    max-width: 56rem;
+    justify-items: center;
+    gap: 1.75rem;
+    text-align: center;
+}
+
+.hero__title {
+    max-width: 14ch;
 }
 
 .hero__description {
-    color: var(--color-muted);
-    font-size: 1.05rem;
-    max-width: 46rem;
+    max-width: 48ch;
+    color: var(--ink-on-dark-muted);
+    font-size: clamp(1.0625rem, 2.2vw, 1.25rem);
 }
 
 .hero__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 0.75rem;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
 }
 
 .hero__pillars {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.75rem;
-    padding-top: 2rem;
-    border-top: var(--border-subtle);
+    margin-top: clamp(3.5rem, 9vw, 6rem);
+    border-top: 1px solid var(--color-bronze);
+}
+
+.pillar {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.75rem 1.5rem 0;
+    text-align: center;
+}
+
+.pillar + .pillar {
+    border-left: var(--border-dark);
+}
+
+.pillar__index {
+    margin-inline: auto;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-on-dark);
 }
 
 .pillar__title {
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.25rem;
 }
 
 .pillar__description {
-    color: var(--color-muted);
-    font-size: 0.9rem;
+    margin-inline: auto;
+    color: var(--ink-on-dark-muted);
+    font-size: 0.95rem;
 }
 
-/* ---------- Esencia ---------- */
-.essence {
-    background: var(--color-linen-dark);
+/* ---------- Cinta de servicios ---------- */
+.ticker {
+    overflow: hidden;
+    padding-block: 1rem;
+    background: var(--color-bronze);
+    color: var(--color-plum-dark);
 }
 
-.story {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 2rem;
-    margin-bottom: 1.75rem;
+.ticker__track {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    animation: kc-ticker 32s linear infinite;
 }
 
-.story__aside {
-    grid-column: span 4;
-    display: grid;
-    align-content: start;
-    gap: 0.75rem;
+@keyframes kc-ticker {
+    to { transform: translateX(-50%); }
 }
 
-.story__quote {
-    padding-left: 1rem;
-    border-left: 2px solid var(--color-bronze);
-    font-size: 1.05rem;
+/* ---------- Nosotros ---------- */
+.essence__quote {
+    max-width: 30ch;
+    margin: 0 auto clamp(2.5rem, 7vw, 4rem);
+    color: var(--color-plum);
+    font-family: var(--font-accent);
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
 }
 
-.story__body {
-    grid-column: span 8;
-    display: grid;
-    gap: 1rem;
-    color: var(--color-charcoal);
+.essence__quote p {
+    max-width: none;
 }
 
 .purpose-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.75rem;
-}
-
-.purpose-card {
-    display: grid;
-    align-content: start;
-    gap: 0.85rem;
-}
-
-.purpose-card__text {
-    color: var(--color-charcoal);
-}
-
-.purpose-card__footer {
-    margin-top: 0.5rem;
-    padding-top: 1rem;
-    border-top: var(--border-subtle);
-    color: var(--color-bronze-dark);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    gap: 1.25rem;
 }
 
 /* ---------- Servicios ---------- */
 .services__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.75rem;
+    gap: 1.25rem;
+}
+
+/* ---------- Proyectos ---------- */
+.projects__list {
+    display: grid;
+    gap: 1.5rem;
 }
 
 /* ---------- Contacto ---------- */
-.contact {
-    background: var(--color-plum);
-    color: var(--color-linen);
-}
-
 .contact__inner {
     display: grid;
-    grid-template-columns: 5fr 7fr;
-    gap: 3rem;
+    grid-template-columns: 4fr 7fr;
+    gap: clamp(2rem, 5vw, 4rem);
     align-items: start;
-}
-
-.contact__title {
-    color: var(--color-linen-light);
-    margin-block: 0.75rem 1.25rem;
-}
-
-.contact__description {
-    color: color-mix(in srgb, var(--color-linen) 78%, transparent);
 }
 
 .contact__details {
     display: grid;
-    gap: 0.5rem;
-    margin-top: 2rem;
-    font-size: 0.9rem;
-    color: color-mix(in srgb, var(--color-linen) 70%, transparent);
+    border-top: var(--border-dark);
+}
+
+.contact__details li {
+    display: grid;
+    gap: 0.35rem;
+    padding-block: 1.25rem;
+    border-bottom: var(--border-dark);
+    color: var(--ink-on-dark);
+}
+
+.contact__label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-on-dark);
 }
 
 .contact__link {
-    color: var(--color-linen-light);
+    justify-self: start;
     border-bottom: 1px solid var(--color-bronze);
-    padding-bottom: 2px;
+    overflow-wrap: anywhere;
+    transition: color var(--transition-base);
+}
+
+.contact__link:hover {
+    color: var(--accent-on-dark);
 }
 
 .contact__form-wrapper {
-    padding: 2rem;
+    padding: clamp(1.25rem, 4vw, 2.25rem);
     border-radius: var(--radius-card);
-    background: var(--color-linen-light);
+    background: var(--color-linen);
+    color: var(--color-charcoal);
 }

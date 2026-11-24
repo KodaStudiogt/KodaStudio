@@ -1,0 +1,133 @@
+/**
+ * css/componentes/proyectos.css
+ * Tarjetas de proyecto: póster tipográfico de color (sin fotos ni capturas,
+ * DESIGN.md · Imagery) + ficha con etiquetas y resultados.
+ */
+
+.project-card {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    overflow: hidden;
+    border: var(--border-subtle);
+    border-radius: var(--radius-card);
+    background: var(--color-linen-light);
+    transition: border-color 300ms var(--ease-out);
+}
+
+.project-card:hover {
+    border-color: var(--color-bronze);
+}
+
+/* Proyectos pares: póster a la derecha en escritorio */
+.project-card:nth-child(even) .project-card__poster {
+    order: 2;
+}
+
+/* ---------- Póster ---------- */
+.project-card__poster {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 16rem;
+    padding: 1.5rem;
+    overflow: hidden;
+}
+
+.project-card__poster--plum {
+    background: var(--color-plum);
+    color: var(--color-bronze-light);
+}
+
+.project-card__poster--bronze {
+    background: var(--color-bronze);
+    color: var(--color-plum-dark);
+}
+
+.project-card__poster--dark {
+    background: var(--color-charcoal);
+    color: var(--color-linen);
+}
+
+/* Retícula fina decorativa */
+.project-card__poster::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(currentColor 1px, transparent 1px),
+        linear-gradient(90deg, currentColor 1px, transparent 1px);
+    background-size: 2.5rem 2.5rem;
+    opacity: 0.08;
+}
+
+.project-card__code {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+}
+
+.project-card__monogram {
+    position: relative;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 800;
+    letter-spacing: var(--tracking-display);
+    line-height: 0.9;
+    text-align: center;
+    transition: transform 500ms var(--ease-out);
+}
+
+.project-card:hover .project-card__monogram {
+    transform: scale(1.04);
+}
+
+/* ---------- Ficha ---------- */
+.project-card__body {
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.project-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    color: var(--color-bronze-dark);
+}
+
+.project-card__title {
+    font-size: clamp(1.6rem, 4.5vw, 2.25rem);
+}
+
+.project-card__description {
+    color: var(--color-muted);
+}
+
+.project-card__results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 0.5rem 0 0;
+    padding-top: 1.25rem;
+    border-top: var(--border-subtle);
+}
+
+.project-card__results dt {
+    color: var(--color-plum);
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+
+.project-card__results dd {
+    margin: 0.35rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    line-height: 1.35;
+}
