@@ -1,92 +1,114 @@
 /**
  * css/utilidades/adaptable.css
- * Breakpoints y adaptación por dispositivo. Dueño: D.
- * Se definen por el momento en que el contenido deja de acomodarse:
- *   64rem  → tablet ancha
- *   48rem  → móvil / tablet vertical
+ * Adaptación por dispositivo. El tamaño de texto y los espacios ya escalan
+ * con clamp(); aquí solo cambia la estructura.
+ *   64rem → tablet
+ *   48rem → móvil (coincide con DESKTOP_QUERY de navegacion.vista.js)
  */
 
 /* ---------- Tablet ---------- */
 @media (max-width: 64rem) {
-    .hero__pillars {
-        gap: 1.25rem;
-    }
-
     .contact__inner {
-        gap: 2rem;
+        grid-template-columns: 1fr;
     }
 
-    .story {
-        gap: 1.5rem;
+    .contact__details {
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 0;
+    }
+
+    .contact__details li {
+        padding-inline: 1rem;
+        border-top: var(--border-dark);
+    }
+
+    .contact__details li + li {
+        border-left: var(--border-dark);
+    }
+
+    .project-card {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
 /* ---------- Móvil ---------- */
 @media (max-width: 48rem) {
-    .navbar__nav {
-        grid-template-columns: 1fr auto;
-        padding: 0.75rem 1.25rem;
-    }
-
-    /* La marca pasa a la izquierda y el botón a la derecha (spec §2.A) */
-    .navbar__brand {
-        grid-row: 1;
-        grid-column: 1;
-        justify-self: start;
-    }
-
-    .navbar__logo {
-        height: 2.45rem;
-    }
-
     .navbar__links {
         display: none;
     }
 
     .navbar__toggle {
         display: grid;
-        grid-column: 2;
-        grid-row: 1;
     }
 
-    .mobile-menu.is-open {
-        display: block;
+    .hero__actions {
+        flex-direction: column;
+        align-self: stretch;
+        width: 100%;
     }
 
-    .hero,
-    .essence,
-    .services,
-    .contact {
-        padding-block: 3.5rem;
+    .hero__actions .button {
+        width: 100%;
     }
 
-    .hero__pillars,
+    .hero__pillars {
+        grid-template-columns: 1fr;
+    }
+
+    .pillar {
+        padding: 1.5rem 0;
+    }
+
+    .pillar + .pillar {
+        border-left: 0;
+        border-top: var(--border-dark);
+    }
+
     .purpose-grid,
-    .services__grid,
-    .contact__inner {
+    .services__grid {
         grid-template-columns: 1fr;
     }
 
-    .story {
+    .project-card {
         grid-template-columns: 1fr;
     }
 
-    .story__aside,
-    .story__body {
-        grid-column: 1 / -1;
+    .project-card:nth-child(even) .project-card__poster {
+        order: 0;
     }
 
-    .contact__form-wrapper {
-        padding: 1.25rem;
+    .project-card__poster {
+        min-height: 11rem;
     }
 
-    .editorial-card {
-        padding: 1.5rem;
+    .contact__details {
+        grid-template-columns: 1fr;
+        border-top: var(--border-dark);
+    }
+
+    .contact__details li {
+        padding-inline: 0;
+        border-top: 0;
+    }
+
+    .contact__details li + li {
+        border-left: 0;
     }
 
     .footer__top,
     .footer__bottom {
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+/* ---------- Móvil pequeño ---------- */
+@media (max-width: 22.5rem) {
+    .navbar__wordmark {
+        font-size: 1rem;
+    }
+
+    .project-card__results {
+        grid-template-columns: 1fr;
     }
 }

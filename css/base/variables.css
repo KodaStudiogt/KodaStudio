@@ -2,18 +2,16 @@
  * css/base/variables.css
  * DESIGN TOKENS · Koda Studio
  *
- * Dueño: D. Solo PR avisado (regla 5 del estándar).
  * Regla 1: ningún componente escribe hex, fuente o radio literal.
- * Regla 4: los tokens de extensión usan prefijo --kc- y requieren acuerdo.
- *
- * Fuente de verdad: estándar §2.1 y §2.2. Si la arquitectura difiere, manda
- * el estándar.
+ * Paleta propia de Koda (linen / plum / bronze) aplicada al sistema de
+ * documentacion/DESIGN.md: bandas de color a sangre, tipografía grande
+ * centrada, etiquetas monoespaciadas, radios pequeños y cero sombras.
  */
 
 :root {
     color-scheme: light;
 
-    /* ============ Paleta ============ */
+    /* ============ Paleta Koda ============ */
     --color-linen: #F9F8F6;
     --color-linen-dark: #EFECE6;
     --color-linen-light: #FDFCFB;
@@ -22,46 +20,58 @@
     --color-plum-light: #64414A;
     --color-bronze: #B08D79;
     --color-bronze-dark: #9C7A65;
+    --color-bronze-light: #D9BFAE;
     --color-charcoal: #241D1F;
     --color-muted: #6E6366;
 
-    /* ============ Tipografía ============ */
-    --font-heading: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    /* ============ Roles de superficie (bandas) ============ */
+    --surface-dark: var(--color-plum-dark);
+    --surface-plum: var(--color-plum);
+    --surface-deepest: var(--color-charcoal);
+    --surface-light: var(--color-linen);
+    --surface-light-alt: var(--color-linen-dark);
 
-    /* ============ Geometría ============ */
-    --radius-card: 24px;
-    --radius-input: 12px;
+    --ink-on-dark: var(--color-linen);
+    --ink-on-dark-muted: color-mix(in srgb, var(--color-linen) 72%, transparent);
+    --accent-on-dark: var(--color-bronze-light);
+    --line-on-dark: color-mix(in srgb, var(--color-bronze) 35%, transparent);
+    --line-on-light: color-mix(in srgb, var(--color-plum) 18%, transparent);
+
+    /* ============ Tipografía ============ */
+    --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-accent: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    /* Alias heredado */
+    --font-heading: var(--font-display);
+
+    --tracking-display: -0.045em;
+    --tracking-heading: -0.03em;
+
+    /* ============ Geometría (máx. 12px, DESIGN.md) ============ */
+    --radius-card: 10px;
+    --radius-input: 4px;
+    --radius-button: 4px;
+    --radius-badge: 4px;
     --radius-pill: 9999px;
 
     /* ============ Bordes ============ */
-    --border-subtle: 1px solid rgba(74, 46, 53, 0.08);
-    --border-accent: 1px solid rgba(176, 141, 121, 0.45);
+    --border-subtle: 1px solid var(--line-on-light);
+    --border-accent: 1px solid var(--color-bronze);
+    --border-dark: 1px solid var(--line-on-dark);
 
-    /* ============ Profundidad ============ */
-    --shadow-card: 0 10px 30px -12px rgba(74, 46, 53, 0.06);
-    --shadow-card-hover: 0 22px 44px -15px rgba(74, 46, 53, 0.12);
+    /* ============ Profundidad: plano, sin sombras ============ */
+    --shadow-card: none;
+    --shadow-card-hover: none;
+
+    /* ============ Layout ============ */
+    --kc-container: 75rem;
+    --kc-gutter: clamp(1.25rem, 5vw, 2.5rem);
+    --kc-band-padding: clamp(4.5rem, 11vw, 7.5rem);
+    --kc-header-height: 4.25rem;
 
     /* ============ Transiciones ============ */
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
     --transition-base: 250ms ease;
-    --transition-smooth: 400ms cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-smooth: 400ms var(--ease-out);
 }
-
-/*
- * PENDIENTE DE ACUERDO (D-07): escala de espaciado, tamaños de texto y ancho
- * de contenedor. Existe para que D y A no inventen valores distintos.
- * Si se aprueba, se descomenta y pasa a ser obligatoria.
- *
- * :root {
- *     --kc-container: 76rem;
- *     --kc-space-xs: 0.5rem;
- *     --kc-space-sm: 0.75rem;
- *     --kc-space-md: 1rem;
- *     --kc-space-lg: 1.5rem;
- *     --kc-space-xl: 2.5rem;
- *     --kc-space-2xl: 4rem;
- *     --kc-text-sm: 0.875rem;
- *     --kc-text-md: 1rem;
- *     --kc-text-lg: 1.125rem;
- * }
- */

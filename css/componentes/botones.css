@@ -1,6 +1,7 @@
 /**
  * css/componentes/botones.css
- * Sistema de botones. Dueño: D. Spec §2.B (CTAs del Hero).
+ * Botones planos, radio 4px, etiqueta mono en mayúsculas (DESIGN.md ·
+ * Ghost Button / Filled Pill Button). Sin sombras.
  */
 
 .button {
@@ -8,22 +9,52 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.9rem 1.6rem;
+    min-height: 3rem;
+    padding: 0.85rem 1.4rem;
     border: 1px solid transparent;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-body);
-    font-size: 0.9rem;
+    border-radius: var(--radius-button);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     font-weight: 500;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
     text-align: center;
+    text-transform: uppercase;
     transition:
-        background-color 250ms cubic-bezier(.22, 1, .36, 1),
-        border-color 250ms cubic-bezier(.22, 1, .36, 1),
-        color 250ms cubic-bezier(.22, 1, .36, 1),
-        transform 250ms cubic-bezier(.22, 1, .36, 1),
-        box-shadow 250ms cubic-bezier(.22, 1, .36, 1);
+        background-color 250ms var(--ease-out),
+        border-color 250ms var(--ease-out),
+        color 250ms var(--ease-out),
+        transform 250ms var(--ease-out);
 }
 
+.button--small {
+    min-height: 2.5rem;
+    padding: 0.55rem 1rem;
+    font-size: 0.72rem;
+}
+
+/* Claro sobre fondo oscuro: la acción principal */
+.button--filled {
+    background: var(--color-linen);
+    color: var(--color-plum-dark);
+}
+
+.button--filled:hover {
+    background: var(--color-bronze-light);
+}
+
+/* Contorno sobre fondo oscuro */
+.button--ghost {
+    border-color: color-mix(in srgb, var(--color-linen) 70%, transparent);
+    color: var(--ink-on-dark);
+}
+
+.button--ghost:hover {
+    border-color: var(--accent-on-dark);
+    color: var(--accent-on-dark);
+}
+
+/* Oscuro sobre fondo claro (formulario) */
 .button--primary {
     background: var(--color-plum);
     color: var(--color-linen-light);
@@ -31,21 +62,17 @@
 
 .button--primary:hover {
     background: var(--color-plum-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card-hover);
 }
 
+/* Contorno sobre fondo claro */
 .button--secondary {
-    background: transparent;
-    border-color: color-mix(in srgb, var(--color-plum) 35%, transparent);
+    border-color: var(--color-plum);
     color: var(--color-plum);
 }
 
 .button--secondary:hover {
-    border-color: var(--color-bronze);
-    background: var(--color-linen-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card-hover);
+    background: var(--color-plum);
+    color: var(--color-linen-light);
 }
 
 .button:active {
