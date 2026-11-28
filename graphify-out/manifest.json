@@ -1,0 +1,332 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1795843337.070736,
+    "seen": 1795843578.8398988,
+    "ast_hash": "0a0ef578e59e2bb38c69f1dcb49a0e1a",
+    "semantic_hash": "0a0ef578e59e2bb38c69f1dcb49a0e1a"
+  },
+  "css/base/reset.css": {
+    "mtime": 1795843162.7467673,
+    "seen": 1795843578.839905,
+    "ast_hash": "63fd1db5e0e84b06fd4962765af120ff",
+    "semantic_hash": "63fd1db5e0e84b06fd4962765af120ff"
+  },
+  "css/base/tipografia.css": {
+    "mtime": 1795843162.7467983,
+    "seen": 1795843578.8399081,
+    "ast_hash": "94e84459fcd206ac137aac6ab653ee8d",
+    "semantic_hash": "94e84459fcd206ac137aac6ab653ee8d"
+  },
+  "css/base/variables.css": {
+    "mtime": 1795843162.7467983,
+    "seen": 1795843578.8399093,
+    "ast_hash": "d85780df191bf0f633f5a0c23f97d62c",
+    "semantic_hash": "d85780df191bf0f633f5a0c23f97d62c"
+  },
+  "css/componentes/botones.css": {
+    "mtime": 1795843162.7467983,
+    "seen": 1795843578.839911,
+    "ast_hash": "8047d9ac91ffc5c233a5329c49c13dde",
+    "semantic_hash": "8047d9ac91ffc5c233a5329c49c13dde"
+  },
+  "css/componentes/formularios.css": {
+    "mtime": 1795843162.7469163,
+    "seen": 1795843578.839912,
+    "ast_hash": "43f1cfc251ec8927f3dbbea7e8204f50",
+    "semantic_hash": "43f1cfc251ec8927f3dbbea7e8204f50"
+  },
+  "css/componentes/proyectos.css": {
+    "mtime": 1795843162.7469163,
+    "seen": 1795843578.839913,
+    "ast_hash": "caa332e371d5bce0a1e5778e84c34100",
+    "semantic_hash": "caa332e371d5bce0a1e5778e84c34100"
+  },
+  "css/componentes/selector-servicios.css": {
+    "mtime": 1795843162.7469163,
+    "seen": 1795843578.839914,
+    "ast_hash": "aad55305e2ce0b1a85e1948d4244ee2f",
+    "semantic_hash": "aad55305e2ce0b1a85e1948d4244ee2f"
+  },
+  "css/componentes/tarjetas.css": {
+    "mtime": 1795843162.7469163,
+    "seen": 1795843578.8399148,
+    "ast_hash": "16ac4f9603336a46d8792f5d76f47369",
+    "semantic_hash": "16ac4f9603336a46d8792f5d76f47369"
+  },
+  "css/diseno/encabezado.css": {
+    "mtime": 1795843162.7469163,
+    "seen": 1795843578.839916,
+    "ast_hash": "927c3a0895bcb0f4f01681e49ac33305",
+    "semantic_hash": "927c3a0895bcb0f4f01681e49ac33305"
+  },
+  "css/diseno/pie-de-pagina.css": {
+    "mtime": 1795843162.7470987,
+    "seen": 1795843578.8399167,
+    "ast_hash": "2a721fa3fd02e1f064b915bc072c3670",
+    "semantic_hash": "2a721fa3fd02e1f064b915bc072c3670"
+  },
+  "css/diseno/secciones.css": {
+    "mtime": 1795843162.7470987,
+    "seen": 1795843578.8399184,
+    "ast_hash": "c2718faac72b2b6d1dd3468c93252776",
+    "semantic_hash": "c2718faac72b2b6d1dd3468c93252776"
+  },
+  "css/principal.css": {
+    "mtime": 1795843162.7470987,
+    "seen": 1795843578.839919,
+    "ast_hash": "38cad03887619a89bb9142604f04ecaa",
+    "semantic_hash": "38cad03887619a89bb9142604f04ecaa"
+  },
+  "css/utilidades/adaptable.css": {
+    "mtime": 1795843162.7470987,
+    "seen": 1795843578.83992,
+    "ast_hash": "42a974b2666ffd5fdf013b88fa29bd00",
+    "semantic_hash": "42a974b2666ffd5fdf013b88fa29bd00"
+  },
+  "css/utilidades/animaciones.css": {
+    "mtime": 1795843162.7472203,
+    "seen": 1795843578.839921,
+    "ast_hash": "3967a873e3ab9a36bac8a60dfd3de0ad",
+    "semantic_hash": "3967a873e3ab9a36bac8a60dfd3de0ad"
+  },
+  "css/utilidades/ayudantes.css": {
+    "mtime": 1795843162.7472203,
+    "seen": 1795843578.8399217,
+    "ast_hash": "efe01334686754ca51d7cc81559f9f48",
+    "semantic_hash": "efe01334686754ca51d7cc81559f9f48"
+  },
+  "js/configuracion/selectores.js": {
+    "mtime": 1795843162.7486377,
+    "seen": 1795843578.8399227,
+    "ast_hash": "36a5eedee177f856c24a3f9d3867a659",
+    "semantic_hash": "36a5eedee177f856c24a3f9d3867a659"
+  },
+  "js/controladores/formulario-contacto.controlador.js": {
+    "mtime": 1795843162.7486377,
+    "seen": 1795843578.8399236,
+    "ast_hash": "9ae7cd6ef9c2a1f4269592c1363ce7e5",
+    "semantic_hash": "9ae7cd6ef9c2a1f4269592c1363ce7e5"
+  },
+  "js/controladores/navegacion.controlador.js": {
+    "mtime": 1795843162.7487214,
+    "seen": 1795843578.8399248,
+    "ast_hash": "70366a614143a32394e4abd23b84f8bd",
+    "semantic_hash": "70366a614143a32394e4abd23b84f8bd"
+  },
+  "js/controladores/pie-de-pagina.controlador.js": {
+    "mtime": 1795843162.7487214,
+    "seen": 1795843578.8399255,
+    "ast_hash": "1d29e07089a195b41adae9453f743151",
+    "semantic_hash": "1d29e07089a195b41adae9453f743151"
+  },
+  "js/controladores/revelado.controlador.js": {
+    "mtime": 1795843162.7487214,
+    "seen": 1795843578.8399265,
+    "ast_hash": "4cd15831f42aee90b3b3c0c9bba42a00",
+    "semantic_hash": "4cd15831f42aee90b3b3c0c9bba42a00"
+  },
+  "js/controladores/selector-servicios.controlador.js": {
+    "mtime": 1795843162.7487214,
+    "seen": 1795843578.8399274,
+    "ast_hash": "c99f5e36803c492187ab05483441c2c4",
+    "semantic_hash": "c99f5e36803c492187ab05483441c2c4"
+  },
+  "js/modelos/servicios.js": {
+    "mtime": 1795843162.7487214,
+    "seen": 1795843578.8399289,
+    "ast_hash": "4a7a54f9ce16bab4eb32e0bf2546586a",
+    "semantic_hash": "4a7a54f9ce16bab4eb32e0bf2546586a"
+  },
+  "js/modelos/solicitud-contacto.js": {
+    "mtime": 1795843162.7487943,
+    "seen": 1795843578.8399296,
+    "ast_hash": "7fb1dbbbec6db5407ca5762612c5e7a7",
+    "semantic_hash": "7fb1dbbbec6db5407ca5762612c5e7a7"
+  },
+  "js/principal.js": {
+    "mtime": 1795843162.7487943,
+    "seen": 1795843578.8399305,
+    "ast_hash": "ef1b3452c188e04f2958144ee57547be",
+    "semantic_hash": "ef1b3452c188e04f2958144ee57547be"
+  },
+  "js/utilidades/validacion.js": {
+    "mtime": 1795843162.7487943,
+    "seen": 1795843578.8399315,
+    "ast_hash": "a6e2354af26691608f0b269b7ac24a7d",
+    "semantic_hash": "a6e2354af26691608f0b269b7ac24a7d"
+  },
+  "js/vistas/formulario-contacto.vista.js": {
+    "mtime": 1795843162.7487943,
+    "seen": 1795843578.8399324,
+    "ast_hash": "f6058db3d0e1016c9964264e410ce7b1",
+    "semantic_hash": "f6058db3d0e1016c9964264e410ce7b1"
+  },
+  "js/vistas/navegacion.vista.js": {
+    "mtime": 1795843162.7489305,
+    "seen": 1795843578.8399332,
+    "ast_hash": "0b1e873c486a8e964ca31eb11ba3a821",
+    "semantic_hash": "0b1e873c486a8e964ca31eb11ba3a821"
+  },
+  "js/vistas/pie-de-pagina.vista.js": {
+    "mtime": 1795843162.7489305,
+    "seen": 1795843578.8399343,
+    "ast_hash": "b60e1aceaf5203aea1b2cff2881f981b",
+    "semantic_hash": "b60e1aceaf5203aea1b2cff2881f981b"
+  },
+  "js/vistas/revelado.vista.js": {
+    "mtime": 1795843162.7489305,
+    "seen": 1795843578.8399353,
+    "ast_hash": "50ab5106c1aa726ce1b821866f2f8d06",
+    "semantic_hash": "50ab5106c1aa726ce1b821866f2f8d06"
+  },
+  "js/vistas/selector-servicios.vista.js": {
+    "mtime": 1795843162.7489305,
+    "seen": 1795843578.8399365,
+    "ast_hash": "1169cac61f67a0ef19e485eca9f5dbc1",
+    "semantic_hash": "1169cac61f67a0ef19e485eca9f5dbc1"
+  },
+  "supabase/functions/contact/index.ts": {
+    "mtime": 1795843162.749798,
+    "seen": 1795843578.8399372,
+    "ast_hash": "051c5e6a94d614ebdef36eb2ffc58b2a",
+    "semantic_hash": "051c5e6a94d614ebdef36eb2ffc58b2a"
+  },
+  "supabase/migrations/20261120000000_core_schema.sql": {
+    "mtime": 1795843162.749798,
+    "seen": 1795843578.8399384,
+    "ast_hash": "5b3a1082aef7fe69816d295168dea4ed",
+    "semantic_hash": "5b3a1082aef7fe69816d295168dea4ed"
+  },
+  "supabase/migrations/20261120000100_supabase_security.sql": {
+    "mtime": 1795843162.7499585,
+    "seen": 1795843578.8399394,
+    "ast_hash": "5a4be4bf6849e8ca2f16ec7b80c270a5",
+    "semantic_hash": "5a4be4bf6849e8ca2f16ec7b80c270a5"
+  },
+  "supabase/seed.sql": {
+    "mtime": 1795843162.7499585,
+    "seen": 1795843578.8399403,
+    "ast_hash": "77813a9be37d0bf03819f3f4ad149593",
+    "semantic_hash": "77813a9be37d0bf03819f3f4ad149593"
+  },
+  "vercel.json": {
+    "mtime": 1795843162.7499585,
+    "seen": 1795843578.8399413,
+    "ast_hash": "3261b1d3c577e383a8c2fa6dd17ebd05",
+    "semantic_hash": "3261b1d3c577e383a8c2fa6dd17ebd05"
+  },
+  ".claude/CLAUDE.md": {
+    "mtime": 1795843337.0733087,
+    "seen": 1795843578.8399422,
+    "ast_hash": "9b31786b637be3c13978bec4c2330752",
+    "semantic_hash": "9b31786b637be3c13978bec4c2330752"
+  },
+  "CLAUDE.md": {
+    "mtime": 1795843337.0702698,
+    "seen": 1795843578.8399432,
+    "ast_hash": "49d9519c5a3587dd73426f35db35a0a2",
+    "semantic_hash": "49d9519c5a3587dd73426f35db35a0a2"
+  },
+  "README.md": {
+    "mtime": 1795843162.742179,
+    "seen": 1795843578.839944,
+    "ast_hash": "165abef4bcffd4431c7278c0ef46271c",
+    "semantic_hash": "165abef4bcffd4431c7278c0ef46271c"
+  },
+  "base-de-datos/README.md": {
+    "mtime": 1795843162.742179,
+    "seen": 1795843578.839945,
+    "ast_hash": "592e09e3f9f38d0fcbb9e100bfe2635c",
+    "semantic_hash": "592e09e3f9f38d0fcbb9e100bfe2635c"
+  },
+  "documentacion/DESIGN.md": {
+    "mtime": 1795843162.7472203,
+    "seen": 1795843578.839946,
+    "ast_hash": "68d300deecdc9006f7ad412cd6050639",
+    "semantic_hash": "68d300deecdc9006f7ad412cd6050639"
+  },
+  "documentacion/arquitectura.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.839947,
+    "ast_hash": "39e45ca68c2da0b3b1f6683b1f3c712b",
+    "semantic_hash": "39e45ca68c2da0b3b1f6683b1f3c712b"
+  },
+  "documentacion/backlog.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.8399477,
+    "ast_hash": "74e43735699b26b2911048391fce3d2a",
+    "semantic_hash": "74e43735699b26b2911048391fce3d2a"
+  },
+  "documentacion/changelog.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.8399498,
+    "ast_hash": "e9649197b0128d08c657be4b4099ae77",
+    "semantic_hash": "e9649197b0128d08c657be4b4099ae77"
+  },
+  "documentacion/decisiones-de-d.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.8399508,
+    "ast_hash": "77e3e408c6dfb352d6ca4bd68aa99402",
+    "semantic_hash": "77e3e408c6dfb352d6ca4bd68aa99402"
+  },
+  "documentacion/decisiones-pendientes.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.8399515,
+    "ast_hash": "22f4a878deccf7c16fae2256a3d2bc73",
+    "semantic_hash": "22f4a878deccf7c16fae2256a3d2bc73"
+  },
+  "documentacion/decisiones-rediseno.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.8399527,
+    "ast_hash": "1a9454dd52d320ead95f79dd6cdca283",
+    "semantic_hash": "1a9454dd52d320ead95f79dd6cdca283"
+  },
+  "documentacion/especificacion.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.8399534,
+    "ast_hash": "4bb46e44f87fd84bbf4dd9528a29cdf5",
+    "semantic_hash": "4bb46e44f87fd84bbf4dd9528a29cdf5"
+  },
+  "documentacion/estandar.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.8399544,
+    "ast_hash": "848d7645a435aba38bdf74053b0e067f",
+    "semantic_hash": "848d7645a435aba38bdf74053b0e067f"
+  },
+  "documentacion/plan-de-trabajo.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.839955,
+    "ast_hash": "68d3c9fa4247961a56b3924faee1c690",
+    "semantic_hash": "68d3c9fa4247961a56b3924faee1c690"
+  },
+  "documentacion/rediseno-movil.md": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.839956,
+    "ast_hash": "218ce1ccf8537a94470e77bb2ddcbb2a",
+    "semantic_hash": "218ce1ccf8537a94470e77bb2ddcbb2a"
+  },
+  "index.html": {
+    "mtime": 1795843162.7473896,
+    "seen": 1795843578.839957,
+    "ast_hash": "b8fccd0c64bc5b8e1f70a186ba7d6f32",
+    "semantic_hash": "b8fccd0c64bc5b8e1f70a186ba7d6f32"
+  },
+  "recursos/imagenes/logo/Logo-KodaStudio.jpeg": {
+    "mtime": 1795843162.7490866,
+    "seen": 1795843578.8399577,
+    "ast_hash": "713195ead2915d66952f65315bbe6c20",
+    "semantic_hash": "713195ead2915d66952f65315bbe6c20"
+  },
+  "recursos/imagenes/logo/logo-kodastudio-mark.webp": {
+    "mtime": 1795843162.7490866,
+    "seen": 1795843578.8399584,
+    "ast_hash": "990e87d0faa1a2330061a81db5dde3aa",
+    "semantic_hash": "990e87d0faa1a2330061a81db5dde3aa"
+  },
+  "recursos/imagenes/logo/logo-kodastudio.webp": {
+    "mtime": 1795843162.7490866,
+    "seen": 1795843578.8399596,
+    "ast_hash": "2d78117900dd8f68c98fb9e6adaadaa6",
+    "semantic_hash": "2d78117900dd8f68c98fb9e6adaadaa6"
+  }
+}
